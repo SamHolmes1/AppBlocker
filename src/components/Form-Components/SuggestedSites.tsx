@@ -5,7 +5,7 @@ const SuggestedSites = () => {
   return (
     <div className="suggested-sites-div">
       {userData.websites.map((i) => {
-        return <SitePreview siteName={i} />;
+        return <SitePreview siteName={i} key={i} />;
       })}
     </div>
   );
