@@ -1,0 +1,31 @@
+#root {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  display: grid;
+  grid-template-areas: "header" "main";
+}
+
+.header-div {
+  border: 1px solid red;
+  grid-area: header;
+}
+
+.header-div h1 {
+  text-align: center;
+}
+
+.form-div {
+  border: 1px solid orange;
+  grid-area: main;
+}
+
+.sites-to-block-div {
+  border: 1px solid yellow;
+}
+
+.suggested-sites-div {
+  border: 1px solid green;
+}
+
+.input-box {
+  border: 1px solid purple;
+}
