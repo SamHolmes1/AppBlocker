@@ -1,4 +1,4 @@
-import userData from "../../../../usr/block-list.json";
+import userData from "../../block-list.json";
 import SitePreview from "./SitePreview";
 
 const SuggestedSites = () => {

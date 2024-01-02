@@ -18,11 +18,31 @@
   grid-area: main;
 }
 
+.settings-div{
+  border: 1px solid orange;
+}
+
 .sites-to-block-div {
   border: 1px solid yellow;
 }
 
+.puzzle-selector-div {
+  border: 1px solid yellow;
+}
+
 .suggested-sites-div {
+  border: 1px solid green;
+}
+
+.font-dropdown-div {
+  border: 1px solid purple;
+}
+
+.difficulty-dropdown {
+  border: 1px solid grey;
+}
+
+.puzzle-card {
   border: 1px solid green;
 }
 
