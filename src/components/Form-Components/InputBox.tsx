@@ -1,5 +1,7 @@
 import { useState } from "react";
-import WriteToBlockList from "../../utils/WriteToBlockList";
+// import { ipcRenderer } from "electron";
+// import { ipcRenderer } from "electron/renderer";
+// import WriteToBlockList from "../../utils/WriteToBlockList";
 
 const InputBox = () => {
   const [textInput, setTextInput] = useState("");
@@ -12,7 +14,9 @@ const InputBox = () => {
 
   function handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     event.preventDefault();
-    // WriteToBlockList(textInput);
+    window.electronAPI.writeToBlockList(textInput)
+    // ipcRenderer.send("writeToBlocklist")
+    //  WriteToBlockList(textInput);
     setTextInput("");
   }
 

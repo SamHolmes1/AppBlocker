@@ -1,5 +1,9 @@
 import { app, BrowserWindow } from 'electron'
 import path from 'node:path'
+import { ipcMain } from 'electron'
+import WriteToBlockList from '../src/utils/WriteToBlockList'
+// import ipcMain
+// import { ipcMain } from 'electron/main'
 
 // The built directory structure
 //
@@ -22,9 +26,13 @@ function createWindow() {
   win = new BrowserWindow({
     icon: path.join(process.env.VITE_PUBLIC, 'electron-vite.svg'),
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+      preload: path.join(__dirname, 'preload.js'), nodeIntegration: true,
     },
   })
+
+// ipcMain.on("writeToBlockList", () => {
+//   console.log("hello")
+// })
 
   // Test active push message to Renderer-process.
   win.webContents.on('did-finish-load', () => {
@@ -57,4 +65,9 @@ app.on('activate', () => {
   }
 })
 
-app.whenReady().then(createWindow)
+app.whenReady().then(() => {
+  ipcMain.on("writeToBlockList", (e, website: string) => {
+    WriteToBlockList(website)
+  })
+  createWindow()
+})
