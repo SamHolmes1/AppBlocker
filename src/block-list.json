@@ -1,15 +1,1 @@
-{
-    "websites": [
-      "www.youtube.com",
-      "www.facebook.com",
-      "www.instagram.com",
-      "www.tiktok.com",
-      "www.discord.com",
-      "www.reddit.com",
-      "www.netflix.com",
-      "www.twitter.com",
-      "www.amazon.com",
-      "www.ebay.com"
-    ],
-    "blocked": []
-  }
+{"websites":[{"name":"Youtube","URL":"www.youtube.com","Blocked":false},{"name":"Facebook","URL":"www.facebook.com","Blocked":false},{"name":"Reddit","URL":"www.Reddit.com","Blocked":false},{"name":"Amazon","URL":"www.amazon.com","Blocked":false},{"name":"Netflix","URL":"www.netflix.com","Blocked":false},{"name":"Bet365","URL":"www.bet365.com","Blocked":false},{"name":"hellio","URL":"hellio","Blocked":false},{"name":"whatwasthat","URL":"whatwasthat","Blocked":false},{"name":"are you okay now?","URL":"are you okay now?","Blocked":false},{"name":"dsasda","URL":"dsasda","Blocked":false},{"name":"dsadsa","URL":"dsadsa","Blocked":false},{"name":"hello","URL":"hello","Blocked":false}]}

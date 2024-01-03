@@ -20,28 +20,85 @@ function _interopNamespaceDefault(e) {
 }
 const fs__namespace = /* @__PURE__ */ _interopNamespaceDefault(fs);
 const websites = [
-  "www.youtube.com",
-  "www.facebook.com",
-  "www.instagram.com",
-  "www.tiktok.com",
-  "www.discord.com",
-  "www.reddit.com",
-  "www.netflix.com",
-  "www.twitter.com",
-  "www.amazon.com",
-  "www.ebay.com"
+  {
+    name: "Youtube",
+    URL: "www.youtube.com",
+    Blocked: false
+  },
+  {
+    name: "Facebook",
+    URL: "www.facebook.com",
+    Blocked: false
+  },
+  {
+    name: "Reddit",
+    URL: "www.Reddit.com",
+    Blocked: false
+  },
+  {
+    name: "Amazon",
+    URL: "www.amazon.com",
+    Blocked: false
+  },
+  {
+    name: "Netflix",
+    URL: "www.netflix.com",
+    Blocked: false
+  },
+  {
+    name: "Bet365",
+    URL: "www.bet365.com",
+    Blocked: false
+  },
+  {
+    name: "hellio",
+    URL: "hellio",
+    Blocked: false
+  },
+  {
+    name: "whatwasthat",
+    URL: "whatwasthat",
+    Blocked: false
+  },
+  {
+    name: "are you okay now?",
+    URL: "are you okay now?",
+    Blocked: false
+  },
+  {
+    name: "dsasda",
+    URL: "dsasda",
+    Blocked: false
+  },
+  {
+    name: "dsadsa",
+    URL: "dsadsa",
+    Blocked: false
+  },
+  {
+    name: "hello",
+    URL: "hello",
+    Blocked: false
+  }
 ];
-const blocked = [];
 const userData = {
-  websites,
-  blocked
+  websites
 };
 const WriteToBlockList = (input) => {
-  if (!userData.websites.includes(input) && input.length !== 0) {
+  const alreadyExists = userData.websites.find((website) => input === website.URL);
+  if (!alreadyExists && input.length !== 0) {
     const data = fs__namespace.readFileSync(`${__dirname}/../src/block-list.json`);
     const parsedData = JSON.parse(data.toString());
+    parsedData.websites.push({ name: input, URL: input, Blocked: false });
     console.log(parsedData);
+    fs__namespace.writeFile(`${__dirname}/../src/block-list.json`, JSON.stringify(parsedData), () => {
+    });
   }
+};
+const ReadBlockList = () => {
+  const data = fs__namespace.readFileSync(`${__dirname}/../src/block-list.json`);
+  const parsedData = JSON.parse(data.toString());
+  return parsedData;
 };
 process.env.DIST = path.join(__dirname, "../dist");
 process.env.VITE_PUBLIC = electron.app.isPackaged ? process.env.DIST : path.join(process.env.DIST, "../public");
@@ -78,6 +135,11 @@ electron.app.on("activate", () => {
 electron.app.whenReady().then(() => {
   electron.ipcMain.on("writeToBlockList", (e, website) => {
     WriteToBlockList(website);
+  });
+  electron.ipcMain.on("readBlockList", (e) => {
+    const output = ReadBlockList();
+    console.log(output);
+    e.sender.send("blockListOutput", output);
   });
   createWindow();
 });

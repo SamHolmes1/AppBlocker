@@ -2,6 +2,7 @@ import { app, BrowserWindow } from 'electron'
 import path from 'node:path'
 import { ipcMain } from 'electron'
 import WriteToBlockList from '../src/utils/WriteToBlockList'
+import ReadBlockList from '../src/utils/ReadBlockList'
 // import ipcMain
 // import { ipcMain } from 'electron/main'
 
@@ -68,6 +69,11 @@ app.on('activate', () => {
 app.whenReady().then(() => {
   ipcMain.on("writeToBlockList", (e, website: string) => {
     WriteToBlockList(website)
+  })
+  ipcMain.on("readBlockList", (e) => { 
+    const output = ReadBlockList()
+    console.log(output)
+    e.sender.send("blockListOutput", output)
   })
   createWindow()
 })

@@ -2,7 +2,9 @@
 const electron = require("electron");
 electron.contextBridge.exposeInMainWorld("ipcRenderer", withPrototype(electron.ipcRenderer));
 electron.contextBridge.exposeInMainWorld("electronAPI", {
-  writeToBlockList: (website) => electron.ipcRenderer.send("writeToBlockList", website)
+  writeToBlockList: (website) => electron.ipcRenderer.send("writeToBlockList", website),
+  readBlockList: () => electron.ipcRenderer.send("readBlockList"),
+  blockListOutput: () => electron.ipcRenderer.send("blockListOutput")
 });
 function withPrototype(obj) {
   const protos = Object.getPrototypeOf(obj);

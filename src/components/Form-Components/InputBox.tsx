@@ -8,15 +8,11 @@ const InputBox = () => {
 
   function updateInput(event: React.ChangeEvent<HTMLInputElement>) {
     setTextInput(event.target.value);
-    console.log(textInput);
-    //TODO: https validation, ping address?
   }
 
   function handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     event.preventDefault();
     window.electronAPI.writeToBlockList(textInput)
-    // ipcRenderer.send("writeToBlocklist")
-    //  WriteToBlockList(textInput);
     setTextInput("");
   }
 
