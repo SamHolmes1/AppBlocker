@@ -1,33 +1,51 @@
-import SitePreview from "./SitePreview";
+import axios from "axios";
 import { useEffect, useState } from "react";
+import SitePreview from "./SitePreview";
 
-interface siteData {
-  name: string;
-  URL: string;
-  Blocked: boolean;
-}
+// https://boolean-hooligans-backend.onrender.com
 
 const SuggestedSites = () => {
-  const [siteList, setSiteList] = useState({ websites: [] });
-  const [writtenToBlockList, setWrittenToBlockList] = useState(false);
+  const [categorySelection, setCategorySelection] = useState("gaming");
+  const [categoryData, setCategoryData] = useState([]);
+
+  const categories: Array<string> = [
+    "gaming",
+    "shopping",
+    "socials",
+    "streaming",
+  ];
 
   useEffect(() => {
-    window.electronAPI.readBlockList();
-    setWrittenToBlockList(false);
-  }, [writtenToBlockList]);
-
-  ipcRenderer.on("blockListOutput", (e: Event, data: siteData) => {
-    setSiteList(data);
-  });
-
-  ipcRenderer.on("writtenToBlockList", (e: Event, data: boolean) => {
-    setWrittenToBlockList(data);
-  });
+    axios
+      .get(
+        `https://boolean-hooligans-backend.onrender.com/api/getone/${categorySelection}`
+      )
+      .then((data) => {
+        setCategoryData(data.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, [categorySelection]);
 
   return (
-    <div className="suggested-sites-div">
-      {siteList.websites.map((i) => {
-        return <SitePreview siteName={i.name} key={i.URL} />;
+    <div className="categories">
+      <h2>Suggestions</h2>
+      <select
+        id="categories"
+        name="categories"
+        value={categorySelection}
+        onChange={(e) => {
+          setCategorySelection(e.target.value);
+        }}
+      >
+        <option value="gaming">Gaming</option>
+        <option value="shopping">Shopping</option>
+        <option value="socials">Socials</option>
+        <option value="streaming">Streaming</option>
+      </select>
+      {categoryData.map((element) => {
+        return <SitePreview siteName={element.name} key={element._id} />;
       })}
     </div>
   );
