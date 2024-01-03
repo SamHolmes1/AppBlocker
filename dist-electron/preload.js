@@ -4,7 +4,8 @@ electron.contextBridge.exposeInMainWorld("ipcRenderer", withPrototype(electron.i
 electron.contextBridge.exposeInMainWorld("electronAPI", {
   writeToBlockList: (website) => electron.ipcRenderer.send("writeToBlockList", website),
   readBlockList: () => electron.ipcRenderer.send("readBlockList"),
-  blockListOutput: () => electron.ipcRenderer.send("blockListOutput")
+  blockListOutput: () => electron.ipcRenderer.send("blockListOutput"),
+  writtenToBlockList: () => electron.ipcRenderer.send("writtenToBlockList")
 });
 function withPrototype(obj) {
   const protos = Object.getPrototypeOf(obj);
