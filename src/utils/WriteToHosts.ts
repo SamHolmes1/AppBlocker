@@ -9,9 +9,8 @@ const WriteToHosts = (updatedHosts: string) => {
 
     const path = "/etc/hosts"
 
-        sudo.exec('echo hello', options,
+        sudo.exec(`echo "${updatedHosts}" | cat > /etc/hosts`, options,
   function(error, stdout, stderr) {
-    fs.writeFileSync(path, updatedHosts)
     if (error) throw error;
     console.log('stdout: ' + stdout);
   }

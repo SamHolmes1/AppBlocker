@@ -7,8 +7,10 @@ const createUpdatedHosts = () => {
 
     let hostsUpdated = fs.readFileSync(`${__dirname}/hosts_updated.txt`).toString().split("\n")
 
-    hostsUpdated.push("127.0.0.1:5173 www.facebook.com")
-    
+    hostsUpdated.push("#Created by AppBlocker\n")
+
+    hostsUpdated.push("0.0.0.0 www.facebook.com")
+
     const newHostsUpdated = hostsUpdated.join("\n")
 
     // fs.writeFileSync(`${__dirname}/hosts_updated.txt`, newHostsUpdated )

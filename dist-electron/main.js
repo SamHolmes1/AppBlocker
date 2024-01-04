@@ -685,12 +685,10 @@ const WriteToHosts = (updatedHosts) => {
     icns: "/Applications/Electron.app/Contents/Resources/Electron.icns"
     // (optional)
   };
-  const path2 = "/etc/hosts";
   sudoPrompt.exec(
-    "echo hello",
+    `echo "${updatedHosts}" | cat > /etc/hosts`,
     options,
     function(error, stdout, stderr) {
-      fs.writeFileSync(path2, updatedHosts);
       if (error)
         throw error;
       console.log("stdout: " + stdout);
@@ -700,7 +698,8 @@ const WriteToHosts = (updatedHosts) => {
 const createUpdatedHosts = () => {
   fs.copyFileSync(`${__dirname}/hosts_backup.txt`, `${__dirname}/hosts_updated.txt`);
   let hostsUpdated = fs.readFileSync(`${__dirname}/hosts_updated.txt`).toString().split("\n");
-  hostsUpdated.push("127.0.0.1:5173 www.facebook.com");
+  hostsUpdated.push("#Created by AppBlocker\n");
+  hostsUpdated.push("0.0.0.0 www.facebook.com");
   const newHostsUpdated = hostsUpdated.join("\n");
   WriteToHosts(newHostsUpdated);
 };
