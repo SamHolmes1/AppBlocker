@@ -4,10 +4,8 @@ import { ipcMain } from "electron";
 import WriteToBlockList from "../src/utils/WriteToBlockList";
 import ReadBlockList from "../src/utils/ReadBlockList";
 import BackupHosts from "../src/utils/BackupHosts";
-import WriteToHosts from "../src/utils/createUpdatedHosts";
 import createUpdatedHosts from "../src/utils/createUpdatedHosts";
 import deleteFromFile from "../src/utils/deleteFromBlocklist";
-
 
 // import ipcMain
 // import { ipcMain } from 'electron/main'
@@ -83,12 +81,12 @@ app.whenReady().then(() => {
     e.sender.send("blockListOutput", output);
   });
   ipcMain.on("updateHosts", () => {
-    createUpdatedHosts()
+    createUpdatedHosts();
   });
   ipcMain.on("delete from file", (e, siteName: string) => {
-    deleteFromFile(siteName)
-    e.sender.send("writtenToBlockList", true)
-  })
+    deleteFromFile(siteName);
+    e.sender.send("writtenToBlockList", true);
+  });
   BackupHosts("");
   createWindow();
 });

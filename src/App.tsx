@@ -8,10 +8,10 @@ function App() {
   return (
     <>
       <Header />
-    <Routes>
-      <Route path="/" element={<Form />} />
-      <Route path="/settings" element={<Settings />} />
-    </Routes>
+      <Routes>
+        <Route path="/" element={<Form />} />
+        <Route path="/settings" element={<Settings />} />
+      </Routes>
     </>
   );
 }

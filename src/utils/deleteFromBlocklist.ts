@@ -1,27 +1,16 @@
-import ReadBlockList from "./ReadBlockList"
-import fs from "fs"
-
-interface website {
-    name: string,
-    URL: string,
-    Blocked: boolean,
-    logoUrl: string
-   }
+import ReadBlockList from "./ReadBlockList";
+import fs from "fs";
+import { siteData } from "../interfaces/SiteData";
 
 const deleteFromFile = (siteName: string) => {
-    let data = ReadBlockList()
-    const newData = data.websites.filter((website: website) => {
-        console.log(website)
-        return website.name !== siteName
+  const newData = ReadBlockList().websites.filter((website: siteData) => {
+    return website.name !== siteName;
+  });
+  fs.writeFile(
+    `${__dirname}/../src/block-list.json`,
+    JSON.stringify({ websites: newData }, null, 1),
+    () => {}
+  );
+};
 
-    })
-    console.log(newData)
-    fs.writeFile(
-        `${__dirname}/../src/block-list.json`,
-        JSON.stringify({websites: newData}, null, 1),
-        () => {}
-      );
-
-}
-
-export default deleteFromFile
+export default deleteFromFile;
