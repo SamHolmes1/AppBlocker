@@ -6,10 +6,11 @@ interface siteData {
   name: string;
   URL: string;
   Blocked: boolean;
+  logoUrl: string;
 }
 
 const SitePreviewContainer = () => {
-  const { ipcRenderer } = window.require('electron');
+
   const [siteList, setSiteList] = useState({ websites: [] });
   const [writtenToBlockList, setWrittenToBlockList] = useState(false);
 
@@ -29,7 +30,7 @@ const SitePreviewContainer = () => {
   return (
     <div className="suggested-sites-div">
       {siteList.websites.map((i: siteData) => {
-        return <SitePreview siteName={i.name} key={i.URL} />;
+        return <SitePreview siteName={i.name} key={i.URL} URL={i.URL} logoUrl={i.logoUrl} isActive={true}/>;
       })}
     </div>
   );

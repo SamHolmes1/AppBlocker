@@ -7,7 +7,7 @@ interface websiteData {
   Blocked: boolean
 }
 
-const WriteToBlockList = (input: string) => {
+const WriteToBlockList = (inputName: string, inputURL?: string, inputLogoUrl?: string) => {
   const data = fs.readFileSync(`${__dirname}/../src/block-list.json`);
   const alreadyExists = JSON.parse(data.toString()).websites.find(
     (website: websiteData) => input === website.URL

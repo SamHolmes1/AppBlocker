@@ -3,17 +3,21 @@
     {
       "name": "Youtube",
       "URL": "youtube.com",
-      "Blocked": true
+      "Blocked": true,
+      "logoUrl": "https://www.youtube.co.uk/favicon.ico"
+      
     },
     {
       "name": "Facebook",
       "URL": "facebook.com",
-      "Blocked": false
+      "Blocked": false,
+      "logoUrl": "https://facebook.com/favicon.ico"
     },
     {
       "name": "Reddit",
       "URL": "reddit.com",
-      "Blocked": true
+      "Blocked": true,
+      "logoUrl": "https://reddit.com/favicon.ico"
     }
   ]
 }

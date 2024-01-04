@@ -4,6 +4,14 @@ import SitePreview from "./SitePreview";
 
 // https://boolean-hooligans-backend.onrender.com
 
+interface siteData {
+  name: string;
+  URL: string;
+  Blocked: boolean;
+  logoUrl: string;
+  _id: number
+}
+
 const SuggestedSites = () => {
   const [categorySelection, setCategorySelection] = useState("gaming");
   const [categoryData, setCategoryData] = useState([]);
@@ -45,8 +53,8 @@ const SuggestedSites = () => {
         <option value="socials">Socials</option>
         <option value="streaming">Streaming</option>
       </select>
-      {categoryData.map((element) => {
-        return <SitePreview siteName={element.name} key={element._id} />;
+      {categoryData.map((element: siteData) => {
+        return <SitePreview siteName={element.name} key={element._id} logoUrl={element.logoUrl} URL={element.URL} />;
       })}
     </div>
   );

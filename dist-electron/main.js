@@ -24,7 +24,7 @@ function _interopNamespaceDefault(e) {
   return Object.freeze(n);
 }
 const fs__namespace = /* @__PURE__ */ _interopNamespaceDefault(fs);
-const WriteToBlockList = (input) => {
+const WriteToBlockList = (inputName, inputURL) => {
   const data = fs__namespace.readFileSync(`${__dirname}/../src/block-list.json`);
   const alreadyExists = JSON.parse(data.toString()).websites.find(
     (website) => input === website.URL
@@ -740,7 +740,7 @@ electron.app.on("activate", () => {
 });
 electron.app.whenReady().then(() => {
   electron.ipcMain.on("writeToBlockList", (e, website) => {
-    WriteToBlockList(website);
+    WriteToBlockList();
     e.sender.send("writtenToBlockList", true);
   });
   electron.ipcMain.on("readBlockList", (e) => {
