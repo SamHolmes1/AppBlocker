@@ -21,6 +21,7 @@ const SuggestedSites = () => {
         `https://boolean-hooligans-backend.onrender.com/api/getone/${categorySelection}`
       )
       .then((data) => {
+        console.log(categoryData)
         setCategoryData(data.data);
       })
       .catch((e) => {

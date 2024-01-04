@@ -1,6 +1,7 @@
 const ConfirmationButton = () => {
 
   const clickHandler = () => {
+    const { ipcRenderer } = window.require('electron');
     ipcRenderer.send("updateHosts") 
    }
 

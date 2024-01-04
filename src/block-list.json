@@ -2,18 +2,18 @@
   "websites": [
     {
       "name": "Youtube",
-      "URL": "www.youtube.com",
-      "Blocked": false
+      "URL": "youtube.com",
+      "Blocked": true
     },
     {
       "name": "Facebook",
-      "URL": "www.facebook.com",
+      "URL": "facebook.com",
       "Blocked": false
     },
     {
       "name": "Reddit",
-      "URL": "www.Reddit.com",
-      "Blocked": false
+      "URL": "reddit.com",
+      "Blocked": true
     }
   ]
 }

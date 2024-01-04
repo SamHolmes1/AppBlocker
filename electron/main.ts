@@ -81,7 +81,7 @@ app.whenReady().then(() => {
     const output = ReadBlockList();
     e.sender.send("blockListOutput", output);
   });
-  ipcMain.on("updateHosts", (e) => {
+  ipcMain.on("updateHosts", () => {
     createUpdatedHosts()
   });
   BackupHosts("");

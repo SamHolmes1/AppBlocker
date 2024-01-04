@@ -1,3 +1,7 @@
+#user Files
+hosts_backup.txt
+hosts_updated.txt
+
 # Logs
 logs
 *.log

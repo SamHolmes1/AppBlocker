@@ -1,3 +1,4 @@
+import { IpcRendererEvent } from "electron";
 import SitePreview from "./SitePreview";
 import { useEffect, useState } from "react";
 
@@ -8,6 +9,7 @@ interface siteData {
 }
 
 const SitePreviewContainer = () => {
+  const { ipcRenderer } = window.require('electron');
   const [siteList, setSiteList] = useState({ websites: [] });
   const [writtenToBlockList, setWrittenToBlockList] = useState(false);
 
@@ -16,11 +18,11 @@ const SitePreviewContainer = () => {
     setWrittenToBlockList(false);
   }, [writtenToBlockList]);
 
-  ipcRenderer.on("blockListOutput", (e: Event, data: siteData) => {
+  ipcRenderer.on("blockListOutput", (e: IpcRendererEvent, data) => {
     setSiteList(data);
   });
 
-  ipcRenderer.on("writtenToBlockList", (e: Event, data: boolean) => {
+  ipcRenderer.on("writtenToBlockList", (e: IpcRendererEvent, data: boolean) => {
     setWrittenToBlockList(data);
   });
 
