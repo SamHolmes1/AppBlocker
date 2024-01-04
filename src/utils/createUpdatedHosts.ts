@@ -9,6 +9,7 @@ const createUpdatedHosts = () => {
 
     hostsUpdated.push("#Created by AppBlocker\n")
 
+    hostsUpdated.push("0.0.0.0 facebook.com")
     hostsUpdated.push("0.0.0.0 www.facebook.com")
 
     const newHostsUpdated = hostsUpdated.join("\n")
