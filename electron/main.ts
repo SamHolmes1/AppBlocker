@@ -6,6 +6,7 @@ import ReadBlockList from "../src/utils/ReadBlockList";
 import BackupHosts from "../src/utils/BackupHosts";
 import WriteToHosts from "../src/utils/createUpdatedHosts";
 import createUpdatedHosts from "../src/utils/createUpdatedHosts";
+import deleteFromFile from "../src/utils/deleteFromBlocklist";
 
 
 // import ipcMain
@@ -84,6 +85,10 @@ app.whenReady().then(() => {
   ipcMain.on("updateHosts", () => {
     createUpdatedHosts()
   });
+  ipcMain.on("delete from file", (e, siteName: string) => {
+    deleteFromFile(siteName)
+    e.sender.send("writtenToBlockList", true)
+  })
   BackupHosts("");
   createWindow();
 });

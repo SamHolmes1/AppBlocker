@@ -9,7 +9,7 @@ interface siteData {
   URL: string;
   Blocked: boolean;
   logoUrl: string;
-  _id: number
+  _id: number;
 }
 
 const SuggestedSites = () => {
@@ -29,7 +29,7 @@ const SuggestedSites = () => {
         `https://boolean-hooligans-backend.onrender.com/api/getone/${categorySelection}`
       )
       .then((data) => {
-        console.log(categoryData)
+
         setCategoryData(data.data);
       })
       .catch((e) => {
@@ -54,7 +54,7 @@ const SuggestedSites = () => {
         <option value="streaming">Streaming</option>
       </select>
       {categoryData.map((element: siteData) => {
-        return <SitePreview siteName={element.name} key={element._id} logoUrl={element.logoUrl} URL={element.URL} />;
+        return <SitePreview siteName={element.name} key={element._id} logoUrl={element.logoUrl} URL={element.URL} isActive={false} />;
       })}
     </div>
   );

@@ -1,22 +1,16 @@
 {
  "websites": [
   {
-   "name": "Youtube",
-   "URL": "youtube.com",
-   "Blocked": true,
-   "logoUrl": "https://www.youtube.co.uk/favicon.ico"
-  },
-  {
-   "name": "Facebook",
-   "URL": "facebook.com",
-   "Blocked": true,
-   "logoUrl": "https://facebook.com/favicon.ico"
-  },
-  {
    "name": "Betfair",
    "URL": "betfair.com",
-   "Blocked": true,
+   "Blocked": false,
    "logoUrl": "https://betfair.com/favicon.ico"
+  },
+  {
+   "name": "Runescape",
+   "URL": "runescape.com",
+   "Blocked": false,
+   "logoUrl": "https://runescape.com/favicon.ico"
   }
  ]
 }

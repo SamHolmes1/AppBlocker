@@ -27,13 +27,18 @@ const SitePreviewContainer = () => {
     setWrittenToBlockList(data);
   });
 
+  if(siteList.websites.length === 0){
+  return (
+        <p>add websites to list</p>)}
+  else {    
   return (
     <div className="suggested-sites-div">
       {siteList.websites.map((i: siteData) => {
-        return <SitePreview siteName={i.name} key={i.URL} URL={i.URL} logoUrl={i.logoUrl} isActive={true}/>;
+        return <SitePreview siteName={i.name} key={i.URL} URL={i.URL} logoUrl={i.logoUrl} isActive={true} siteList={siteList.websites}/>;
       })}
     </div>
   );
+    }
 };
 
 export default SitePreviewContainer;

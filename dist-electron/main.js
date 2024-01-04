@@ -722,6 +722,20 @@ const createUpdatedHosts = () => {
   const newHostsUpdated = hostsUpdated.join("\n");
   WriteToHosts(newHostsUpdated);
 };
+const deleteFromFile = (siteName) => {
+  let data = ReadBlockList();
+  const newData = data.websites.filter((website) => {
+    console.log(website);
+    return website.name !== siteName;
+  });
+  console.log(newData);
+  fs.writeFile(
+    `${__dirname}/../src/block-list.json`,
+    JSON.stringify({ websites: newData }, null, 1),
+    () => {
+    }
+  );
+};
 process.env.DIST = path.join(__dirname, "../dist");
 process.env.VITE_PUBLIC = electron.app.isPackaged ? process.env.DIST : path.join(process.env.DIST, "../public");
 let win;
@@ -764,6 +778,10 @@ electron.app.whenReady().then(() => {
   });
   electron.ipcMain.on("updateHosts", () => {
     createUpdatedHosts();
+  });
+  electron.ipcMain.on("delete from file", (e, siteName) => {
+    deleteFromFile(siteName);
+    e.sender.send("writtenToBlockList", true);
   });
   BackupHosts("");
   createWindow();
