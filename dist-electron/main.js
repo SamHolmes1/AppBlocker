@@ -24,14 +24,29 @@ function _interopNamespaceDefault(e) {
   return Object.freeze(n);
 }
 const fs__namespace = /* @__PURE__ */ _interopNamespaceDefault(fs);
-const WriteToBlockList = (inputName, inputURL) => {
+const WriteToBlockList = (inputName, inputURL = `${inputName.toLowerCase()}.com`, inputLogoUrl = `https://${inputURL}/favicon.ico`, blocked = false) => {
   const data = fs__namespace.readFileSync(`${__dirname}/../src/block-list.json`);
   const alreadyExists = JSON.parse(data.toString()).websites.find(
-    (website) => input === website.URL
+    (website) => inputURL === website.URL
   );
-  if (!alreadyExists && input.length !== 0) {
+  if (!alreadyExists && inputName.length !== 0) {
     const parsedData = JSON.parse(data.toString());
-    parsedData.websites.push({ name: input, URL: input, Blocked: false });
+    parsedData.websites.push({ name: inputName, URL: inputURL, Blocked: blocked, logoUrl: inputLogoUrl });
+    fs__namespace.writeFile(
+      `${__dirname}/../src/block-list.json`,
+      JSON.stringify(parsedData, null, 1),
+      () => {
+      }
+    );
+  } else if (alreadyExists && inputName.length !== 0) {
+    const parsedData = JSON.parse(data.toString());
+    for (let element of parsedData.websites) {
+      if (element.name === inputName && !element.Blocked) {
+        element.Blocked = true;
+      } else if (element.name === inputName && element.Blocked) {
+        element.Blocked = false;
+      }
+    }
     fs__namespace.writeFile(
       `${__dirname}/../src/block-list.json`,
       JSON.stringify(parsedData, null, 1),
@@ -740,7 +755,7 @@ electron.app.on("activate", () => {
 });
 electron.app.whenReady().then(() => {
   electron.ipcMain.on("writeToBlockList", (e, website) => {
-    WriteToBlockList();
+    WriteToBlockList(website);
     e.sender.send("writtenToBlockList", true);
   });
   electron.ipcMain.on("readBlockList", (e) => {

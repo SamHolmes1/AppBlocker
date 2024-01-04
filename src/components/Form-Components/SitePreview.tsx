@@ -7,12 +7,14 @@ interface siteProps {
 
 const SitePreview = (props: siteProps) => {
 
-  const addToList = () => {
-    
+  const addToList = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    window.electronAPI.writeToBlockList(props.siteName, props.URL, props.logoUrl)
   }
 
-  const changeBlockStatus = () => {
-
+  const changeBlockStatus = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    window.electronAPI.writeToBlockList(props.siteName, props.URL, props.logoUrl, true);
   }
 
   if(props.isActive){
