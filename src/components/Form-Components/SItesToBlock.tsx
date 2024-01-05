@@ -14,7 +14,7 @@ const SitesToBlock = (props: SitesInActiveList) => {
         sitesInActiveList={props.sitesInActiveList}
         setSitesInActiveList={props.setSitesInActiveList}
       />
-      <InputBox />
+      
     </div>
   );
 };
