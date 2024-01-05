@@ -1,28 +1,3 @@
 {
- "websites": [
-  {
-   "name": "Betfair",
-   "URL": "betfair.com",
-   "Blocked": false,
-   "logoUrl": "https://betfair.com/favicon.ico"
-  },
-  {
-   "name": "Runescape",
-   "URL": "runescape.com",
-   "Blocked": false,
-   "logoUrl": "https://runescape.com/favicon.ico"
-  },
-  {
-   "name": "Steam",
-   "URL": "steam.com",
-   "Blocked": false,
-   "logoUrl": "https://steam.com/favicon.ico"
-  },
-  {
-   "name": "Geoguessr",
-   "URL": "geoguessr.com",
-   "Blocked": false,
-   "logoUrl": "https://geoguessr.com/favicon.ico"
-  }
- ]
+ "websites": []
 }

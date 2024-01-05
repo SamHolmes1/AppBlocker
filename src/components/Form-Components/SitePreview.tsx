@@ -6,8 +6,10 @@ interface siteProps {
   URL: string;
   logoUrl: string;
   isActive: boolean;
-  Blocked: boolean;
+  Blocked?: boolean;
   siteList: Array<siteData>;
+  setSitesInActiveList: Function;
+  sitesInActiveList: Array<string>;
 }
 
 const SitePreview = (props: siteProps) => {
@@ -18,6 +20,15 @@ const SitePreview = (props: siteProps) => {
       props.URL,
       props.logoUrl
     );
+    const tempArray: Array<any> = [];
+    props.sitesInActiveList.forEach((element) => {
+      if (element === props.siteName) {
+        return;
+      } else {
+        tempArray.push(props.siteName);
+      }
+    });
+    props.setSitesInActiveList(tempArray);
   };
 
   const changeBlockStatus = (
@@ -30,11 +41,6 @@ const SitePreview = (props: siteProps) => {
       props.logoUrl,
       true
     );
-    // for (let site of props.siteList) {
-    //   if (site.name === props.siteName) {
-    //     setDoesExist(true);
-    //   }
-    // }
   };
 
   const deleteFromFile = () => {
@@ -54,7 +60,8 @@ const SitePreview = (props: siteProps) => {
         <button onClick={deleteFromFile}>delete</button>
       </div>
     );
-  } else if (!props.isActive) {
+  }
+  if (!props.isActive && !props.sitesInActiveList.includes(props.siteName)) {
     return (
       <div className="site-preview-div">
         <button className="site-button" onClick={addToList}>
