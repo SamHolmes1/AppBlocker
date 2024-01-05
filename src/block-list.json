@@ -3,14 +3,26 @@
   {
    "name": "Betfair",
    "URL": "betfair.com",
-   "Blocked": false,
+   "Blocked": true,
    "logoUrl": "https://betfair.com/favicon.ico"
   },
   {
    "name": "Runescape",
    "URL": "runescape.com",
-   "Blocked": false,
+   "Blocked": true,
    "logoUrl": "https://runescape.com/favicon.ico"
+  },
+  {
+   "name": "John Lewis",
+   "URL": "john lewis.com",
+   "Blocked": false,
+   "logoUrl": "https://john lewis.com/favicon.ico"
+  },
+  {
+   "name": "Currys",
+   "URL": "currys.com",
+   "Blocked": false,
+   "logoUrl": "https://currys.com/favicon.ico"
   }
  ]
 }

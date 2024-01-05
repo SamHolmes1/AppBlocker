@@ -49,3 +49,7 @@
 .input-box {
   border: 1px solid purple;
 }
+
+.correct-answer {
+  background-color: yellow; 
+}
