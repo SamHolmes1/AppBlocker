@@ -57,7 +57,7 @@ const SitePreview = (props: siteProps) => {
         <button className="site-button" onClick={changeBlockStatus}>
           {props.siteName}
         </button>
-        <button onClick={deleteFromFile}>delete</button>
+        <button onClick={deleteFromFile} className="delete-button">delete</button>
       </div>
     );
   }

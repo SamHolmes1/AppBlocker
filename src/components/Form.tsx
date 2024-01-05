@@ -31,9 +31,11 @@ const Form = () => {
           sitesInActiveList={sitesInActiveList}
           setSitesInActiveList={setSitesInActiveList}
         />
+        <div className="footer-buttons">
         <ConfirmationButton />
         <SettingsButton />
         <UnblockAllSitesButton />
+        </div>
       </div>
     </>
   );
