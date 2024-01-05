@@ -1,22 +1,4 @@
 {
  "websites": [
-  {
-   "name": "Runescape",
-   "URL": "runescape.com",
-   "Blocked": true,
-   "logoUrl": "https://runescape.com/favicon.ico"
-  },
-  {
-   "name": "Geoguessr",
-   "URL": "geoguessr.com",
-   "Blocked": true,
-   "logoUrl": "https://geoguessr.com/favicon.ico"
-  },
-  {
-   "name": "Steam",
-   "URL": "steam.com",
-   "Blocked": true,
-   "logoUrl": "https://steam.com/favicon.ico"
-  }
  ]
 }

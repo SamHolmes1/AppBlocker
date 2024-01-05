@@ -1,6 +1,7 @@
 import ConfirmationButton from "./Form-Components/ConfirmationButton";
 import SitesToBlock from "./Form-Components/SItesToBlock";
 import SettingsButton from "./Form-Components/SettingsButton";
+import UnblockAllSitesButton from "./Form-Components/UnblockAllSitesButton";
 
 const Form = () => {
   return (
@@ -9,6 +10,7 @@ const Form = () => {
         <SitesToBlock />
         <SettingsButton />
         <ConfirmationButton />
+        <UnblockAllSitesButton />
       </div>
     </>
   );
