@@ -714,7 +714,7 @@ const WriteToHosts = (updatedHosts) => {
     }
   );
 };
-const createUpdatedHosts = () => {
+const createUpdatedHosts = (resetHosts) => {
   fs.copyFileSync(
     `${__dirname}/hosts_backup.txt`,
     `${__dirname}/hosts_updated.txt`
@@ -723,14 +723,18 @@ const createUpdatedHosts = () => {
     fs.readFileSync(`${__dirname}/../src/block-list.json`).toString()
   );
   let hostsUpdated = fs.readFileSync(`${__dirname}/hosts_updated.txt`).toString().split("\n");
-  hostsUpdated.push("#Created by AppBlocker\n");
-  for (let element of userData.websites) {
-    if (element.Blocked) {
-      hostsUpdated.push(`0.0.0.0 www.${element.URL} ${element.URL}`);
+  if (resetHosts) {
+    WriteToHosts(hostsUpdated.join("\n"));
+  } else {
+    hostsUpdated.push("#Created by AppBlocker\n");
+    for (let element of userData.websites) {
+      if (element.Blocked) {
+        hostsUpdated.push(`0.0.0.0 www.${element.URL} ${element.URL}`);
+      }
     }
+    const newHostsUpdated = hostsUpdated.join("\n");
+    WriteToHosts(newHostsUpdated);
   }
-  const newHostsUpdated = hostsUpdated.join("\n");
-  WriteToHosts(newHostsUpdated);
 };
 const deleteFromFile = (siteName) => {
   const newData = ReadBlockList().websites.filter((website) => {
@@ -783,8 +787,8 @@ electron.app.whenReady().then(() => {
     const output = ReadBlockList();
     e.sender.send("blockListOutput", output);
   });
-  electron.ipcMain.on("updateHosts", () => {
-    createUpdatedHosts();
+  electron.ipcMain.on("updateHosts", (e, ...args) => {
+    createUpdatedHosts(args[0]);
   });
   electron.ipcMain.on("delete from file", (e, siteName) => {
     deleteFromFile(siteName);

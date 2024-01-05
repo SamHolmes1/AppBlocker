@@ -76,8 +76,8 @@ app.whenReady().then(() => {
     const output = ReadBlockList();
     e.sender.send("blockListOutput", output);
   });
-  ipcMain.on("updateHosts", () => {
-    createUpdatedHosts();
+  ipcMain.on("updateHosts", (e, ...args) => {
+    createUpdatedHosts(args[0]);
   });
   ipcMain.on("delete from file", (e, siteName: string) => {
     deleteFromFile(siteName);

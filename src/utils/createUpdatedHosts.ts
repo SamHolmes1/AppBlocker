@@ -1,7 +1,7 @@
 import fs from "fs";
 import WriteToHosts from "./WriteToHosts";
 
-const createUpdatedHosts = () => {
+const createUpdatedHosts = (resetHosts?: boolean) => {
   fs.copyFileSync(
     `${__dirname}/hosts_backup.txt`,
     `${__dirname}/hosts_updated.txt`
@@ -16,17 +16,21 @@ const createUpdatedHosts = () => {
     .toString()
     .split("\n");
 
-  hostsUpdated.push("#Created by AppBlocker\n");
+  if (resetHosts) {
+    WriteToHosts(hostsUpdated.join("\n"));
+  } else {
+    hostsUpdated.push("#Created by AppBlocker\n");
 
-  for (let element of userData.websites) {
-    if (element.Blocked) {
-      hostsUpdated.push(`0.0.0.0 www.${element.URL} ${element.URL}`);
+    for (let element of userData.websites) {
+      if (element.Blocked) {
+        hostsUpdated.push(`0.0.0.0 www.${element.URL} ${element.URL}`);
+      }
     }
+
+    const newHostsUpdated = hostsUpdated.join("\n");
+
+    WriteToHosts(newHostsUpdated);
   }
-
-  const newHostsUpdated = hostsUpdated.join("\n");
-
-  WriteToHosts(newHostsUpdated);
 };
 
 export default createUpdatedHosts;

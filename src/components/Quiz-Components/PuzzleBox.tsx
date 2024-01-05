@@ -1,9 +1,14 @@
 import { useState } from "react";
 import QuizQuestions from "./Questions";
 import ScoreComponent from "./ScoreComponent";
+import { Link } from "react-router-dom";
 
 function PuzzleBox() {
   const [score, setScore] = useState(0);
+
+  const clickHandler = () => {
+    ipcRenderer.send("updateHosts", true);
+  };
 
   if(score !== 5){
   return (
@@ -14,7 +19,12 @@ function PuzzleBox() {
     </div>
   );
   } else {
-    return <h1>You have WON</h1>
+    return (
+    <>
+    <h1>Well done</h1>
+    <Link to="/" onClick={clickHandler}><button>Unblock now</button></Link>
+    </>
+    )
   }
 }
 

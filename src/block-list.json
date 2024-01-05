@@ -1,4 +1,16 @@
 {
  "websites": [
+  {
+   "name": "Runescape",
+   "URL": "runescape.com",
+   "Blocked": true,
+   "logoUrl": "https://runescape.com/favicon.ico"
+  },
+  {
+   "name": "Geoguessr",
+   "URL": "geoguessr.com",
+   "Blocked": true,
+   "logoUrl": "https://geoguessr.com/favicon.ico"
+  }
  ]
 }
