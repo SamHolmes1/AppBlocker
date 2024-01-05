@@ -1,12 +1,35 @@
+/* paynes grey  #587291 
+   platinum      #CCDBDC
+   asparagus    #6A994E
+   bright pink   #F45866
+   gunmetal     #263D42
+       font-family: 'Crimson Text', serif;*/ 
+
+   @import url('https://fonts.googleapis.com/css2?family=Unica+One&display=swap');
+   @import url('https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap');
+
 #root {
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-family: 'Unica One', sans-serif;
   display: grid;
   grid-template-areas: "header" "main";
+  background-color: #CCDBDC;
+  font-size: max(20px, 17px);
 }
 
+
+
 .header-div {
-  border: 1px solid red;
   grid-area: header;
+
+}
+
+.header-text {
+  text-decoration: none;
+  font-size: 3vw;
+  color: #263D42;
+  font-family: 'Unica One', sans-serif;
+
+
 }
 
 .header-div h1 {
@@ -14,8 +37,9 @@
 }
 
 .form-div {
-  border: 1px solid orange;
+  
   grid-area: main;
+  max-width: 95vw;
 }
 
 .settings-div {
@@ -23,7 +47,13 @@
 }
 
 .sites-to-block-div {
-  border: 1px solid yellow;
+  border: 5px solid rgb(0, 0, 0);
+  display: flex;
+  flex-direction: row;
+  max-width: fit-content;
+  margin: auto;
+
+
 }
 
 .puzzle-selector-div {
@@ -32,6 +62,7 @@
 
 .suggested-sites-div {
   border: 1px solid green;
+  width: 40vw;
 }
 
 .font-dropdown-div {
@@ -55,9 +86,30 @@
 }
 
 .blocked {
-  background-color: red;
+  background-color: #F45866;
 }
 
 .not-blocked {
-  background-color: green;
+  background-color: #6A994E;
+}
+
+button {
+  font-family: 'Crimson Text', serif;
+  font-size:1.5vw;
+  font-size: max(20px, 17px);
+  border-radius: 15px;
+  height: fit-content;
+}
+
+h2 {
+  text-align: center;
+}
+
+.categories {
+  width: 40vw
+}
+
+.site-button {
+  padding: 14px;
+  font-size: 20px;
 }

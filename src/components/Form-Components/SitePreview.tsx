@@ -48,8 +48,8 @@ const SitePreview = (props: siteProps) => {
           props.Blocked === true ? "blocked" : "not-blocked"
         }`}
       >
-        <button onClick={changeBlockStatus}>
-          <h1>{props.siteName}</h1>
+        <button className="site-button" onClick={changeBlockStatus}>
+          {props.siteName}
         </button>
         <button onClick={deleteFromFile}>delete</button>
       </div>
@@ -57,8 +57,8 @@ const SitePreview = (props: siteProps) => {
   } else if (!props.isActive) {
     return (
       <div className="site-preview-div">
-        <button onClick={addToList}>
-          <h1>{props.siteName}</h1>
+        <button className="site-button" onClick={addToList}>
+          {props.siteName}
         </button>
       </div>
     );

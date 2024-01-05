@@ -3,6 +3,7 @@ import SitePreview from "./SitePreview";
 import { useEffect, useState } from "react";
 import { siteData } from "../../interfaces/SiteData";
 import { SitesInActiveList } from "../../interfaces/SitesInActiveList";
+import InputBox from "./InputBox";
 
 const SitePreviewContainer = (props: SitesInActiveList) => {
   const [siteList, setSiteList] = useState({ websites: [] });
@@ -26,6 +27,7 @@ const SitePreviewContainer = (props: SitesInActiveList) => {
   } else {
     return (
       <div className="suggested-sites-div">
+        <h2>Selected sites</h2>
         {siteList.websites.map((i: siteData) => {
           return (
             <SitePreview
@@ -37,8 +39,10 @@ const SitePreviewContainer = (props: SitesInActiveList) => {
               Blocked={i.Blocked}
               siteList={siteList.websites}
             />
+            
           );
         })}
+        <InputBox />
       </div>
     );
   }
