@@ -31,7 +31,12 @@ const WriteToBlockList = (inputName, inputURL = `${inputName.toLowerCase()}.com`
   );
   if (!alreadyExists && inputName.length !== 0) {
     const parsedData = JSON.parse(data.toString());
-    parsedData.websites.push({ name: inputName, URL: inputURL, Blocked: blocked, logoUrl: inputLogoUrl });
+    parsedData.websites.push({
+      name: inputName,
+      URL: inputURL,
+      Blocked: blocked,
+      logoUrl: inputLogoUrl
+    });
     fs__namespace.writeFile(
       `${__dirname}/../src/block-list.json`,
       JSON.stringify(parsedData, null, 1),
@@ -710,8 +715,13 @@ const WriteToHosts = (updatedHosts) => {
   );
 };
 const createUpdatedHosts = () => {
-  fs.copyFileSync(`${__dirname}/hosts_backup.txt`, `${__dirname}/hosts_updated.txt`);
-  const userData = JSON.parse(fs.readFileSync(`${__dirname}/../src/block-list.json`).toString());
+  fs.copyFileSync(
+    `${__dirname}/hosts_backup.txt`,
+    `${__dirname}/hosts_updated.txt`
+  );
+  const userData = JSON.parse(
+    fs.readFileSync(`${__dirname}/../src/block-list.json`).toString()
+  );
   let hostsUpdated = fs.readFileSync(`${__dirname}/hosts_updated.txt`).toString().split("\n");
   hostsUpdated.push("#Created by AppBlocker\n");
   for (let element of userData.websites) {
@@ -723,12 +733,9 @@ const createUpdatedHosts = () => {
   WriteToHosts(newHostsUpdated);
 };
 const deleteFromFile = (siteName) => {
-  let data = ReadBlockList();
-  const newData = data.websites.filter((website) => {
-    console.log(website);
+  const newData = ReadBlockList().websites.filter((website) => {
     return website.name !== siteName;
   });
-  console.log(newData);
   fs.writeFile(
     `${__dirname}/../src/block-list.json`,
     JSON.stringify({ websites: newData }, null, 1),

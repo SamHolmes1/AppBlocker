@@ -16,20 +16,12 @@ const SuggestedSites = () => {
   const [categorySelection, setCategorySelection] = useState("gaming");
   const [categoryData, setCategoryData] = useState([]);
 
-  const categories: Array<string> = [
-    "gaming",
-    "shopping",
-    "socials",
-    "streaming",
-  ];
-
   useEffect(() => {
     axios
       .get(
         `https://boolean-hooligans-backend.onrender.com/api/getone/${categorySelection}`
       )
       .then((data) => {
-
         setCategoryData(data.data);
       })
       .catch((e) => {
@@ -54,7 +46,15 @@ const SuggestedSites = () => {
         <option value="streaming">Streaming</option>
       </select>
       {categoryData.map((element: siteData) => {
-        return <SitePreview siteName={element.name} key={element._id} logoUrl={element.logoUrl} URL={element.URL} isActive={false} />;
+        return (
+          <SitePreview
+            siteName={element.name}
+            key={element._id}
+            logoUrl={element.logoUrl}
+            URL={element.URL}
+            isActive={false}
+          />
+        );
       })}
     </div>
   );

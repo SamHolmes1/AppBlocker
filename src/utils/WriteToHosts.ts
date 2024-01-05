@@ -1,17 +1,18 @@
-import sudo from "sudo-prompt"
+import sudo from "sudo-prompt";
 
 const WriteToHosts = (updatedHosts: string) => {
-    const options = {
-          name: 'Electron',
-          icns: '/Applications/Electron.app/Contents/Resources/Electron.icns', // (optional)
-        }
+  const options = {
+    name: "Electron",
+    icns: "/Applications/Electron.app/Contents/Resources/Electron.icns", // (optional)
+  };
 
-        sudo.exec(`echo "${updatedHosts}" | cat > /etc/hosts | resolvectl flush-caches`, options,
-  function(error) {
-    if (error) throw error;
-  }
-);
+  sudo.exec(
+    `echo "${updatedHosts}" | cat > /etc/hosts | resolvectl flush-caches`,
+    options,
+    function (error) {
+      if (error) throw error;
+    }
+  );
+};
 
-}
-
-export default WriteToHosts
+export default WriteToHosts;
