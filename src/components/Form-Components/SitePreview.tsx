@@ -6,12 +6,11 @@ interface siteProps {
   URL: string;
   logoUrl: string;
   isActive: boolean;
+  Blocked: boolean;
   siteList: Array<siteData>;
 }
 
 const SitePreview = (props: siteProps) => {
-  const [doesExist, setDoesExist] = useState(false);
-
   const addToList = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     window.electronAPI.writeToBlockList(
@@ -31,11 +30,11 @@ const SitePreview = (props: siteProps) => {
       props.logoUrl,
       true
     );
-    for (let site of props.siteList) {
-      if (site.name === props.siteName) {
-        setDoesExist(true);
-      }
-    }
+    // for (let site of props.siteList) {
+    //   if (site.name === props.siteName) {
+    //     setDoesExist(true);
+    //   }
+    // }
   };
 
   const deleteFromFile = () => {
@@ -44,21 +43,18 @@ const SitePreview = (props: siteProps) => {
 
   if (props.isActive) {
     return (
-      <div className="site-preview-div">
+      <div
+        className={`site-preview-div ${
+          props.Blocked === true ? "blocked" : "not-blocked"
+        }`}
+      >
         <button onClick={changeBlockStatus}>
           <h1>{props.siteName}</h1>
         </button>
         <button onClick={deleteFromFile}>delete</button>
       </div>
     );
-  }
-  if (doesExist) {
-    return (
-      <div className="site-preview-div" id="notClickable">
-        <h1>{props.siteName}</h1>
-      </div>
-    );
-  } else {
+  } else if (!props.isActive) {
     return (
       <div className="site-preview-div">
         <button onClick={addToList}>

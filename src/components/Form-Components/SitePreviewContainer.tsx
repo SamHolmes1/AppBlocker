@@ -1,15 +1,10 @@
 import { IpcRendererEvent } from "electron";
 import SitePreview from "./SitePreview";
 import { useEffect, useState } from "react";
+import { siteData } from "../../interfaces/SiteData";
+import { SitesInActiveList } from "../../interfaces/SitesInActiveList";
 
-interface siteData {
-  name: string;
-  URL: string;
-  Blocked: boolean;
-  logoUrl: string;
-}
-
-const SitePreviewContainer = () => {
+const SitePreviewContainer = (props: SitesInActiveList) => {
   const [siteList, setSiteList] = useState({ websites: [] });
   const [writtenToBlockList, setWrittenToBlockList] = useState(false);
 
@@ -39,6 +34,7 @@ const SitePreviewContainer = () => {
               URL={i.URL}
               logoUrl={i.logoUrl}
               isActive={true}
+              Blocked={i.Blocked}
               siteList={siteList.websites}
             />
           );
