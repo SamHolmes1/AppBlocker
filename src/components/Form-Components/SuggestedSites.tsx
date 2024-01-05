@@ -54,6 +54,8 @@ const SuggestedSites = (props: SitesInActiveList) => {
             logoUrl={element.logoUrl}
             URL={element.URL}
             isActive={false}
+            sitesInActiveList={props.sitesInActiveList}
+            setSitesInActiveList={props.setSitesInActiveList}
           />
         );
       })}

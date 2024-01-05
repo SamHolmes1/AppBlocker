@@ -1,16 +1,3 @@
 {
- "websites": [
-  {
-   "name": "Runescape",
-   "URL": "runescape.com",
-   "Blocked": true,
-   "logoUrl": "https://runescape.com/favicon.ico"
-  },
-  {
-   "name": "Betfair",
-   "URL": "betfair.com",
-   "Blocked": true,
-   "logoUrl": "https://betfair.com/favicon.ico"
-  }
- ]
+ "websites": []
 }
