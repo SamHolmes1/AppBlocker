@@ -1,40 +1,10 @@
 {
  "websites": [
   {
-   "name": "BetFred",
-   "URL": "betfred.com",
-   "Blocked": false,
-   "logoUrl": "https://betfred.com/favicon.ico"
-  },
-  {
-   "name": "BetWay",
-   "URL": "betway.com",
-   "Blocked": false,
-   "logoUrl": "https://betway.com/favicon.ico"
-  },
-  {
-   "name": "Bet365",
-   "URL": "bet365.com",
-   "Blocked": true,
-   "logoUrl": "https://bet365.com/favicon.ico"
-  },
-  {
-   "name": "Runescape",
-   "URL": "runescape.com",
-   "Blocked": false,
-   "logoUrl": "https://runescape.com/favicon.ico"
-  },
-  {
-   "name": "Betfair",
-   "URL": "betfair.com",
-   "Blocked": false,
-   "logoUrl": "https://betfair.com/favicon.ico"
-  },
-  {
    "name": "Steam",
-   "URL": "steam.com",
-   "Blocked": false,
-   "logoUrl": "https://steam.com/favicon.ico"
+   "URL": "steam",
+   "Blocked": true,
+   "logoUrl": "https://steam/favicon.ico"
   }
  ]
 }

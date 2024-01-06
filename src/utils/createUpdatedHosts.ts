@@ -23,7 +23,7 @@ const createUpdatedHosts = (resetHosts?: boolean) => {
 
     for (let element of userData.websites) {
       if (element.Blocked) {
-        hostsUpdated.push(`0.0.0.0 www.${element.URL} ${element.URL}`);
+        hostsUpdated.push(`0.0.0.0 www.${element.URL}.com ${element.URL}.com www.${element.URL}.co.uk ${element.URL}.co.uk`);
       }
     }
 
