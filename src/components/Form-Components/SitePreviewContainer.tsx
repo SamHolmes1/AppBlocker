@@ -23,7 +23,13 @@ const SitePreviewContainer = (props: SitesInActiveList) => {
   });
 
   if (siteList.websites.length === 0) {
-    return <p>add websites to list</p>;
+    return (
+      <div className="suggested-sites-div">
+        <h2>Selected sites</h2>
+        <p>add websites to list</p>
+        <InputBox />
+      </div>
+    );
   } else {
     return (
       <div className="suggested-sites-div">
@@ -39,7 +45,6 @@ const SitePreviewContainer = (props: SitesInActiveList) => {
               Blocked={i.Blocked}
               siteList={siteList.websites}
             />
-            
           );
         })}
         <InputBox />

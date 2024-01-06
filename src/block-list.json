@@ -1,3 +1,16 @@
 {
- "websites": []
+ "websites": [
+  {
+   "name": "BetFred",
+   "URL": "betfred.com",
+   "Blocked": false,
+   "logoUrl": "https://betfred.com/favicon.ico"
+  },
+  {
+   "name": "BetWay",
+   "URL": "betway.com",
+   "Blocked": false,
+   "logoUrl": "https://betway.com/favicon.ico"
+  }
+ ]
 }
