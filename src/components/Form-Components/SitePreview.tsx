@@ -28,7 +28,7 @@ const SitePreview = (props: siteProps) => {
         tempArray.push(props.siteName);
       }
     });
-    props.setSitesInActiveList(tempArray);
+    props.setSitesInActiveList([tempArray[0]]);
   };
 
   const changeBlockStatus = (
