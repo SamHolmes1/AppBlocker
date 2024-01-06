@@ -20,15 +20,15 @@ const SitePreview = (props: siteProps) => {
       props.URL,
       props.logoUrl
     );
-    const tempArray: Array<any> = [];
-    props.sitesInActiveList.forEach((element) => {
-      if (element === props.siteName) {
-        return;
-      } else {
-        tempArray.push(props.siteName);
-      }
-    });
-    props.setSitesInActiveList([tempArray[0]]);
+    // const tempArray: Array<any> = [];
+    // props.sitesInActiveList.forEach((element) => {
+    //   if (element === props.siteName) {
+    //     return;
+    //   } else {
+    //     tempArray.push(props.siteName);
+    //   }
+    // });
+    // props.setSitesInActiveList([tempArray[0]])
   };
 
   const changeBlockStatus = (
