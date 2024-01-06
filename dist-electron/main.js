@@ -24,7 +24,7 @@ function _interopNamespaceDefault(e) {
   return Object.freeze(n);
 }
 const fs__namespace = /* @__PURE__ */ _interopNamespaceDefault(fs);
-const WriteToBlockList = (inputName, inputURL = `${inputName.toLowerCase()}.com`, inputLogoUrl = `https://${inputURL}/favicon.ico`, blocked = false) => {
+const WriteToBlockList = (inputName, inputURL = `${inputName.toLowerCase()}.com`, inputLogoUrl = `https://${inputURL}/favicon.ico`, blocked = true) => {
   const data = fs__namespace.readFileSync(`${__dirname}/../src/block-list.json`);
   const alreadyExists = JSON.parse(data.toString()).websites.find(
     (website) => inputURL === website.URL

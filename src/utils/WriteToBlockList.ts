@@ -11,7 +11,7 @@ const WriteToBlockList = (
   inputName: string,
   inputURL: string = `${inputName.toLowerCase()}.com`,
   inputLogoUrl: string = `https://${inputURL}/favicon.ico`,
-  blocked: boolean = false
+  blocked: boolean = true
 ) => {
   const data = fs.readFileSync(`${__dirname}/../src/block-list.json`);
   const alreadyExists = JSON.parse(data.toString()).websites.find(
