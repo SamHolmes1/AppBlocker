@@ -1,6 +1,10 @@
 import fs from "fs";
 
-const BackupHosts = (path: string) => {
+/**
+ * Creates a back up of the users host file in the local folder.
+ * @param path - The path to the users Hosts file
+ */
+function BackupHosts(path: string): void {
   path = "/etc/hosts";
 
   if (!fs.existsSync(`${__dirname}/hosts_backup.txt`)) {
@@ -10,6 +14,6 @@ const BackupHosts = (path: string) => {
       }
     });
   }
-};
+}
 
 export default BackupHosts;

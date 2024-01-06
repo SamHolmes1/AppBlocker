@@ -1,26 +1,13 @@
-import { useState } from "react";
-import { siteData } from "../../interfaces/SiteData";
-
-interface siteProps {
-  siteName: string;
-  URL: string;
-  logoUrl: string;
-  isActive: boolean;
-  Blocked?: boolean;
-  siteList: Array<siteData>;
-  setSitesInActiveList: Function;
-  sitesInActiveList: Array<string>;
-}
+import { siteProps } from "../../interfaces/SiteProps";
 
 const SitePreview = (props: siteProps) => {
-  const addToList = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  function addToList(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
     e.preventDefault();
-    window.electronAPI.writeToBlockList(
-      props.siteName,
-      props.URL,
-      props.logoUrl
-    );
+    //@ts-ignore
+    ipcRenderer.send("writeToBlockList", props.siteName);
     const tempArray: Array<any> = [];
+
+    //@ts-ignore
     props.sitesInActiveList.forEach((element) => {
       if (element === props.siteName) {
         return;
@@ -28,24 +15,23 @@ const SitePreview = (props: siteProps) => {
         tempArray.push(props.siteName);
       }
     });
+
+    //@ts-ignore
     props.setSitesInActiveList(tempArray);
-  };
+  }
 
-  const changeBlockStatus = (
+  function changeBlockStatus(
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  ): void {
     e.preventDefault();
-    window.electronAPI.writeToBlockList(
-      props.siteName,
-      props.URL,
-      props.logoUrl,
-      true
-    );
-  };
+    //@ts-ignore
+    ipcRenderer.send("writeToBlockList", props.siteName);
+  }
 
-  const deleteFromFile = () => {
+  function deleteFromFile(): void {
+    //@ts-ignore
     ipcRenderer.send("delete from file", props.siteName);
-  };
+  }
 
   if (props.isActive) {
     return (
@@ -61,6 +47,7 @@ const SitePreview = (props: siteProps) => {
       </div>
     );
   }
+  //@ts-ignore
   if (!props.isActive && !props.sitesInActiveList.includes(props.siteName)) {
     return (
       <div className="site-preview-div">

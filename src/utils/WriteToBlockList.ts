@@ -1,4 +1,3 @@
-// const fs = window.require("fs")
 import * as fs from "fs";
 
 interface websiteData {

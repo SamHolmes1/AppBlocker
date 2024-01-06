@@ -65,7 +65,7 @@ const ReadBlockList = () => {
   const parsedData = JSON.parse(data.toString());
   return parsedData;
 };
-const BackupHosts = (path2) => {
+function BackupHosts(path2) {
   path2 = "/etc/hosts";
   if (!fs.existsSync(`${__dirname}/hosts_backup.txt`)) {
     fs.copyFile(path2, `${__dirname}/hosts_backup.txt`, (error) => {
@@ -74,7 +74,7 @@ const BackupHosts = (path2) => {
       }
     });
   }
-};
+}
 var sudoPrompt = {};
 var Node = {
   child: require$$0,
@@ -714,7 +714,7 @@ const WriteToHosts = (updatedHosts) => {
     }
   );
 };
-const createUpdatedHosts = (resetHosts) => {
+function createUpdatedHosts(resetHosts) {
   fs.copyFileSync(
     `${__dirname}/hosts_backup.txt`,
     `${__dirname}/hosts_updated.txt`
@@ -735,7 +735,7 @@ const createUpdatedHosts = (resetHosts) => {
     const newHostsUpdated = hostsUpdated.join("\n");
     WriteToHosts(newHostsUpdated);
   }
-};
+}
 const deleteFromFile = (siteName) => {
   const newData = ReadBlockList().websites.filter((website) => {
     return website.name !== siteName;
@@ -787,7 +787,7 @@ electron.app.whenReady().then(() => {
     const output = ReadBlockList();
     e.sender.send("blockListOutput", output);
   });
-  electron.ipcMain.on("updateHosts", (e, ...args) => {
+  electron.ipcMain.on("updateHosts", (_e, ...args) => {
     createUpdatedHosts(args[0]);
   });
   electron.ipcMain.on("delete from file", (e, siteName) => {

@@ -1,5 +1,6 @@
 const ConfirmationButton = () => {
   const clickHandler = () => {
+    //@ts-ignore
     ipcRenderer.send("updateHosts");
   };
 

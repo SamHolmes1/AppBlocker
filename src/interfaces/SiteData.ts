@@ -3,4 +3,5 @@ export interface siteData {
   URL: string;
   Blocked: boolean;
   logoUrl: string;
+  _id?: number;
 }

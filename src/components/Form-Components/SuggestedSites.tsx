@@ -2,16 +2,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import SitePreview from "./SitePreview";
 import { SitesInActiveList } from "../../interfaces/SitesInActiveList";
+import { siteData } from "../../interfaces/SiteData";
 
 // https://boolean-hooligans-backend.onrender.com
-
-interface siteData {
-  name: string;
-  URL: string;
-  Blocked: boolean;
-  logoUrl: string;
-  _id: number;
-}
 
 const SuggestedSites = (props: SitesInActiveList) => {
   const [categorySelection, setCategorySelection] = useState("gaming");

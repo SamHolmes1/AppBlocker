@@ -1,24 +1,27 @@
-import { IpcRendererEvent } from "electron";
 import SitePreview from "./SitePreview";
 import { useEffect, useState } from "react";
 import { siteData } from "../../interfaces/SiteData";
 import { SitesInActiveList } from "../../interfaces/SitesInActiveList";
 import InputBox from "./InputBox";
 
-const SitePreviewContainer = (props: SitesInActiveList) => {
+const UserSelectedSites = (props: SitesInActiveList) => {
   const [siteList, setSiteList] = useState({ websites: [] });
   const [writtenToBlockList, setWrittenToBlockList] = useState(false);
 
   useEffect(() => {
-    window.electronAPI.readBlockList();
+    //@ts-ignore
+    ipcRenderer.send("readBlockList");
+
     setWrittenToBlockList(false);
   }, [writtenToBlockList]);
 
-  ipcRenderer.on("blockListOutput", (e: IpcRendererEvent, data) => {
+  //@ts-ignore
+  ipcRenderer.on("blockListOutput", (e, data) => {
     setSiteList(data);
   });
 
-  ipcRenderer.on("writtenToBlockList", (e: IpcRendererEvent, data: boolean) => {
+  //@ts-ignore
+  ipcRenderer.on("writtenToBlockList", (e, data: boolean) => {
     setWrittenToBlockList(data);
   });
 
@@ -39,7 +42,6 @@ const SitePreviewContainer = (props: SitesInActiveList) => {
               Blocked={i.Blocked}
               siteList={siteList.websites}
             />
-            
           );
         })}
         <InputBox />
@@ -48,4 +50,4 @@ const SitePreviewContainer = (props: SitesInActiveList) => {
   }
 };
 
-export default SitePreviewContainer;
+export default UserSelectedSites;

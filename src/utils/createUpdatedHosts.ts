@@ -1,7 +1,12 @@
 import fs from "fs";
 import WriteToHosts from "./WriteToHosts";
 
-const createUpdatedHosts = (resetHosts?: boolean) => {
+/**
+ * A staging function that creates a new temporary host_updated file so that the contents can be copied to the users hosts file.
+ * Reads from block-list.json in order to create
+ * @param resetHosts
+ */
+function createUpdatedHosts(resetHosts?: boolean): void {
   fs.copyFileSync(
     `${__dirname}/hosts_backup.txt`,
     `${__dirname}/hosts_updated.txt`
@@ -31,6 +36,6 @@ const createUpdatedHosts = (resetHosts?: boolean) => {
 
     WriteToHosts(newHostsUpdated);
   }
-};
+}
 
 export default createUpdatedHosts;

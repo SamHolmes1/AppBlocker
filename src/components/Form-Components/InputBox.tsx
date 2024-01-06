@@ -9,7 +9,8 @@ const InputBox = () => {
 
   function handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     event.preventDefault();
-    window.electronAPI.writeToBlockList(textInput);
+    //@ts-ignore
+    ipcRenderer.send("writeToBlockList", textInput);
     setTextInput("");
   }
 

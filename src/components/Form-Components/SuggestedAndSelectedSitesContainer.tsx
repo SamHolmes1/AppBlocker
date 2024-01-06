@@ -1,12 +1,11 @@
-import InputBox from "./InputBox";
 import SuggestedSites from "./SuggestedSites";
-import SitePreviewContainer from "./SitePreviewContainer";
+import UserSelectedSites from "./UserSelectedSites";
 import { SitesInActiveList } from "../../interfaces/SitesInActiveList";
 
-const SitesToBlock = (props: SitesInActiveList) => {
+const SuggestedAndSelectedSitesContainer = (props: SitesInActiveList) => {
   return (
     <div className="sites-to-block-div">
-      <SitePreviewContainer
+      <UserSelectedSites
         sitesInActiveList={props.sitesInActiveList}
         setSitesInActiveList={props.setSitesInActiveList}
       />
@@ -14,9 +13,8 @@ const SitesToBlock = (props: SitesInActiveList) => {
         sitesInActiveList={props.sitesInActiveList}
         setSitesInActiveList={props.setSitesInActiveList}
       />
-      
     </div>
   );
 };
 
-export default SitesToBlock;
+export default SuggestedAndSelectedSitesContainer;
