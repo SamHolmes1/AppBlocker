@@ -1,3 +1,22 @@
 {
- "websites": []
+ "websites": [
+  {
+   "name": "Netflix",
+   "URL": "netflix.com",
+   "Blocked": false,
+   "logoUrl": "https://netflix.com/favicon.ico"
+  },
+  {
+   "name": "Prime Video",
+   "URL": "prime video.com",
+   "Blocked": false,
+   "logoUrl": "https://prime video.com/favicon.ico"
+  },
+  {
+   "name": "Youtube",
+   "URL": "youtube.com",
+   "Blocked": false,
+   "logoUrl": "https://youtube.com/favicon.ico"
+  }
+ ]
 }

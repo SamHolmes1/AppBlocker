@@ -8,15 +8,15 @@ import { siteData } from "../interfaces/SiteData";
 const MainPage = () => {
   const [sitesInActiveList, setSitesInActiveList] = useState([""]);
 
-  //Sends the signal to electron to read the JSON file
+  //Sends the signal to the electron main process to read the JSON file
   useEffect(() => {
     //@ts-ignore
     ipcRenderer.send("readBlockList");
   }, []);
 
-  //Waits for electron to finish reading the JSON file
-  //Populates the sitesInActiveList state with a list of sites from the JSON file at runtime
   //@ts-ignore
+  //Executes the below code when the main process triggers this event.
+  //Populates the sitesInActiveList state with a list of sites from the JSON file at runtime.
   ipcRenderer.on(
     "blockListOutput",
     (_e: any, data: { websites: Array<siteData> }) => {
@@ -25,6 +25,9 @@ const MainPage = () => {
         tempArray.push(element.name);
       });
       setSitesInActiveList(tempArray);
+      //@ts-ignore
+      //Removes the listener
+      ipcRenderer.removeListener("blockListOutput", () => {});
     }
   );
 

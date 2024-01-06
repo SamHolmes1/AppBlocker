@@ -11,18 +11,21 @@ const UserSelectedSites = (props: SitesInActiveList) => {
   useEffect(() => {
     //@ts-ignore
     ipcRenderer.send("readBlockList");
-
     setWrittenToBlockList(false);
   }, [writtenToBlockList]);
 
   //@ts-ignore
   ipcRenderer.on("blockListOutput", (e, data) => {
     setSiteList(data);
+    //@ts-ignore
+    ipcRenderer.removeListener("blockListOutput", () => {});
   });
 
   //@ts-ignore
   ipcRenderer.on("writtenToBlockList", (e, data: boolean) => {
     setWrittenToBlockList(data);
+    //@ts-ignore
+    ipcRenderer.removeListener("writtenToBlockList", () => {});
   });
 
   if (siteList.websites.length === 0) {
