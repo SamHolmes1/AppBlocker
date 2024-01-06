@@ -1,22 +1,22 @@
 {
  "websites": [
   {
-   "name": "Netflix",
-   "URL": "netflix.com",
+   "name": "BetFred",
+   "URL": "betfred.com",
    "Blocked": false,
-   "logoUrl": "https://netflix.com/favicon.ico"
+   "logoUrl": "https://betfred.com/favicon.ico"
   },
   {
-   "name": "Prime Video",
-   "URL": "prime video.com",
+   "name": "Bet365",
+   "URL": "bet365.com",
    "Blocked": false,
-   "logoUrl": "https://prime video.com/favicon.ico"
+   "logoUrl": "https://bet365.com/favicon.ico"
   },
   {
-   "name": "Youtube",
-   "URL": "youtube.com",
+   "name": "BetWay",
+   "URL": "betway.com",
    "Blocked": false,
-   "logoUrl": "https://youtube.com/favicon.ico"
+   "logoUrl": "https://betway.com/favicon.ico"
   }
  ]
 }
