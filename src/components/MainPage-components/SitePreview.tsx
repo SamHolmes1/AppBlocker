@@ -1,5 +1,13 @@
 import { siteProps } from "../../interfaces/SiteProps";
 
+/**
+ * Renders a component conditionally based on whether it exists in block-list.json.
+ * If it does, it renders the site text with two buttons.
+ * If it does not, it renders a single button to add it to the block-list.json.
+ * @param props
+ * @returns JSX.Element
+ */
+
 const SitePreview = (props: siteProps) => {
   function addToList(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
     e.preventDefault();

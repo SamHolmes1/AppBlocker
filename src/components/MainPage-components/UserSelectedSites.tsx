@@ -4,6 +4,11 @@ import { siteData } from "../../interfaces/SiteData";
 import { SitesInActiveListProps } from "../../interfaces/SitesInActiveList";
 import InputBox from "./InputBox";
 
+/**
+ *
+ * @param props
+ * @returns JSX.Element
+ */
 const UserSelectedSites = (props: SitesInActiveListProps) => {
   const [siteList, setSiteList] = useState({ websites: [] });
   const [writtenToBlockList, setWrittenToBlockList] = useState(false);

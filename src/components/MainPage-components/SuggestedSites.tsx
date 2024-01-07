@@ -6,6 +6,12 @@ import { siteData } from "../../interfaces/SiteData";
 
 // https://boolean-hooligans-backend.onrender.com
 
+/**
+ * Renders a container of websites that are called down from the API.
+ * This component makes an API call
+ * @param props
+ * @returns JSX.Element
+ */
 const SuggestedSites = (props: SitesInActiveListProps) => {
   const [categorySelection, setCategorySelection] = useState("gaming");
   const [categoryData, setCategoryData] = useState([]);

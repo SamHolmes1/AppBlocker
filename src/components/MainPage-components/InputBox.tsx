@@ -1,5 +1,9 @@
 import { useState } from "react";
-
+/**
+ * Renders a controlled form component that contains an input field and a button.
+ * When the input button is pressed, it trigges an ipcMain event to write to block-list.json
+ * @returns JSX.Element
+ */
 const InputBox = () => {
   const [textInput, setTextInput] = useState("");
 

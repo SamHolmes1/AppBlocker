@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import ConfirmationButton from "./Form-Components/ConfirmationButton";
-import SuggestedAndSelectedSitesContainer from "./Form-Components/SuggestedAndSelectedSitesContainer";
-import SettingsButton from "./Form-Components/SettingsButton";
-import UnblockAllSitesButton from "./Form-Components/UnblockAllSitesButton";
+import ConfirmationButton from "./MainPage-components/ConfirmationButton";
+import SuggestedAndSelectedSitesContainer from "./MainPage-components/SuggestedAndSelectedSitesContainer";
+import SettingsButton from "./MainPage-components/SettingsButton";
+import UnblockAllSitesButton from "./MainPage-components/UnblockAllSitesButton";
 import { siteData } from "../interfaces/SiteData";
 
 const MainPage = () => {
