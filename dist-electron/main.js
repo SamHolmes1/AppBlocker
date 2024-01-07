@@ -709,8 +709,6 @@ const WriteToHosts = (updatedHosts) => {
     `echo "${updatedHosts}" | cat > /etc/hosts | resolvectl flush-caches`,
     options,
     function(error) {
-      if (error)
-        throw error;
     }
   );
 };
@@ -782,7 +780,6 @@ electron.app.whenReady().then(() => {
   electron.ipcMain.on("writeToBlockList", (e, website) => {
     WriteToBlockList(website);
     e.sender.send("writtenToBlockList", true);
-    console.log(electron.ipcMain.listeners("blockListOutput"));
   });
   electron.ipcMain.on("readBlockList", (e) => {
     const output = ReadBlockList();

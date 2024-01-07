@@ -7,9 +7,6 @@ import BackupHosts from "../src/utils/BackupHosts";
 import createUpdatedHosts from "../src/utils/createUpdatedHosts";
 import deleteFromFile from "../src/utils/deleteFromBlocklist";
 
-// import ipcMain
-// import { ipcMain } from 'electron/main'
-
 // The built directory structure
 //
 // ├─┬─┬ dist

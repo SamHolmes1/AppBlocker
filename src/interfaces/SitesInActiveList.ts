@@ -1,4 +1,4 @@
-export interface SitesInActiveList {
+export interface SitesInActiveListProps {
   sitesInActiveList: Array<string>;
   setSitesInActiveList: Function;
 }

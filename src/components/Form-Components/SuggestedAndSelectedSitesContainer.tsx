@@ -1,8 +1,8 @@
 import SuggestedSites from "./SuggestedSites";
 import UserSelectedSites from "./UserSelectedSites";
-import { SitesInActiveList } from "../../interfaces/SitesInActiveList";
+import { SitesInActiveListProps } from "../../interfaces/SitesInActiveList";
 
-const SuggestedAndSelectedSitesContainer = (props: SitesInActiveList) => {
+const SuggestedAndSelectedSitesContainer = (props: SitesInActiveListProps) => {
   return (
     <div className="sites-to-block-div">
       <UserSelectedSites

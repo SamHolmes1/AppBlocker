@@ -1,10 +1,10 @@
 import SitePreview from "./SitePreview";
 import { useEffect, useState } from "react";
 import { siteData } from "../../interfaces/SiteData";
-import { SitesInActiveList } from "../../interfaces/SitesInActiveList";
+import { SitesInActiveListProps } from "../../interfaces/SitesInActiveList";
 import InputBox from "./InputBox";
 
-const UserSelectedSites = (props: SitesInActiveList) => {
+const UserSelectedSites = (props: SitesInActiveListProps) => {
   const [siteList, setSiteList] = useState({ websites: [] });
   const [writtenToBlockList, setWrittenToBlockList] = useState(false);
 
