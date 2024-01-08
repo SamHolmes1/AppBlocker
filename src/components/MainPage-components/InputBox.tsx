@@ -22,12 +22,12 @@ const InputBox = () => {
     <div className="input-box">
       <form>
         <span className="example-site-text">
-        Add the name of the site you'd like to block here.
-        Example: To block www.facebook.com enter 'facebook'</span>
+        Add the name of the site you'd like to block.<br></br>
+        Example: www.facebook.com becomes 'facebook'</span>
         <br></br>
-        <input type="text" onChange={updateInput} value={textInput} placeholder="Add your own site here" />
+        <input type="text" onChange={updateInput} value={textInput} placeholder="Type site name here" />
         <button className="add-button-div" onClick={handleClick}>
-          Form Button
+          Add
         </button>
       </form>
     </div>

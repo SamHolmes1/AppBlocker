@@ -3,26 +3,14 @@
   {
    "name": "Bet365",
    "URL": "bet365",
-   "Blocked": true,
+   "Blocked": false,
    "logoUrl": "https://bet365/favicon.ico"
   },
   {
-   "name": "Runescape",
-   "URL": "runescape",
+   "name": "Boohoo",
+   "URL": "boohoo",
    "Blocked": true,
-   "logoUrl": "https://runescape/favicon.ico"
-  },
-  {
-   "name": "BetWay",
-   "URL": "betway",
-   "Blocked": true,
-   "logoUrl": "https://betway/favicon.ico"
-  },
-  {
-   "name": "BetFred",
-   "URL": "betfred",
-   "Blocked": true,
-   "logoUrl": "https://betfred/favicon.ico"
+   "logoUrl": "https://boohoo/favicon.ico"
   }
  ]
 }

@@ -39,8 +39,8 @@ const MainPage = () => {
           setSitesInActiveList={setSitesInActiveList}
         />
         <div className="footer-buttons">
-        <ConfirmationButton />
         <SettingsButton />
+        <ConfirmationButton />
         <UnblockAllSitesButton />
       </div>
       </div>

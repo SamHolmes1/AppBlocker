@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const SettingsButton = () => {
   return (
     <Link to="/settings">
-      <button className="settings-button-div">Settings Button</button>
+      <button className="settings-button-div">Settings</button>
     </Link>
   );
 };
