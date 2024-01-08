@@ -76,6 +76,17 @@ function BackupHosts(path2) {
     });
   }
 }
+const deleteFromFile = (siteName) => {
+  const newData = ReadBlockList().websites.filter((website) => {
+    return website.name !== siteName;
+  });
+  fs.writeFile(
+    `${__dirname}/../src/block-list.json`,
+    JSON.stringify({ websites: newData }, null, 1),
+    () => {
+    }
+  );
+};
 var sudoPrompt = {};
 var Node = {
   child: require$$0,
@@ -700,68 +711,6 @@ var APPLET = "UEsDBAoAAAAAAO1YcEcAAAAAAAAAAAAAAAAJABwAQ29udGVudHMvVVQJAAPNnElWLZ
 var PERMISSION_DENIED = "User did not grant permission.";
 var NO_POLKIT_AGENT = "No polkit authentication agent found.";
 var MAX_BUFFER = 134217728;
-const WriteToHosts = (updatedHosts, userData) => {
-  const options = {
-    name: "Electron",
-    icns: "/Applications/Electron.app/Contents/Resources/Electron.icns"
-    // (optional)
-  };
-  sudoPrompt.exec(
-    `echo "${updatedHosts}" | cat > /etc/hosts | resolvectl flush-caches`,
-    options,
-    function(error) {
-      if (error)
-        ;
-      else {
-        const updatedBlockList = userData.map((site) => {
-          site.Blocked = site.selectedToBlock;
-          return site;
-        });
-        const updatedBlockListJSON = JSON.stringify({ websites: updatedBlockList }, null, 1);
-        fs.writeFileSync(`${__dirname}/../src/block-list.json`, updatedBlockListJSON);
-      }
-    }
-  );
-};
-function createUpdatedHosts(resetHosts) {
-  const topLevelDomains = ["com", "co.uk", "tv"];
-  fs.copyFileSync(
-    `${__dirname}/hosts_backup.txt`,
-    `${__dirname}/hosts_updated.txt`
-  );
-  const userData = JSON.parse(
-    fs.readFileSync(`${__dirname}/../src/block-list.json`).toString()
-  );
-  let hostsUpdated = fs.readFileSync(`${__dirname}/hosts_updated.txt`).toString().split("\n");
-  if (resetHosts) {
-    WriteToHosts(hostsUpdated.join("\n"));
-  } else {
-    hostsUpdated.push("#Created by AppBlocker\n");
-    for (let element of userData.websites) {
-      if (element.selectedToBlock) {
-        let hostsNewLine = "0.0.0.0";
-        for (let i = 0; i < topLevelDomains.length; i++) {
-          hostsNewLine += ` ${element.URL}.${topLevelDomains[i]}`;
-          hostsNewLine += ` www.${element.URL}.${topLevelDomains[i]}`;
-        }
-        hostsUpdated.push(hostsNewLine);
-      }
-    }
-    const newHostsUpdated = hostsUpdated.join("\n");
-    WriteToHosts(newHostsUpdated, userData.websites);
-  }
-}
-const deleteFromFile = (siteName) => {
-  const newData = ReadBlockList().websites.filter((website) => {
-    return website.name !== siteName;
-  });
-  fs.writeFile(
-    `${__dirname}/../src/block-list.json`,
-    JSON.stringify({ websites: newData }, null, 1),
-    () => {
-    }
-  );
-};
 process.env.DIST = path.join(__dirname, "../dist");
 process.env.VITE_PUBLIC = electron.app.isPackaged ? process.env.DIST : path.join(process.env.DIST, "../public");
 let win;
@@ -802,8 +751,60 @@ electron.app.whenReady().then(() => {
     const output = ReadBlockList();
     e.sender.send("blockListOutput", output);
   });
-  electron.ipcMain.on("updateHosts", (_e, ...args) => {
-    createUpdatedHosts(args[0]);
+  electron.ipcMain.on("updateHosts", (e, ...args) => {
+    createUpdatedHosts2(args[0]);
+    function createUpdatedHosts2(resetHosts) {
+      const WriteToHosts = (updatedHosts, userData2) => {
+        const options = {
+          name: "Electron",
+          icns: "/Applications/Electron.app/Contents/Resources/Electron.icns"
+          // (optional)
+        };
+        sudoPrompt.exec(
+          `echo "${updatedHosts}" | cat > /etc/hosts | resolvectl flush-caches`,
+          options,
+          function(error) {
+            if (error)
+              ;
+            else {
+              const updatedBlockList = userData2.map((site) => {
+                site.Blocked = site.selectedToBlock;
+                return site;
+              });
+              const updatedBlockListJSON = JSON.stringify({ websites: updatedBlockList }, null, 1);
+              fs.writeFileSync(`${__dirname}/../src/block-list.json`, updatedBlockListJSON);
+              e.sender.send("writtenToBlockList", true);
+            }
+          }
+        );
+      };
+      const topLevelDomains = ["com", "co.uk", "tv"];
+      fs.copyFileSync(
+        `${__dirname}/hosts_backup.txt`,
+        `${__dirname}/hosts_updated.txt`
+      );
+      const userData = JSON.parse(
+        fs.readFileSync(`${__dirname}/../src/block-list.json`).toString()
+      );
+      let hostsUpdated = fs.readFileSync(`${__dirname}/hosts_updated.txt`).toString().split("\n");
+      if (resetHosts) {
+        WriteToHosts(hostsUpdated.join("\n"));
+      } else {
+        hostsUpdated.push("#Created by AppBlocker\n");
+        for (let element of userData.websites) {
+          if (element.selectedToBlock) {
+            let hostsNewLine = "0.0.0.0";
+            for (let i = 0; i < topLevelDomains.length; i++) {
+              hostsNewLine += ` ${element.URL}.${topLevelDomains[i]}`;
+              hostsNewLine += ` www.${element.URL}.${topLevelDomains[i]}`;
+            }
+            hostsUpdated.push(hostsNewLine);
+          }
+        }
+        const newHostsUpdated = hostsUpdated.join("\n");
+        WriteToHosts(newHostsUpdated, userData.websites);
+      }
+    }
   });
   electron.ipcMain.on("delete from file", (e, siteName) => {
     deleteFromFile(siteName);
