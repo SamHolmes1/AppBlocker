@@ -32,16 +32,28 @@ const SitePreview = (props: siteProps) => {
 
   if (props.isActive) {
     return (
-      <div
-        className={`site-preview-div`}
-      >
-
-        <button className={`site-button ${
-          props.Blocked !== props.selectedToBlock ? "selected" : ""
-        }`} onClick={changeBlockStatus} disabled={props.Blocked}>
+      <div className={`site-preview-div`}>
+        <button
+          className={`site-button ${
+            props.Blocked !== props.selectedToBlock ? "selected" : ""
+          }`}
+          onClick={changeBlockStatus}
+          disabled={
+            (props.Blocked === true && props.unBlockMode === false) ||
+            (props.Blocked === false && props.unBlockMode === true)
+          }
+        >
           {props.siteName}
         </button>
-        <button onClick={deleteFromFile} hidden={props.Blocked}>delete</button>
+        <button
+          onClick={deleteFromFile}
+          disabled={
+            (props.Blocked === true && props.unBlockMode === false) ||
+            (props.Blocked === false && props.unBlockMode === true)
+          }
+        >
+          delete
+        </button>
       </div>
     );
   }

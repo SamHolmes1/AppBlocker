@@ -1,18 +1,18 @@
 {
  "websites": [
   {
-   "name": "Amazon",
-   "URL": "amazon",
-   "selectedToBlock": true,
+   "name": "Betfair",
+   "URL": "betfair",
+   "selectedToBlock": false,
    "Blocked": false,
-   "logoUrl": "https://amazon.com/favicon.ico"
+   "logoUrl": "https://betfair.com/favicon.ico"
   },
   {
-   "name": "ASOS",
-   "URL": "asos",
-   "selectedToBlock": true,
+   "name": "Geoguessr",
+   "URL": "geoguessr",
+   "selectedToBlock": false,
    "Blocked": false,
-   "logoUrl": "https://asos.com/favicon.ico"
+   "logoUrl": "https://geoguessr.com/favicon.ico"
   }
  ]
 }

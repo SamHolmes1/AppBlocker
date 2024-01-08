@@ -46,23 +46,22 @@ const UserSelectedSites = (props: SitesInActiveListProps) => {
         <h2>My Sites</h2>
         <p>Click site to unblock/block</p>
         <div className="list-of-my-buttons">
-        {siteList.websites.map((i: siteData) => {
-          return (
-           
-            <SitePreview
-              siteName={i.name}
-              key={i.URL}
-              URL={i.URL}
-              logoUrl={i.logoUrl}
-              isActive={true}
-              Blocked={i.Blocked}
-              selectedToBlock={i.selectedToBlock}
-              siteList={siteList.websites}
-            />
-          
-          );
-        })}
-          </div>
+          {siteList.websites.map((i: siteData) => {
+            return (
+              <SitePreview
+                siteName={i.name}
+                key={i.URL}
+                URL={i.URL}
+                logoUrl={i.logoUrl}
+                isActive={true}
+                Blocked={i.Blocked}
+                selectedToBlock={i.selectedToBlock}
+                siteList={siteList.websites}
+                unBlockMode={props.unBlockMode}
+              />
+            );
+          })}
+        </div>
         <InputBox />
       </div>
     );

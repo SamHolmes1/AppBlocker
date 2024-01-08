@@ -4,6 +4,7 @@
  * @returns JSX.Element
  */
 interface confirmationButtonProps {
+  setUnBlockMode: Function;
   setWrittenToBlocklist: Function;
 }
 
@@ -11,7 +12,8 @@ const ConfirmationButton = (props: confirmationButtonProps) => {
   const clickHandler = () => {
     //@ts-ignore
     ipcRenderer.send("updateHosts");
-    setTimeout(props.setWrittenToBlocklist, 5000 , true)
+    setTimeout(props.setWrittenToBlocklist, 5000, true);
+    props.setUnBlockMode(false);
   };
 
   return (

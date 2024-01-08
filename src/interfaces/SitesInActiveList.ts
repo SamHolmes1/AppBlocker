@@ -3,4 +3,5 @@ export interface SitesInActiveListProps {
   setSitesInActiveList: Function;
   writtenToBlockList: boolean;
   setWrittenToBlockList: Function;
+  unBlockMode: boolean;
 }

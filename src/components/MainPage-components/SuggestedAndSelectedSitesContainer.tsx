@@ -15,6 +15,7 @@ const SuggestedAndSelectedSitesContainer = (props: SitesInActiveListProps) => {
         setWrittenToBlockList={props.setWrittenToBlockList}
         sitesInActiveList={props.sitesInActiveList}
         setSitesInActiveList={props.setSitesInActiveList}
+        unBlockMode={props.unBlockMode}
       />
       <SuggestedSites
         sitesInActiveList={props.sitesInActiveList}
