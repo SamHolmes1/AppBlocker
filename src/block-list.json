@@ -3,7 +3,7 @@
   {
    "name": "Steam",
    "URL": "steam",
-   "Blocked": true,
+   "Blocked": false,
    "logoUrl": "https://steam/favicon.ico"
   }
  ]
