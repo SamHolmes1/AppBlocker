@@ -24,7 +24,7 @@ function _interopNamespaceDefault(e) {
   return Object.freeze(n);
 }
 const fs__namespace = /* @__PURE__ */ _interopNamespaceDefault(fs);
-const WriteToBlockList = (inputName, inputURL = `${inputName.toLowerCase()}.com`, inputLogoUrl = `https://${inputURL}/favicon.ico`, blocked = true) => {
+const WriteToBlockList = (inputName, inputURL = `${inputName.toLowerCase()}`, inputLogoUrl = `https://${inputURL}/favicon.ico`, blocked = true) => {
   const data = fs__namespace.readFileSync(`${__dirname}/../src/block-list.json`);
   const alreadyExists = JSON.parse(data.toString()).websites.find(
     (website) => inputURL === website.URL
@@ -715,6 +715,7 @@ const WriteToHosts = (updatedHosts) => {
   );
 };
 const createUpdatedHosts = (resetHosts) => {
+  const topLevelDomains = ["com", "co.uk", "tv"];
   fs.copyFileSync(
     `${__dirname}/hosts_backup.txt`,
     `${__dirname}/hosts_updated.txt`
@@ -729,7 +730,12 @@ const createUpdatedHosts = (resetHosts) => {
     hostsUpdated.push("#Created by AppBlocker\n");
     for (let element of userData.websites) {
       if (element.Blocked) {
-        hostsUpdated.push(`0.0.0.0 www.${element.URL} ${element.URL}`);
+        let hostsNewLine = "0.0.0.0";
+        for (let i = 0; i < topLevelDomains.length; i++) {
+          hostsNewLine += ` ${element.URL}.${topLevelDomains[i]}`;
+          hostsNewLine += ` www.${element.URL}.${topLevelDomains[i]}`;
+        }
+        hostsUpdated.push(hostsNewLine);
       }
     }
     const newHostsUpdated = hostsUpdated.join("\n");

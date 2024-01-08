@@ -2,6 +2,8 @@ import fs from "fs";
 import WriteToHosts from "./WriteToHosts";
 
 const createUpdatedHosts = (resetHosts?: boolean) => {
+  const topLevelDomains = ["com", "co.uk", "tv"]
+
   fs.copyFileSync(
     `${__dirname}/hosts_backup.txt`,
     `${__dirname}/hosts_updated.txt`
@@ -23,7 +25,12 @@ const createUpdatedHosts = (resetHosts?: boolean) => {
 
     for (let element of userData.websites) {
       if (element.Blocked) {
-        hostsUpdated.push(`0.0.0.0 www.${element.URL} ${element.URL}`);
+        let hostsNewLine = "0.0.0.0"
+          for(let i=0; i<topLevelDomains.length; i++){
+            hostsNewLine += ` ${element.URL}.${topLevelDomains[i]}`
+            hostsNewLine += ` www.${element.URL}.${topLevelDomains[i]}`
+          }
+        hostsUpdated.push(hostsNewLine)
       }
     }
 
