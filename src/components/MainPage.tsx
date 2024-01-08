@@ -8,6 +8,7 @@ import { siteData } from "../interfaces/SiteData";
 const MainPage = () => {
   const [sitesInActiveList, setSitesInActiveList] = useState([""]);
   const [writtenToBlockList, setWrittenToBlockList] = useState(false);
+  const [unBlockMode, setUnBlockMode] = useState(false);
 
   //Sends the signal to the electron main process to read the JSON file
   useEffect(() => {
@@ -41,9 +42,7 @@ const MainPage = () => {
           sitesInActiveList={sitesInActiveList}
           setSitesInActiveList={setSitesInActiveList}
         />
-
         <ConfirmationButton setWrittenToBlocklist={setWrittenToBlockList} />
-
         <SettingsButton />
         <UnblockAllSitesButton />
       </div>
