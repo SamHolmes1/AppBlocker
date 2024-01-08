@@ -11,7 +11,7 @@ const ConfirmationButton = () => {
 
   return (
     <button className="confirmation-button-div" onClick={clickHandler}>
-      Confirmation Button
+      Block Sites
     </button>
   );
 };

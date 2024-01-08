@@ -45,6 +45,7 @@ const SuggestedSites = (props: SitesInActiveListProps) => {
         <option value="socials">Socials</option>
         <option value="streaming">Streaming</option>
       </select>
+      <div className="suggested-sites-buttons ">
       {categoryData.map((element: siteData) => {
         return (
           <SitePreview
@@ -58,6 +59,7 @@ const SuggestedSites = (props: SitesInActiveListProps) => {
           />
         );
       })}
+      </div>
     </div>
   );
 };

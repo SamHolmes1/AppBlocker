@@ -3,168 +3,221 @@
    asparagus    #6A994E
    bright pink   #F45866
    gunmetal     #263D42
-       font-family: 'Crimson Text', serif;*/ 
+       font-family: 'Crimson Text', serif;*/
 
-       @import url('https://fonts.googleapis.com/css2?family=Unica+One&display=swap');
-       @import url('https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap');
-    
-    #root {
-      font-family: 'Unica One', sans-serif;
-      display: grid;
-      grid-template-areas: "header" "main";
-      background-color: #CCDBDC;
-      font-size: max(20px, 17px);
-    }
-    
-    .header-div {
-      grid-area: header;
-    
-    }
-    
-    .header-text {
-      text-decoration: none;
-      font-size: 3vw;
-      color: #263D42;
-      font-family: 'Unica One', sans-serif;
-    
-    
-    }
-    
-    .header-div h1 {
-      text-align: center;
-    }
-    
-    .form-div {
-      
-      grid-area: main;
-      max-width: 95vw;
-    }
-    
-    .settings-div {
-      border: 1px solid orange;
-    }
-    
-    .sites-to-block-div {
-      border: 5px solid rgb(0, 0, 0);
-      display: flex;
-      flex-direction: row;
-      max-width: fit-content;
-      margin: auto;
-    }
-    
-    .puzzle-selector-div {
-      border: 1px solid yellow;
-    }
-    
-    .suggested-sites-div {
-      border: 1px solid green;
-      width: 40vw;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      
-    }
+@import url('https://fonts.googleapis.com/css2?family=Unica+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
-    .list-of-my-buttons {
-      overflow-y: auto;
-      max-height: 50vh;
-      padding-right: 10px;
-    }
-    
-    .font-dropdown-div {
-      border: 1px solid purple;
-    }
-    
-    .difficulty-dropdown {
-      border: 1px solid grey;
-    }
-    
-    .puzzle-card {
-      border: 1px solid green;
-    }
-    
-    .input-box {
-      border: 1px solid purple;
-    }
-    
-    .correct-answer {
-      background-color: yellow;
-    }
-    
-    #blocked {
-      background-color: #F45866;
-    }
-    
-    #not-blocked {
-      background-color: #6A994E;
-    }
-    
-    button {
-      font-family: 'Crimson Text', serif;
-      font-size:1.5vw;
-      font-size: max(1.5vw, 17px);
-      border-radius: 15px;
-      height: fit-content;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      flex-wrap: nowrap;
-    }
-    
-    h2 {
-      text-align: center;
-    }
 
-    p {
-      margin: 0px;
-    }
-    
-    .categories {
-      width: 40vw;
-      text-align: center;
-    }
-    
-    .site-button {
-      padding: 10px;
-      font-size: 20px;
-      margin: 15px auto;
-      background-color:transparent;
-      border-color: #263D42;
-      box-shadow: 2px 5px 10px #587291;
-      width: 25vw;
-    }
-    
-    .delete-button {
-      font-size: max(1.5vw, 14px);
-      width: 10px;
-      flex-grow: none;
-    }
+#root {
+  font-family: 'Unica One', sans-serif;
+  display: grid;
+  grid-template-areas: "header" "main";
+  background-color: #CCDBDC;
+  font-size: max(20px, 17px);
+}
 
-    .site-preview-div {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      flex-grow: 1;
-    }
-    
-    .footer-buttons {
-      margin: 20px;
-      display: flex;
-      justify-content: space-between;
-    }
+.header-div {
+  grid-area: header;
 
-    .logo-image {
-      height: 5vw;
-      width: 5vw;
-      max-width: 40px;
-      max-height: 40px;
-    }
+}
 
-    form {
-      justify-self: flex-end;
-      text-align: center;
-    }
+.header-text {
+  text-decoration: none;
+  font-size: 3vw;
+  color: #263D42;
+  font-family: 'Unica One', sans-serif;
 
-    .add-button-div {
 
-    }
+}
+
+.header-div h1 {
+  text-align: center;
+}
+
+.form-div {
+
+  grid-area: main;
+  max-width: 95vw;
+}
+
+.settings-div {
+  border: 1px solid orange;
+}
+
+.sites-to-block-div {
+  border: 5px solid #263D42;
+  display: flex;
+  flex-direction: row;
+  max-width: fit-content;
+  margin: auto;
+}
+
+.puzzle-selector-div {
+  border: 1px solid yellow;
+}
+
+.suggested-sites-div {
+  width: 40vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.suggested-sites-buttons{
+  overflow-y: auto;
+  max-height: 70vh;
+  padding-right: 10px;
+  padding-bottom: 15px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.list-of-my-buttons {
+  overflow-y: auto;
+  max-height: 50vh;
+  padding-right: 10px;
+  padding-bottom: 15px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+
+
+.correct-answer {
+  background-color: yellow;
+}
+
+#blocked {
+  background-color: #263D42;
+  color: #CCDBDC;
+}
+
+#blocked-logo {
+  content: url("src/assets/blocked.png");
+}
+
+
+button {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5vw;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap;
+  
+}
+
+button:hover{
+  cursor: pointer;
+  background-color: #58729150 ;
+
+}
+
+h2 {
+  text-align: center;
+}
+
+p {
+  margin: 0px;
+  font-family: 'Inter', sans-serif;
+}
+
+.categories {
+  width: 40vw;
+  text-align: center;
+  
+}
+
+.site-button {
+  padding: 10px 2px;
+  font-size: 20px;
+  margin: 15px 3.24vw;
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  border: none;
+  box-shadow: 2px 5px 10px #587291;
+  width: 13vw;
+  min-width: fit-content;
+  max-width: 250px;
+  font-weight: 600;
+  color: #263D42;
+ 
+}
+
+.delete-button {
+  font-size: max(1.5vw, 14px);
+  width: 10px;
+  flex-grow: none;
+}
+
+.site-preview-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+  text-align: center;
+}
+
+
+.footer-buttons {
+  margin: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.logo-image {
+  height: 5vw;
+  width: 5vw;
+  max-width: 40px;
+  max-height: 40px;
+  padding-bottom: 7px;
+  
+}
+
+a{
+  text-decoration: none;
+}
+
+form {
+  justify-self: flex-end;
+  text-align: center;
+  padding-top: 10px;
+}
+
+.add-button-div {
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+.example-site-text {
+  padding: 15px;
+  font-family: 'Inter', sans-serif;
+  
+}
+
+input {
+  margin: 10px;
+  padding: 10px;
+  font-size: 15px;
+}
+
+#categories {
+  font-size: 17px;
+  font-family: 'Inter', sans-serif; 
+  border-radius: 10px;
+  background-color: #58729150 ;
+}
+
+.confirmation-button-div {
+  font-size: 4vw;
+  padding: 10px 20px;
+  font-weight: 600;
+  font-family: 'Unica One', sans-serif;
+}

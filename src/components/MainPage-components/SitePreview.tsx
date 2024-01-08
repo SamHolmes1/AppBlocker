@@ -39,8 +39,10 @@ const SitePreview = (props: siteProps) => {
           props.Blocked === true ? "blocked" : "not-blocked"
         }`} onClick={changeBlockStatus}>
           {/* <img className="logo-image" src={`src/assets/${props.siteName}.ico`}></img> */}
-          <img className="logo-image" src={`src/assets/steam.ico`}></img>
-          {props.siteName}
+          <img className="logo-image" id={`${
+          props.Blocked === true ? "blocked-logo" : "not-blocked-logo"
+          }`} src={`src/assets/steam.ico`}></img>
+          <span className="site-text">{props.siteName}</span>
         </button>
         <button onClick={deleteFromFile}>delete</button>
       </div>
