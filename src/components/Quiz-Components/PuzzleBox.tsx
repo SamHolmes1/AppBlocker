@@ -2,6 +2,8 @@ import { useState } from "react";
 import QuizQuestions from "./Questions";
 import ScoreComponent from "./ScoreComponent";
 import { Link } from "react-router-dom";
+import React from 'react';
+import Confetti from 'react-confetti';
 
 interface quizProps {
   setUnBlockMode: Function;
@@ -17,19 +19,26 @@ function PuzzleBox(props: quizProps) {
 
   if (score !== 5) {
     return (
+      <div>
       <div className="quiz-div">
         <QuizQuestions score={score} setScore={setScore} />
         <ScoreComponent score={score} />
       </div>
+      <Link to="/"><button className="home-button"> Home </button></Link>
+      </div>
     );
   } else {
     return (
-      <>
-        <h1>Well done</h1>
+      <div className= "quiz-end">
+        <h1 className="well-done">Well done!</h1>
         <Link to="/" onClick={clickHandler}>
-          <button>Unblock now</button>
+          <button className="unlock-button">UNBLOCK</button>
         </Link>
-      </>
+        <Confetti
+      width={window.innerWidth}
+      height={window.innerHeight}
+    />
+      </div>
     );
   }
 }
