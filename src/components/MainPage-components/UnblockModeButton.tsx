@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const UnblockModeButton = () => {
   return (
     <Link to="/quiz">
-      <button className="unblock-all-button">Unblock Mode</button>
+      <button className="unblock-all-button">Unblock</button>
     </Link>
   );
 };
