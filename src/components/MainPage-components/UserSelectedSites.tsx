@@ -22,14 +22,14 @@ const UserSelectedSites = (props: SitesInActiveListProps) => {
   ipcRenderer.on("blockListOutput", (e, data) => {
     setSiteList(data);
     //@ts-ignore
-    ipcRenderer.removeListener("blockListOutput", () => {});
+    ipcRenderer.removeAllListeners("blockListOutput");
   });
 
   //@ts-ignore
   ipcRenderer.on("writtenToBlockList", (e, data: boolean) => {
     props.setWrittenToBlockList(data);
     //@ts-ignore
-    ipcRenderer.removeListener("writtenToBlockList", () => {});
+    ipcRenderer.removeAllListeners("writtenToBlockList");
   });
 
   if (siteList.websites.length === 0) {

@@ -1,5 +1,18 @@
 {
  "websites": [
-  
+  {
+   "name": "Amazon",
+   "URL": "amazon",
+   "selectedToBlock": true,
+   "Blocked": false,
+   "logoUrl": "https://amazon.com/favicon.ico"
+  },
+  {
+   "name": "ASOS",
+   "URL": "asos",
+   "selectedToBlock": true,
+   "Blocked": false,
+   "logoUrl": "https://asos.com/favicon.ico"
+  }
  ]
 }

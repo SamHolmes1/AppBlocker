@@ -47,7 +47,6 @@ const MainPage = () => {
         <SettingsButton />
         <UnblockAllSitesButton />
       </div>
-      
     </>
   );
 };

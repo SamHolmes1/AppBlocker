@@ -172,3 +172,7 @@
     .add-button-div {
 
     }
+
+    .selected {
+      background-color: red;
+    }
