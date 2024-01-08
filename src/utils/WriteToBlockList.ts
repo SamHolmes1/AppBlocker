@@ -9,7 +9,7 @@ interface websiteData {
 
 const WriteToBlockList = (
   inputName: string,
-  inputURL: string = `${inputName.toLowerCase()}.com`,
+  inputURL: string = `${inputName.toLowerCase()}`,
   inputLogoUrl: string = `https://${inputURL}/favicon.ico`,
   blocked: boolean = true
 ) => {
