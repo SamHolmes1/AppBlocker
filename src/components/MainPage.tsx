@@ -54,6 +54,7 @@ const MainPage = (props: MainPageProps) => {
           <ConfirmationButton
             setWrittenToBlocklist={setWrittenToBlockList}
             setUnBlockMode={props.setUnBlockMode}
+            unBlockMode={props.unBlockMode}
           />
           <UnblockModeButton />
         </div>

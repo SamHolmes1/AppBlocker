@@ -6,6 +6,7 @@
 interface confirmationButtonProps {
   setUnBlockMode: Function;
   setWrittenToBlocklist: Function;
+  unBlockMode: boolean;
 }
 
 const ConfirmationButton = (props: confirmationButtonProps) => {
@@ -18,7 +19,7 @@ const ConfirmationButton = (props: confirmationButtonProps) => {
 
   return (
     <button className="confirmation-button-div" onClick={clickHandler}>
-      Block Sites
+      {props.unBlockMode === true ? "UnBlock" : "Block"}
     </button>
   );
 };
