@@ -50,8 +50,6 @@
       flex-direction: row;
       max-width: fit-content;
       margin: auto;
-    
-    
     }
     
     .puzzle-selector-div {
@@ -61,6 +59,16 @@
     .suggested-sites-div {
       border: 1px solid green;
       width: 40vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      
+    }
+
+    .list-of-my-buttons {
+      overflow-y: auto;
+      max-height: 50vh;
+      padding-right: 10px;
     }
     
     .font-dropdown-div {
@@ -83,11 +91,11 @@
       background-color: yellow;
     }
     
-    .blocked {
+    #blocked {
       background-color: #F45866;
     }
     
-    .not-blocked {
+    #not-blocked {
       background-color: #6A994E;
     }
     
@@ -97,23 +105,46 @@
       font-size: max(1.5vw, 17px);
       border-radius: 15px;
       height: fit-content;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      flex-wrap: nowrap;
     }
     
     h2 {
       text-align: center;
     }
+
+    p {
+      margin: 0px;
+    }
     
     .categories {
-      width: 40vw
+      width: 40vw;
+      text-align: center;
     }
     
     .site-button {
-      padding: 14px;
+      padding: 10px;
       font-size: 20px;
+      margin: 15px auto;
+      background-color:transparent;
+      border-color: #263D42;
+      box-shadow: 2px 5px 10px #587291;
+      width: 25vw;
     }
     
     .delete-button {
       font-size: max(1.5vw, 14px);
+      width: 10px;
+      flex-grow: none;
+    }
+
+    .site-preview-div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-grow: 1;
     }
     
     .footer-buttons {
@@ -127,4 +158,13 @@
       width: 5vw;
       max-width: 40px;
       max-height: 40px;
+    }
+
+    form {
+      justify-self: flex-end;
+      text-align: center;
+    }
+
+    .add-button-div {
+
     }

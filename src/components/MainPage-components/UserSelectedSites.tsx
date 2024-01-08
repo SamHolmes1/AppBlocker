@@ -36,7 +36,7 @@ const UserSelectedSites = (props: SitesInActiveListProps) => {
   if (siteList.websites.length === 0) {
     return (
       <div className="suggested-sites-div">
-        <h2>Selected sites</h2>
+        <h2>My Sites</h2>
         <p>add websites to list</p>
         <InputBox />
       </div>
@@ -44,9 +44,12 @@ const UserSelectedSites = (props: SitesInActiveListProps) => {
   } else {
     return (
       <div className="suggested-sites-div">
-        <h2>Selected sites</h2>
+        <h2>My Sites</h2>
+        <p>Click site to unblock/block</p>
+        <div className="list-of-my-buttons">
         {siteList.websites.map((i: siteData) => {
           return (
+           
             <SitePreview
               siteName={i.name}
               key={i.URL}
@@ -56,8 +59,10 @@ const UserSelectedSites = (props: SitesInActiveListProps) => {
               Blocked={i.Blocked}
               siteList={siteList.websites}
             />
+          
           );
         })}
+          </div>
         <InputBox />
       </div>
     );

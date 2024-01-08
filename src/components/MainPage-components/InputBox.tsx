@@ -21,7 +21,11 @@ const InputBox = () => {
   return (
     <div className="input-box">
       <form>
-        <input type="text" onChange={updateInput} value={textInput} />
+        <span className="example-site-text">
+        Add the name of the site you'd like to block here.
+        Example: To block www.facebook.com enter 'facebook'</span>
+        <br></br>
+        <input type="text" onChange={updateInput} value={textInput} placeholder="Add your own site here" />
         <button className="add-button-div" onClick={handleClick}>
           Form Button
         </button>
