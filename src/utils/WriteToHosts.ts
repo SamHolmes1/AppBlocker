@@ -10,7 +10,9 @@ const WriteToHosts = (updatedHosts: string) => {
     `echo "${updatedHosts}" | cat > /etc/hosts | resolvectl flush-caches`,
     options,
     function (error) {
-      if (error) throw error;
+      if (error) {
+        //TODO: implement error handling
+      }
     }
   );
 };

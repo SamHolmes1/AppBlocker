@@ -1,4 +1,4 @@
-import Form from "./components/Form";
+import MainPage from "./components/MainPage";
 import Header from "./components/Header";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
@@ -9,11 +9,11 @@ function App() {
   return (
     <>
       <Header />
-    <Routes>
-      <Route path="/" element={<Form />} />
-      <Route path="/settings" element={<Settings />} />
-      <Route path="/quiz" element={<Quiz />} />
-    </Routes>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/quiz" element={<Quiz />} />
+      </Routes>
     </>
   );
 }

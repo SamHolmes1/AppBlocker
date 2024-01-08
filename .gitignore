@@ -1,6 +1,7 @@
 #user Files
 hosts_backup.txt
 hosts_updated.txt
+block-list.json
 
 # Logs
 logs

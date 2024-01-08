@@ -2,13 +2,6 @@ import { contextBridge, ipcRenderer } from "electron";
 
 // --------- Expose some API to the Renderer process ---------
 contextBridge.exposeInMainWorld("ipcRenderer", withPrototype(ipcRenderer));
-contextBridge.exposeInMainWorld("electronAPI", {
-  writeToBlockList: (website: string) =>
-    ipcRenderer.send("writeToBlockList", website),
-  readBlockList: () => ipcRenderer.send("readBlockList"),
-  blockListOutput: () => ipcRenderer.send("blockListOutput"),
-  writtenToBlockList: () => ipcRenderer.send("writtenToBlockList"),
-});
 // `exposeInMainWorld` can't detect attributes and methods of `prototype`, manually patching it.
 function withPrototype(obj: Record<string, any>) {
   const protos = Object.getPrototypeOf(obj);

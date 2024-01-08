@@ -1,19 +1,18 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import SitePreview from "./SitePreview";
-import { SitesInActiveList } from "../../interfaces/SitesInActiveList";
+import { SitesInActiveListProps } from "../../interfaces/SitesInActiveList";
+import { siteData } from "../../interfaces/SiteData";
 
 // https://boolean-hooligans-backend.onrender.com
 
-interface siteData {
-  name: string;
-  URL: string;
-  Blocked: boolean;
-  logoUrl: string;
-  _id: number;
-}
-
-const SuggestedSites = (props: SitesInActiveList) => {
+/**
+ * Renders a container of websites that are called down from the API.
+ * This component makes an API call
+ * @param props
+ * @returns JSX.Element
+ */
+const SuggestedSites = (props: SitesInActiveListProps) => {
   const [categorySelection, setCategorySelection] = useState("gaming");
   const [categoryData, setCategoryData] = useState([]);
 

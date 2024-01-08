@@ -1,25 +1,36 @@
-import { IpcRendererEvent } from "electron";
 import SitePreview from "./SitePreview";
 import { useEffect, useState } from "react";
 import { siteData } from "../../interfaces/SiteData";
-import { SitesInActiveList } from "../../interfaces/SitesInActiveList";
+import { SitesInActiveListProps } from "../../interfaces/SitesInActiveList";
 import InputBox from "./InputBox";
 
-const SitePreviewContainer = (props: SitesInActiveList) => {
+/**
+ *
+ * @param props
+ * @returns JSX.Element
+ */
+const UserSelectedSites = (props: SitesInActiveListProps) => {
   const [siteList, setSiteList] = useState({ websites: [] });
   const [writtenToBlockList, setWrittenToBlockList] = useState(false);
 
   useEffect(() => {
-    window.electronAPI.readBlockList();
+    //@ts-ignore
+    ipcRenderer.send("readBlockList");
     setWrittenToBlockList(false);
   }, [writtenToBlockList]);
 
-  ipcRenderer.on("blockListOutput", (e: IpcRendererEvent, data) => {
+  //@ts-ignore
+  ipcRenderer.on("blockListOutput", (e, data) => {
     setSiteList(data);
+    //@ts-ignore
+    ipcRenderer.removeListener("blockListOutput", () => {});
   });
 
-  ipcRenderer.on("writtenToBlockList", (e: IpcRendererEvent, data: boolean) => {
+  //@ts-ignore
+  ipcRenderer.on("writtenToBlockList", (e, data: boolean) => {
     setWrittenToBlockList(data);
+    //@ts-ignore
+    ipcRenderer.removeListener("writtenToBlockList", () => {});
   });
 
   if (siteList.websites.length === 0) {
@@ -53,4 +64,4 @@ const SitePreviewContainer = (props: SitesInActiveList) => {
   }
 };
 
-export default SitePreviewContainer;
+export default UserSelectedSites;
