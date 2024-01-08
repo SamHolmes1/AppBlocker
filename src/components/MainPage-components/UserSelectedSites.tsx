@@ -11,13 +11,12 @@ import InputBox from "./InputBox";
  */
 const UserSelectedSites = (props: SitesInActiveListProps) => {
   const [siteList, setSiteList] = useState({ websites: [] });
-  const [writtenToBlockList, setWrittenToBlockList] = useState(false);
 
   useEffect(() => {
     //@ts-ignore
     ipcRenderer.send("readBlockList");
-    setWrittenToBlockList(false);
-  }, [writtenToBlockList]);
+    props.setWrittenToBlockList(false);
+  }, [props.writtenToBlockList]);
 
   //@ts-ignore
   ipcRenderer.on("blockListOutput", (e, data) => {
@@ -28,7 +27,7 @@ const UserSelectedSites = (props: SitesInActiveListProps) => {
 
   //@ts-ignore
   ipcRenderer.on("writtenToBlockList", (e, data: boolean) => {
-    setWrittenToBlockList(data);
+    props.setWrittenToBlockList(data);
     //@ts-ignore
     ipcRenderer.removeListener("writtenToBlockList", () => {});
   });
@@ -57,6 +56,7 @@ const UserSelectedSites = (props: SitesInActiveListProps) => {
               logoUrl={i.logoUrl}
               isActive={true}
               Blocked={i.Blocked}
+              selectedToBlock={i.selectedToBlock}
               siteList={siteList.websites}
             />
           

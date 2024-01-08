@@ -24,7 +24,7 @@ function _interopNamespaceDefault(e) {
   return Object.freeze(n);
 }
 const fs__namespace = /* @__PURE__ */ _interopNamespaceDefault(fs);
-const WriteToBlockList = (inputName, inputURL = `${inputName.toLowerCase()}`, inputLogoUrl = `https://${inputURL}/favicon.ico`, blocked = true) => {
+const WriteToBlockList = (inputName, inputURL = `${inputName.toLowerCase()}`, inputLogoUrl = `https://${inputURL}.com/favicon.ico`, selectedToBlock = true, blocked = false) => {
   const data = fs__namespace.readFileSync(`${__dirname}/../src/block-list.json`);
   const alreadyExists = JSON.parse(data.toString()).websites.find(
     (website) => inputURL === website.URL
@@ -34,6 +34,7 @@ const WriteToBlockList = (inputName, inputURL = `${inputName.toLowerCase()}`, in
     parsedData.websites.push({
       name: inputName,
       URL: inputURL,
+      selectedToBlock,
       Blocked: blocked,
       logoUrl: inputLogoUrl
     });
@@ -46,10 +47,10 @@ const WriteToBlockList = (inputName, inputURL = `${inputName.toLowerCase()}`, in
   } else if (alreadyExists && inputName.length !== 0) {
     const parsedData = JSON.parse(data.toString());
     for (let element of parsedData.websites) {
-      if (element.name === inputName && !element.Blocked) {
-        element.Blocked = true;
-      } else if (element.name === inputName && element.Blocked) {
-        element.Blocked = false;
+      if (element.name === inputName && !element.selectedToBlock) {
+        element.selectedToBlock = true;
+      } else if (element.name === inputName && element.selectedToBlock) {
+        element.selectedToBlock = false;
       }
     }
     fs__namespace.writeFile(
@@ -699,7 +700,7 @@ var APPLET = "UEsDBAoAAAAAAO1YcEcAAAAAAAAAAAAAAAAJABwAQ29udGVudHMvVVQJAAPNnElWLZ
 var PERMISSION_DENIED = "User did not grant permission.";
 var NO_POLKIT_AGENT = "No polkit authentication agent found.";
 var MAX_BUFFER = 134217728;
-const WriteToHosts = (updatedHosts) => {
+const WriteToHosts = (updatedHosts, userData) => {
   const options = {
     name: "Electron",
     icns: "/Applications/Electron.app/Contents/Resources/Electron.icns"
@@ -709,6 +710,16 @@ const WriteToHosts = (updatedHosts) => {
     `echo "${updatedHosts}" | cat > /etc/hosts | resolvectl flush-caches`,
     options,
     function(error) {
+      if (error)
+        ;
+      else {
+        const updatedBlockList = userData.map((site) => {
+          site.Blocked = site.selectedToBlock;
+          return site;
+        });
+        const updatedBlockListJSON = JSON.stringify({ websites: updatedBlockList }, null, 1);
+        fs.writeFileSync(`${__dirname}/../src/block-list.json`, updatedBlockListJSON);
+      }
     }
   );
 };
@@ -727,7 +738,7 @@ function createUpdatedHosts(resetHosts) {
   } else {
     hostsUpdated.push("#Created by AppBlocker\n");
     for (let element of userData.websites) {
-      if (element.Blocked) {
+      if (element.selectedToBlock) {
         let hostsNewLine = "0.0.0.0";
         for (let i = 0; i < topLevelDomains.length; i++) {
           hostsNewLine += ` ${element.URL}.${topLevelDomains[i]}`;
@@ -737,7 +748,7 @@ function createUpdatedHosts(resetHosts) {
       }
     }
     const newHostsUpdated = hostsUpdated.join("\n");
-    WriteToHosts(newHostsUpdated);
+    WriteToHosts(newHostsUpdated, userData.websites);
   }
 }
 const deleteFromFile = (siteName) => {

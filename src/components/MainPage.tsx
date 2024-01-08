@@ -7,6 +7,7 @@ import { siteData } from "../interfaces/SiteData";
 
 const MainPage = () => {
   const [sitesInActiveList, setSitesInActiveList] = useState([""]);
+  const [writtenToBlockList, setWrittenToBlockList] = useState(false);
 
   //Sends the signal to the electron main process to read the JSON file
   useEffect(() => {
@@ -35,15 +36,18 @@ const MainPage = () => {
     <>
       <div className="form-div">
         <SuggestedAndSelectedSitesContainer
+          writtenToBlockList={writtenToBlockList}
+          setWrittenToBlockList={setWrittenToBlockList}
           sitesInActiveList={sitesInActiveList}
           setSitesInActiveList={setSitesInActiveList}
         />
-        <div className="footer-buttons">
-        <ConfirmationButton />
+
+        <ConfirmationButton setWrittenToBlocklist={setWrittenToBlockList} />
+
         <SettingsButton />
         <UnblockAllSitesButton />
       </div>
-      </div>
+      
     </>
   );
 };

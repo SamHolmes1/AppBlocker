@@ -1,28 +1,5 @@
 {
  "websites": [
-  {
-   "name": "Bet365",
-   "URL": "bet365",
-   "Blocked": true,
-   "logoUrl": "https://bet365/favicon.ico"
-  },
-  {
-   "name": "Runescape",
-   "URL": "runescape",
-   "Blocked": true,
-   "logoUrl": "https://runescape/favicon.ico"
-  },
-  {
-   "name": "BetWay",
-   "URL": "betway",
-   "Blocked": true,
-   "logoUrl": "https://betway/favicon.ico"
-  },
-  {
-   "name": "BetFred",
-   "URL": "betfred",
-   "Blocked": true,
-   "logoUrl": "https://betfred/favicon.ico"
-  }
+  
  ]
 }
