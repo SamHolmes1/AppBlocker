@@ -36,7 +36,7 @@ const UserSelectedSites = (props: SitesInActiveListProps) => {
     return (
       <div className="suggested-sites-div">
         <h2>My Sites</h2>
-        <p>add websites to list</p>
+        <p>Click a site on the right-hand side or add your own!</p>
         <InputBox />
       </div>
     );

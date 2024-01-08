@@ -9,6 +9,7 @@ interface websiteData {
 const WriteToBlockList = (
   inputName: string,
   inputURL: string = `${inputName.toLowerCase()}`,
+  //Change line 13 string to 'src/assets/added.ico' and get someone on linux to test. Gives added sites a plus icon (can be changed to something else!)
   inputLogoUrl: string = `https://${inputURL}.com/favicon.ico`,
   selectedToBlock: boolean = true,
   blocked: boolean = false

@@ -24,7 +24,7 @@ const ConfirmationButton = (props: confirmationButtonProps) => {
 
   return (
     <button className="confirmation-button-div" onClick={clickHandler}>
-      {props.unBlockMode === true ? "UnBlock" : "Block"}
+      {props.unBlockMode === true ? "Unblock!" : "Block!"}
     </button>
   );
 };
