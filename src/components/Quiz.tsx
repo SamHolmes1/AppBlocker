@@ -1,14 +1,17 @@
-import PuzzleBox from "./Quiz-Components/PuzzleBox"
+import PuzzleBox from "./Quiz-Components/PuzzleBox";
 
-function Quiz() {
+interface quizProps {
+  setUnBlockMode: Function;
+}
 
-    return (
-      <>
-        <div>
-          <PuzzleBox />
-        </div>
-      </>
-    )
-  }
-  
-  export default Quiz
+function Quiz(props: quizProps) {
+  return (
+    <>
+      <div>
+        <PuzzleBox setUnBlockMode={props.setUnBlockMode} />
+      </div>
+    </>
+  );
+}
+
+export default Quiz;

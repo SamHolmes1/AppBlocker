@@ -3,12 +3,16 @@ import QuizQuestions from "./Questions";
 import ScoreComponent from "./ScoreComponent";
 import { Link } from "react-router-dom";
 
-function PuzzleBox() {
+interface quizProps {
+  setUnBlockMode: Function;
+}
+
+function PuzzleBox(props: quizProps) {
   const [score, setScore] = useState(0);
 
   const clickHandler = () => {
     //@ts-ignore
-    ipcRenderer.send("updateHosts", true);
+    props.setUnBlockMode(true);
   };
 
   if (score !== 5) {

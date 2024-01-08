@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
  * @returns JSX.Element
  */
 
-const UnblockAllSitesButton = () => {
+const UnblockModeButton = () => {
   return (
     <Link to="/quiz">
-      <button className="unblock-all-button">Unblock All</button>
+      <button className="unblock-all-button">Unblock Mode</button>
     </Link>
   );
 };
 
-export default UnblockAllSitesButton;
+export default UnblockModeButton;

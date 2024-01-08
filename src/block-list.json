@@ -1,16 +1,3 @@
 {
- "websites": [
-  {
-   "name": "Bet365",
-   "URL": "bet365",
-   "Blocked": true,
-   "logoUrl": "https://bet365/favicon.ico"
-  },
-  {
-   "name": "Betfair",
-   "URL": "betfair",
-   "Blocked": true,
-   "logoUrl": "https://betfair/favicon.ico"
-  }
- ]
+ "websites": []
 }

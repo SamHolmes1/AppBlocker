@@ -2,11 +2,19 @@ import { useEffect, useState } from "react";
 import ConfirmationButton from "./MainPage-components/ConfirmationButton";
 import SuggestedAndSelectedSitesContainer from "./MainPage-components/SuggestedAndSelectedSitesContainer";
 import SettingsButton from "./MainPage-components/SettingsButton";
-import UnblockAllSitesButton from "./MainPage-components/UnblockAllSitesButton";
+import UnblockModeButton from "./MainPage-components/UnblockModeButton";
 import { siteData } from "../interfaces/SiteData";
 
-const MainPage = () => {
+//ipcRenderer.send("updateHosts", true);
+
+interface MainPageProps {
+  setUnBlockMode: Function;
+  unBlockMode: boolean;
+}
+
+const MainPage = (props: MainPageProps) => {
   const [sitesInActiveList, setSitesInActiveList] = useState([""]);
+  const [writtenToBlockList, setWrittenToBlockList] = useState(false);
 
   //Sends the signal to the electron main process to read the JSON file
   useEffect(() => {
@@ -35,14 +43,20 @@ const MainPage = () => {
     <>
       <div className="form-div">
         <SuggestedAndSelectedSitesContainer
+          writtenToBlockList={writtenToBlockList}
+          setWrittenToBlockList={setWrittenToBlockList}
           sitesInActiveList={sitesInActiveList}
           setSitesInActiveList={setSitesInActiveList}
+          unBlockMode={props.unBlockMode}
         />
         <div className="footer-buttons">
-        <SettingsButton />
-        <ConfirmationButton />
-        <UnblockAllSitesButton />
-      </div>
+          <SettingsButton />
+          <ConfirmationButton
+            setWrittenToBlocklist={setWrittenToBlockList}
+            setUnBlockMode={props.setUnBlockMode}
+          />
+          <UnblockModeButton />
+        </div>
       </div>
     </>
   );

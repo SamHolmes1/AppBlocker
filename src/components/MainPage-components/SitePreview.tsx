@@ -14,7 +14,7 @@ const SitePreview = (props: siteProps) => {
     //@ts-ignore
     ipcRenderer.send("writeToBlockList", props.siteName);
     //@ts-ignore
-    props.setSitesInActiveList(tempArray);
+    // props.setSitesInActiveList();
   }
 
   function changeBlockStatus(
@@ -32,19 +32,39 @@ const SitePreview = (props: siteProps) => {
 
   if (props.isActive) {
     return (
-      <div
-        className={`site-preview-div`}
-      >
-        <button className="site-button" id={`${
-          props.Blocked === true ? "blocked" : "not-blocked"
-        }`} onClick={changeBlockStatus}>
+      <div className={`site-preview-div`}>
+        <button
+          className={`site-button ${
+            props.Blocked !== props.selectedToBlock ? "selected" : ""
+          }`}
+          onClick={changeBlockStatus}
+          disabled={
+            (props.Blocked === true && props.unBlockMode === false) ||
+            (props.Blocked === false && props.unBlockMode === true)
+          }
+          id={`${
+            props.Blocked !== props.selectedToBlock ? "blocked" : "not-blocked"
+          }`}
+        >
           {/* <img className="logo-image" src={`src/assets/${props.siteName}.ico`}></img> */}
-          <img className="logo-image" id={`${
-          props.Blocked === true ? "blocked-logo" : "not-blocked-logo"
-          }`} src={`src/assets/steam.ico`}></img>
+          <img
+            className="logo-image"
+            id={`${
+              props.Blocked === true ? "blocked-logo" : "not-blocked-logo"
+            }`}
+            src={`src/assets/steam.ico`}
+          ></img>
           <span className="site-text">{props.siteName}</span>
         </button>
-        <button onClick={deleteFromFile}>delete</button>
+        <button
+          onClick={deleteFromFile}
+          disabled={
+            (props.Blocked === true && props.unBlockMode === false) ||
+            (props.Blocked === false && props.unBlockMode === true)
+          }
+        >
+          delete
+        </button>
       </div>
     );
   }

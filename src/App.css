@@ -7,11 +7,11 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Unica+One&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap");
 
 html {
   background-color: #ccdbdc;
-  background-image: url('src/assets/maze-background.jpg');
+  background-image: url("src/assets/maze-background.jpg");
   background-size: fill;
 }
 
@@ -23,8 +23,7 @@ html {
   font-size: max(20px, 17px);
   align-items: center;
   height: fit-content;
-  
-  }
+}
 
 .form-div {
   margin: auto;
@@ -52,7 +51,6 @@ html {
 h1 {
   margin: auto;
 }
-
 
 .sites-to-block-div {
   border: 5px solid #263d42;
@@ -102,7 +100,6 @@ h1 {
   color: #ccdbdc;
 }
 
-
 #blocked-logo {
   content: url("src/assets/blocked.png");
 }
@@ -117,7 +114,6 @@ button {
   background-color: #58729150;
   color: #263d42;
 }
-
 
 button:hover {
   cursor: pointer;
@@ -163,7 +159,7 @@ p {
   min-width: fit-content;
   font-weight: 600;
   color: #263d42;
-  background-color:#e3e6e6;
+  background-color: #e3e6e6;
 }
 
 .delete-button {
@@ -203,7 +199,7 @@ a {
 }
 
 form {
-  justify-self:end;
+  justify-self: end;
   text-align: center;
   padding-top: 10px;
   padding-right: 10px;
@@ -227,8 +223,7 @@ input {
   padding: 10px;
   font-size: 15px;
   border-radius: 10px;
-  border-color:#263d42;
-
+  border-color: #263d42;
 }
 
 #categories {
@@ -246,7 +241,7 @@ input {
   font-weight: 600;
   font-family: "Unica One", sans-serif;
   background-color: #263d42;
-  color:#ccdbdc;
+  color: #ccdbdc;
 }
 
 .settings-button-div {
@@ -289,7 +284,7 @@ input {
   width: 250px;
   min-width: fit-content;
   color: #263d42;
-  background-color:#e3e6e6;
+  background-color: #e3e6e6;
   margin: 30px auto;
 }
 

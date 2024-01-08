@@ -11,26 +11,25 @@ import InputBox from "./InputBox";
  */
 const UserSelectedSites = (props: SitesInActiveListProps) => {
   const [siteList, setSiteList] = useState({ websites: [] });
-  const [writtenToBlockList, setWrittenToBlockList] = useState(false);
 
   useEffect(() => {
     //@ts-ignore
     ipcRenderer.send("readBlockList");
-    setWrittenToBlockList(false);
-  }, [writtenToBlockList]);
+    props.setWrittenToBlockList(false);
+  }, [props.writtenToBlockList]);
 
   //@ts-ignore
   ipcRenderer.on("blockListOutput", (e, data) => {
     setSiteList(data);
     //@ts-ignore
-    ipcRenderer.removeListener("blockListOutput", () => {});
+    ipcRenderer.removeAllListeners("blockListOutput");
   });
 
   //@ts-ignore
   ipcRenderer.on("writtenToBlockList", (e, data: boolean) => {
-    setWrittenToBlockList(data);
+    props.setWrittenToBlockList(data);
     //@ts-ignore
-    ipcRenderer.removeListener("writtenToBlockList", () => {});
+    ipcRenderer.removeAllListeners("writtenToBlockList");
   });
 
   if (siteList.websites.length === 0) {
@@ -47,22 +46,22 @@ const UserSelectedSites = (props: SitesInActiveListProps) => {
         <h2>My Sites</h2>
         <p>Click site to unblock/block</p>
         <div className="list-of-my-buttons">
-        {siteList.websites.map((i: siteData) => {
-          return (
-           
-            <SitePreview
-              siteName={i.name}
-              key={i.URL}
-              URL={i.URL}
-              logoUrl={i.logoUrl}
-              isActive={true}
-              Blocked={i.Blocked}
-              siteList={siteList.websites}
-            />
-          
-          );
-        })}
-          </div>
+          {siteList.websites.map((i: siteData) => {
+            return (
+              <SitePreview
+                siteName={i.name}
+                key={i.URL}
+                URL={i.URL}
+                logoUrl={i.logoUrl}
+                isActive={true}
+                Blocked={i.Blocked}
+                selectedToBlock={i.selectedToBlock}
+                siteList={siteList.websites}
+                unBlockMode={props.unBlockMode}
+              />
+            );
+          })}
+        </div>
         <InputBox />
       </div>
     );

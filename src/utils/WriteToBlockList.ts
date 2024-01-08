@@ -9,8 +9,9 @@ interface websiteData {
 const WriteToBlockList = (
   inputName: string,
   inputURL: string = `${inputName.toLowerCase()}`,
-  inputLogoUrl: string = `https://${inputURL}/favicon.ico`,
-  blocked: boolean = true
+  inputLogoUrl: string = `https://${inputURL}.com/favicon.ico`,
+  selectedToBlock: boolean = true,
+  blocked: boolean = false
 ) => {
   const data = fs.readFileSync(`${__dirname}/../src/block-list.json`);
   const alreadyExists = JSON.parse(data.toString()).websites.find(
@@ -22,6 +23,7 @@ const WriteToBlockList = (
     parsedData.websites.push({
       name: inputName,
       URL: inputURL,
+      selectedToBlock: selectedToBlock,
       Blocked: blocked,
       logoUrl: inputLogoUrl,
     });
@@ -33,10 +35,10 @@ const WriteToBlockList = (
   } else if (alreadyExists && inputName.length !== 0) {
     const parsedData = JSON.parse(data.toString());
     for (let element of parsedData.websites) {
-      if (element.name === inputName && !element.Blocked) {
-        element.Blocked = true;
-      } else if (element.name === inputName && element.Blocked) {
-        element.Blocked = false;
+      if (element.name === inputName && !element.selectedToBlock) {
+        element.selectedToBlock = true;
+      } else if (element.name === inputName && element.selectedToBlock) {
+        element.selectedToBlock = false;
       }
     }
     fs.writeFile(
