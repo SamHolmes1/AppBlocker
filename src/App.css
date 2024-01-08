@@ -90,6 +90,10 @@
     .not-blocked {
       background-color: #6A994E;
     }
+
+    .selected {
+      background-color: #F45866;
+    }
     
     button {
       font-family: 'Crimson Text', serif;

@@ -7,6 +7,7 @@ export interface siteProps {
   isActive: boolean;
   siteList?: Array<siteData>;
   Blocked?: boolean;
+  selectedToBlock: boolean
   setSitesInActiveList?: Function;
   sitesInActiveList?: Array<string>;
 }

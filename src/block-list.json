@@ -3,44 +3,30 @@
   {
    "name": "BetFred",
    "URL": "betfred",
+   "selectedToBlock": true,
    "Blocked": true,
    "logoUrl": "https://betfred/favicon.ico"
   },
   {
-   "name": "Bet365",
-   "URL": "bet365",
-   "Blocked": true,
-   "logoUrl": "https://bet365/favicon.ico"
-  },
-  {
-   "name": "Betfair",
-   "URL": "betfair",
-   "Blocked": true,
-   "logoUrl": "https://betfair/favicon.ico"
-  },
-  {
-   "name": "BetWay",
-   "URL": "betway",
-   "Blocked": true,
-   "logoUrl": "https://betway/favicon.ico"
-  },
-  {
-   "name": "Steam",
-   "URL": "steam",
-   "Blocked": true,
-   "logoUrl": "https://steam/favicon.ico"
-  },
-  {
    "name": "Runescape",
    "URL": "runescape",
+   "selectedToBlock": true,
    "Blocked": true,
    "logoUrl": "https://runescape/favicon.ico"
   },
   {
-   "name": "Geoguessr",
-   "URL": "geoguessr",
-   "Blocked": true,
-   "logoUrl": "https://geoguessr/favicon.ico"
+   "name": "Bet365",
+   "URL": "bet365",
+   "selectedToBlock": false,
+   "Blocked": false,
+   "logoUrl": "https://bet365.com/favicon.ico"
+  },
+  {
+   "name": "BetWay",
+   "URL": "betway",
+   "selectedToBlock": false,
+   "Blocked": false,
+   "logoUrl": "https://betway.com/favicon.ico"
   }
  ]
 }

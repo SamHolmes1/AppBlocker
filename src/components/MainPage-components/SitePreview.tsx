@@ -14,7 +14,7 @@ const SitePreview = (props: siteProps) => {
     //@ts-ignore
     ipcRenderer.send("writeToBlockList", props.siteName);
     //@ts-ignore
-    props.setSitesInActiveList(tempArray);
+    // props.setSitesInActiveList();
   }
 
   function changeBlockStatus(
@@ -33,14 +33,14 @@ const SitePreview = (props: siteProps) => {
   if (props.isActive) {
     return (
       <div
-        className={`site-preview-div ${
-          props.Blocked === true ? "blocked" : "not-blocked"
-        }`}
+        className={`site-preview-div`}
       >
-        <button className="site-button" onClick={changeBlockStatus}>
+        <button className={`site-button ${
+          props.Blocked !== props.selectedToBlock ? "selected" : ""
+        }`} onClick={changeBlockStatus} disabled={props.Blocked}>
           {props.siteName}
         </button>
-        <button onClick={deleteFromFile}>delete</button>
+        <button onClick={deleteFromFile} hidden={props.Blocked}>delete</button>
       </div>
     );
   }
