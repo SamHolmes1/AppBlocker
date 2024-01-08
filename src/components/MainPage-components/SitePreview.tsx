@@ -33,14 +33,14 @@ const SitePreview = (props: siteProps) => {
   if (props.isActive) {
     return (
       <div
-        className={`site-preview-div ${
-          props.Blocked === true ? "blocked" : "not-blocked"
-        }`}
+        className={`site-preview-div`}
       >
-        <button className="site-button" onClick={changeBlockStatus}>
-          {props.siteName}
+        <button className="site-button" id={`${
+          props.Blocked === true ? "blocked" : "not-blocked"
+        }`} onClick={changeBlockStatus}>
           {/* <img className="logo-image" src={`src/assets/${props.siteName}.ico`}></img> */}
           <img className="logo-image" src={`src/assets/steam.ico`}></img>
+          {props.siteName}
         </button>
         <button onClick={deleteFromFile}>delete</button>
       </div>
@@ -51,9 +51,9 @@ const SitePreview = (props: siteProps) => {
     return (
       <div className="site-preview-div">
         <button className="site-button" onClick={addToList}>
-          {props.siteName}
           {/* <img className="logo-image" src={`src/assets/${props.siteName}.ico`}></img> */}
           <img className="logo-image" src={`src/assets/steam.ico`}></img>
+          {props.siteName}
         </button>
       </div>
     );

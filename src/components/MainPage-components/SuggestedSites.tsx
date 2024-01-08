@@ -31,7 +31,7 @@ const SuggestedSites = (props: SitesInActiveListProps) => {
 
   return (
     <div className="categories">
-      <h2>Suggestions</h2>
+      <h2 className="suggestions-title">Suggestions</h2>
       <select
         id="categories"
         name="categories"
