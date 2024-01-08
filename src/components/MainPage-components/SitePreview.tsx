@@ -72,7 +72,7 @@ const SitePreview = (props: siteProps) => {
     return (
       <div className="site-preview-div">
         <button className="site-button" onClick={addToList}>
-          <img className="logo-image" src={`src/assets/${props.siteName.toLowerCase()}.ico`}></img>
+          <img className="logo-image" src={`src/assets/${props.siteName.toLowerCase().replace(" ","")}.ico`}></img>
           {props.siteName}
         </button>
       </div>
