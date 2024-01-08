@@ -30,7 +30,7 @@ function QuizQuestions(props:ScoreProps) {
   const [options, setOptions] = useState(emptyOptions);
 
   const questionSetUp = () => {
-    axios
+      axios
       .get("https://the-trivia-api.com/v2/questions?limit=1")
       .then((retrievedData) => {
         const currentQuestion = retrievedData.data[0];
@@ -54,6 +54,7 @@ function QuizQuestions(props:ScoreProps) {
       .catch((err) => {
         console.log(err);
       })
+    
   }
 
   useEffect(() => {
@@ -67,7 +68,7 @@ function QuizQuestions(props:ScoreProps) {
     return (
       <div>
         <div className="question">
-          <h2>{questionData.question.text}</h2>
+          {questionData.question.text}
         </div>
         <div className="options">
           

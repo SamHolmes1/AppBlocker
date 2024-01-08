@@ -13,8 +13,7 @@ function PuzzleBox() {
 
   if (score !== 5) {
     return (
-      <div>
-        <h1>Quiz App</h1>
+      <div className="quiz-div">
         <QuizQuestions score={score} setScore={setScore} />
         <ScoreComponent score={score} />
       </div>
