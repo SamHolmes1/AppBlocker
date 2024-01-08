@@ -46,13 +46,12 @@ const SitePreview = (props: siteProps) => {
             props.Blocked !== props.selectedToBlock ? "blocked" : "not-blocked"
           }`}
         >
-          {/* <img className="logo-image" src={`src/assets/${props.siteName}.ico`}></img> */}
           <img
             className="logo-image"
             id={`${
               props.Blocked === true ? "blocked-logo" : "not-blocked-logo"
             }`}
-            src={`src/assets/steam.ico`}
+            src={`src/assets/${props.siteName}.ico`}
           ></img>
           <span className="site-text">{props.siteName}</span>
         </button>
@@ -73,8 +72,7 @@ const SitePreview = (props: siteProps) => {
     return (
       <div className="site-preview-div">
         <button className="site-button" onClick={addToList}>
-          {/* <img className="logo-image" src={`src/assets/${props.siteName}.ico`}></img> */}
-          <img className="logo-image" src={`src/assets/steam.ico`}></img>
+          <img className="logo-image" src={`src/assets/${props.siteName}.ico`}></img>
           {props.siteName}
         </button>
       </div>
