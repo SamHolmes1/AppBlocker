@@ -39,6 +39,8 @@ const SitePreview = (props: siteProps) => {
       >
         <button className="site-button" onClick={changeBlockStatus}>
           {props.siteName}
+          {/* <img className="logo-image" src={`src/assets/${props.siteName}.ico`}></img> */}
+          <img className="logo-image" src={`src/assets/steam.ico`}></img>
         </button>
         <button onClick={deleteFromFile}>delete</button>
       </div>
@@ -50,6 +52,8 @@ const SitePreview = (props: siteProps) => {
       <div className="site-preview-div">
         <button className="site-button" onClick={addToList}>
           {props.siteName}
+          {/* <img className="logo-image" src={`src/assets/${props.siteName}.ico`}></img> */}
+          <img className="logo-image" src={`src/assets/steam.ico`}></img>
         </button>
       </div>
     );

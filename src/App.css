@@ -121,3 +121,10 @@
       display: flex;
       justify-content: space-between;
     }
+
+    .logo-image {
+      height: 5vw;
+      width: 5vw;
+      max-width: 40px;
+      max-height: 40px;
+    }
