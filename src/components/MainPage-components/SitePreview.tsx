@@ -51,7 +51,7 @@ const SitePreview = (props: siteProps) => {
             id={`${
               props.Blocked === true ? "blocked-logo" : "not-blocked-logo"
             }`}
-            src={`src/assets/${props.siteName}.ico`}
+            src={`src/assets/${props.siteName.toLowerCase()}.ico`}
           ></img>
           <span className="site-text">{props.siteName}</span>
         </button>
@@ -72,7 +72,7 @@ const SitePreview = (props: siteProps) => {
     return (
       <div className="site-preview-div">
         <button className="site-button" onClick={addToList}>
-          <img className="logo-image" src={`src/assets/${props.siteName}.ico`}></img>
+          <img className="logo-image" src={`src/assets/${props.siteName.toLowerCase()}.ico`}></img>
           {props.siteName}
         </button>
       </div>
