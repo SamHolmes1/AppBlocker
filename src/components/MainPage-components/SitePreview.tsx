@@ -51,9 +51,12 @@ const SitePreview = (props: siteProps) => {
             id={`${
               props.Blocked === true ? "blocked-logo" : "not-blocked-logo"
             }`}
-            // get someone on linux to test tomorrow - need to change line13 in writetoblocklist too
-            // src = {`${props.logoUrl} === "src/assets/added.ico"` ? "src/assets/added.ico" : `src/assets/${props.siteName.toLowerCase()}.ico` }
-            src={`src/assets/${props.siteName.toLowerCase()}.ico`}
+
+  src={`src/assets/${props.siteName.toLowerCase()}.ico`}
+  onError={({ currentTarget }) => {
+    currentTarget.onerror = null;
+    currentTarget.src="src/assets/labyrinth.ico";
+  }}
           ></img>
           <span className="site-text">{props.siteName}</span>
         </button>
