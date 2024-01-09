@@ -88,12 +88,12 @@ color: red;
 
 .suggested-sites-buttons {
   overflow-y: auto;
-  height: 50vh;
+  height: 54vh;
   padding-bottom: 15px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 41.23vw;
+  width: 40.75vw;
 }
 
 .list-of-my-buttons {
@@ -103,7 +103,7 @@ color: red;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 41.23vw;
+  width: 40.75vw;
 }
 
 #blocked {
