@@ -8,7 +8,9 @@ import createUpdatedHosts from "../src/utils/createUpdatedHosts";
 import deleteFromFile from "../src/utils/deleteFromBlocklist";
 import sudo from "sudo-prompt";
 import { siteData } from "../src/interfaces/SiteData";
-import fs from "fs"
+import fs from "fs";
+import { settingsObjectInterface } from "../src/interfaces/SettingsObject";
+import { WriteToUserSettings } from "../src/utils/WriteToUserSettings";
 
 // The built directory structure
 //
@@ -40,8 +42,7 @@ function createWindow() {
     },
   });
 
-  win.setContentSize(1280, 800)
-  
+  win.setContentSize(1280, 800);
 
   // Test active push message to Renderer-process.
   win.webContents.on("did-finish-load", () => {
@@ -86,16 +87,16 @@ app.whenReady().then(() => {
   ipcMain.on("updateHosts", (e, ...args) => {
     createUpdatedHosts(args[0]);
 
-   
-
     function createUpdatedHosts(resetHosts?: boolean): void {
-      
-      const WriteToHosts = (updatedHosts: string, userData: Array<siteData>) => {
+      const WriteToHosts = (
+        updatedHosts: string,
+        userData: Array<siteData>
+      ) => {
         const options = {
           name: "Electron",
           icns: "/Applications/Electron.app/Contents/Resources/Electron.icns", // (optional)
         };
-      
+
         sudo.exec(
           `echo "${updatedHosts}" | cat > /etc/hosts | resolvectl flush-caches`,
           options,
@@ -104,38 +105,44 @@ app.whenReady().then(() => {
               //TODO: implement error handling
             } else {
               const updatedBlockList = userData.map((site) => {
-                site.Blocked = site.selectedToBlock
-                return site
-              })
-              const updatedBlockListJSON = JSON.stringify({websites: updatedBlockList}, null, 1)
-              fs.writeFileSync(`${__dirname}/../src/block-list.json`, updatedBlockListJSON)
-              e.sender.send("writtenToBlockList", true)
+                site.Blocked = site.selectedToBlock;
+                return site;
+              });
+              const updatedBlockListJSON = JSON.stringify(
+                { websites: updatedBlockList },
+                null,
+                1
+              );
+              fs.writeFileSync(
+                `${__dirname}/../src/block-list.json`,
+                updatedBlockListJSON
+              );
+              e.sender.send("writtenToBlockList", true);
             }
           }
         );
       };
-      
+
       const topLevelDomains = ["com", "co.uk", "tv"];
       fs.copyFileSync(
         `${__dirname}/hosts_backup.txt`,
         `${__dirname}/hosts_updated.txt`
       );
-    
+
       const userData = JSON.parse(
         fs.readFileSync(`${__dirname}/../src/block-list.json`).toString()
       );
-    
-    
+
       let hostsUpdated = fs
         .readFileSync(`${__dirname}/hosts_updated.txt`)
         .toString()
         .split("\n");
-    
+
       if (resetHosts) {
-        WriteToHosts(hostsUpdated.join("\n"), );
+        // WriteToHosts(hostsUpdated.join("\n"));
       } else {
         hostsUpdated.push("#Created by AppBlocker\n");
-    
+
         for (let element of userData.websites) {
           if (element.selectedToBlock) {
             let hostsNewLine = "0.0.0.0";
@@ -146,20 +153,18 @@ app.whenReady().then(() => {
             hostsUpdated.push(hostsNewLine);
           }
         }
-    
+
         const newHostsUpdated = hostsUpdated.join("\n");
-    
+
         WriteToHosts(newHostsUpdated, userData.websites);
       }
     }
-
-
-
   });
   ipcMain.on("delete from file", (e, siteName: string) => {
     deleteFromFile(siteName);
     e.sender.send("writtenToBlockList", true);
   });
+<<<<<<< HEAD
   ipcMain.on("updateSelectedToBlock", (e) => {
     const currentBlockList = JSON.parse(fs.readFileSync(`${__dirname}/../src/block-list.json`).toString())
     for(let i=0; i<currentBlockList.websites.length; i++){
@@ -168,6 +173,20 @@ app.whenReady().then(() => {
     fs.writeFileSync(`${__dirname}/../src/block-list.json`, JSON.stringify(currentBlockList, null, 1))
     e.sender.send("writtenToBlockList", true)
   })
+=======
+
+  ipcMain.on("writeToUserSettings", (_e, data: settingsObjectInterface) => {
+    WriteToUserSettings(data);
+  });
+
+  ipcMain.on("readUserSettingsJson", (e, data) => {
+    const userSettingsJson = JSON.parse(
+      fs.readFileSync(`${__dirname}/../src/user-settings.json`).toString()
+    );
+    e.sender.send("userSettingsOutput", userSettingsJson);
+  });
+
+>>>>>>> 02faec1e5d7372d07379ddcfea0007de99d8b9e1
   BackupHosts("");
   createWindow();
 });
