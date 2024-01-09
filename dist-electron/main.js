@@ -719,11 +719,13 @@ function createWindow() {
   win = new electron.BrowserWindow({
     height: 890,
     width: 1280,
+    autoHideMenuBar: true,
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
     webPreferences: {
       preload: path.join(__dirname, "preload.js")
     }
   });
+  win.setContentSize(1280, 1500);
   win.webContents.on("did-finish-load", () => {
     win == null ? void 0 : win.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
   });

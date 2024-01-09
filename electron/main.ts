@@ -32,11 +32,15 @@ function createWindow() {
   win = new BrowserWindow({
     height: 890,
     width: 1280,
+    autoHideMenuBar: true,
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
   });
+
+  win.setContentSize(1280, 1500)
+  
 
   // Test active push message to Renderer-process.
   win.webContents.on("did-finish-load", () => {
