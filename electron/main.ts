@@ -30,7 +30,8 @@ const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 
 function createWindow() {
   win = new BrowserWindow({
-    height: 890,
+    resizable: false,
+    height: 850,
     width: 1280,
     autoHideMenuBar: true,
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
@@ -39,7 +40,7 @@ function createWindow() {
     },
   });
 
-  win.setContentSize(1280, 1500)
+  win.setContentSize(1280, 1010)
   
 
   // Test active push message to Renderer-process.
