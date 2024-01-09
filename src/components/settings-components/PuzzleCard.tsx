@@ -1,16 +1,23 @@
-import { useContext, useState } from "react";
-import { SettingsContext } from "../../Context/SettingsContext";
+import { useContext, useState, useEffect } from "react";
+import { SettingsContext } from "../../App";
 
 const PuzzleCard = () => {
   const gamesArray = ["quiz", "math", "maze"];
-  const SettingsObject = useContext(SettingsContext);
+  const { settingsState, setSettingsState } = useContext(SettingsContext);
   // const [checkboxProperties, setCheckboxProperties] = useState("");
+
+  useEffect(() => {
+    
+  }, [settingsState])
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const gameKey = event.target.value;
-    SettingsObject[`${gameKey}_selected`] =
-      !SettingsObject[`${gameKey}_selected`];
-    
+    setSettingsState((settingsBeforeOnChange) => {
+      settingsBeforeOnChange[gameKey] =
+        !settingsBeforeOnChange[gameKey];
+      console.log(settingsState);
+      return settingsBeforeOnChange;
+    });
   };
 
   return (
@@ -23,7 +30,7 @@ const PuzzleCard = () => {
               type="checkbox"
               value={`${game}_selected`}
               name={game}
-              checked={SettingsObject[`${game}_selected`]}
+              defaultChecked={settingsState[`${game}_selected`]}
               onChange={(event) => {
                 handleOnChange(event);
               }}

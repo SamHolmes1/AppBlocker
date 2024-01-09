@@ -4,12 +4,19 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Settings from "./components/Settings";
 import Quiz from "./components/Quiz";
-import { useState, useContext } from "react";
-import { SettingsContext } from "./Context/SettingsContext";
+import { useState, createContext } from "react";
+
+export const SettingsContext = createContext({})
 
 function App() {
   const [unBlockMode, setUnBlockMode] = useState(false);
-  const SettingsObject = useContext(SettingsContext);
+  const [settingsState, setSettingsState] = useState({
+    difficulty: 1,
+    quiz_selected: true,
+    math_selected: true,
+    maze_selected: true,
+  });
+
   return (
     <>
       <Header />
@@ -26,7 +33,7 @@ function App() {
         <Route
           path="/settings"
           element={
-            <SettingsContext.Provider value={SettingsObject}>
+            <SettingsContext.Provider value={{settingsState, setSettingsState}}>
               <Settings />
             </SettingsContext.Provider>
           }
@@ -39,5 +46,7 @@ function App() {
     </>
   );
 }
+
+
 
 export default App;
