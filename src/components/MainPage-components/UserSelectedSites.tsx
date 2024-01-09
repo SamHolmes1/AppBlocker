@@ -44,7 +44,7 @@ const UserSelectedSites = (props: SitesInActiveListProps) => {
     return (
       <div className="suggested-sites-div">
         <h2 className={props.unBlockMode?"warning":""}>{props.unBlockMode?"!! My Sites: Unblock Mode !!":"My Sites"}</h2>
-        <p className={props.unBlockMode?"warning":""}>{props.unBlockMode?"Select sites to unblock":"Select sites to block"}</p>
+        <p className={props.unBlockMode?"warning":""}>{props.unBlockMode?"Select sites to unblock (all blocked sites automatically selected)":"Select sites to block"}</p>
         <div className="list-of-my-buttons">
           {siteList.websites.map((i: siteData) => {
             return (

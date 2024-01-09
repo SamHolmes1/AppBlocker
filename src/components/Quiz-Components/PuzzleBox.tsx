@@ -2,8 +2,8 @@ import { useState } from "react";
 import QuizQuestions from "./Questions";
 import ScoreComponent from "./ScoreComponent";
 import { Link } from "react-router-dom";
-import React from 'react';
 import Confetti from 'react-confetti';
+
 
 interface quizProps {
   setUnBlockMode: Function;
@@ -15,6 +15,7 @@ function PuzzleBox(props: quizProps) {
   const clickHandler = () => {
     //@ts-ignore
     props.setUnBlockMode(true);
+    ipcRenderer.send("updateSelectedToBlock")
   };
 
   if (score !== 5) {
