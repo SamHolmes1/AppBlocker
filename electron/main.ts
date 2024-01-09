@@ -9,6 +9,11 @@ import deleteFromFile from "../src/utils/deleteFromBlocklist";
 import sudo from "sudo-prompt";
 import { siteData } from "../src/interfaces/SiteData";
 import fs from "fs"
+const { ourApp } = require('../resources/app.js')
+
+ourApp.on('ready', function(message) {
+  console.log(message.content)
+})
 
 // The built directory structure
 //

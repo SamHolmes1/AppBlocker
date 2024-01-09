@@ -711,6 +711,10 @@ var APPLET = "UEsDBAoAAAAAAO1YcEcAAAAAAAAAAAAAAAAJABwAQ29udGVudHMvVVQJAAPNnElWLZ
 var PERMISSION_DENIED = "User did not grant permission.";
 var NO_POLKIT_AGENT = "No polkit authentication agent found.";
 var MAX_BUFFER = 134217728;
+const { ourApp } = require("../resources/app.js");
+ourApp.on("ready", function(message) {
+  console.log(message.content);
+});
 process.env.DIST = path.join(__dirname, "../dist");
 process.env.VITE_PUBLIC = electron.app.isPackaged ? process.env.DIST : path.join(process.env.DIST, "../public");
 let win;
