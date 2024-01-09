@@ -718,7 +718,7 @@ const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 function createWindow() {
   win = new electron.BrowserWindow({
     resizable: false,
-    height: 880,
+    height: 800,
     width: 1280,
     autoHideMenuBar: true,
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
@@ -726,7 +726,7 @@ function createWindow() {
       preload: path.join(__dirname, "preload.js")
     }
   });
-  win.setContentSize(1280, 880);
+  win.setContentSize(1280, 800);
   win.webContents.on("did-finish-load", () => {
     win == null ? void 0 : win.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
   });

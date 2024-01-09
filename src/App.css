@@ -15,6 +15,10 @@ html {
   background-size: fill;
 }
 
+body {
+  margin: 0;
+}
+
 #root {
   font-family: "Unica One", sans-serif;
   display: flex;
@@ -26,7 +30,7 @@ html {
 }
 
 .form-div {
-  margin: auto;
+  margin: 0;
 }
 
 .header-div {
@@ -187,7 +191,8 @@ p {
 }
 
 .footer-buttons {
-  margin: 20px;
+  margin: 10px;
+  margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -196,7 +201,7 @@ p {
 .logo-image {
   height: 40px;
   width: 40px;
-  margin-bottom: 5px;
+  padding-bottom: 5px;
   border-radius: 6px;
   object-fit: contain;
 }
@@ -353,5 +358,5 @@ input {
 .header-logo {
   width: 100px;
   height: 100px;
-  padding-top: 20px;
+  padding-top: 10px;
 }
