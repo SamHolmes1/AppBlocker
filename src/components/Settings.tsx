@@ -5,13 +5,12 @@ import SettingsConfirmButton from "./settings-components/SettingsConfirmButton";
 import { SettingsContext } from "../App";
 
 const Settings = () => {
-  const {settingsState, setSettingsState} = useContext(SettingsContext)
+  const { settingsState, setSettingsState } = useContext(SettingsContext);
   return (
     <>
       <div className="settings-div">
         <h2>settings</h2>
         <PuzzleSelector />
-        <FontDropdown />
         <SettingsConfirmButton />
       </div>
     </>
