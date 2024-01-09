@@ -5,10 +5,14 @@ import { Link } from "react-router-dom";
  * @returns JSX.Element
  */
 
-const UnblockModeButton = () => {
+interface unBlockProps {
+  unBlockMode: boolean;
+}
+
+const UnblockModeButton = (props: unBlockProps) => {
   return (
     <Link to="/quiz">
-      <button className="unblock-all-button">Unblock</button>
+      <button  disabled={props.unBlockMode} className="unblock-all-button">Unblock Mode</button>
     </Link>
   );
 };

@@ -56,7 +56,7 @@ const MainPage = (props: MainPageProps) => {
             setUnBlockMode={props.setUnBlockMode}
             unBlockMode={props.unBlockMode}
           />
-          <UnblockModeButton />
+          <UnblockModeButton unBlockMode={props.unBlockMode}/>
         </div>
       </div>
     </>
