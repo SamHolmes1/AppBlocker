@@ -4,7 +4,7 @@ const path = require("node:path");
 const fs = require("fs");
 const require$$0 = require("child_process");
 const require$$1 = require("crypto");
-const require$$3 = require("os");
+const os = require("os");
 const require$$4 = require("path");
 const require$$5 = require("util");
 function _interopNamespaceDefault(e) {
@@ -92,7 +92,7 @@ var Node = {
   child: require$$0,
   crypto: require$$1,
   fs,
-  os: require$$3,
+  os,
   path: require$$4,
   process,
   util: require$$5
@@ -717,6 +717,48 @@ const WriteToUserSettings = (settingsObject) => {
     JSON.stringify(settingsObject, null, 1)
   );
 };
+const fetchOperatinSystem = () => {
+  const platform = {
+    platform: "",
+    hostsPath: "",
+    endOfCommand: "",
+    writeCommand: "",
+    flushDNSCommand: "",
+    newLineFlag: ""
+  };
+  if (os.platform() === "win32") {
+    platform.platform = "windows";
+    platform.hostsPath = "C:\\Windows\\System32\\Drivers\\etc\\hosts";
+    platform.endOfCommand = ";";
+    platform.writeCommand = "echo";
+    platform.flushDNSCommand = "ipconfig /flushdns";
+    platform.newLineFlag = "\r\n";
+  } else if (os.platform() === "darwin") {
+    platform.platform = "Mac";
+    platform.hostsPath = "/private/etc/hosts";
+    platform.endOfCommand = ";";
+    platform.writeCommand = "echo";
+    platform.flushDNSCommand = "dscacacheutil -flushcache; killall -HUP mDNOSResponder";
+    platform.newLineFlag = "\r";
+  } else if (os.platform() === "linux") {
+    platform.platform = "Linux";
+    platform.hostsPath = "/etc/hosts";
+    platform.endOfCommand = "|";
+    platform.writeCommand = "echo";
+    platform.flushDNSCommand = "resolvectl flush-caches";
+    platform.newLineFlag = "\r\n";
+  } else {
+    platform.platform = "";
+    platform.hostsPath = "";
+    platform.writeCommand = "";
+    platform.flushDNSCommand = "";
+    platform.newLineFlag = "\r\n";
+    platform.error = true;
+  }
+  return platform;
+};
+const userPlatform = fetchOperatinSystem();
+console.log(userPlatform);
 process.env.DIST = path.join(__dirname, "../dist");
 process.env.VITE_PUBLIC = electron.app.isPackaged ? process.env.DIST : path.join(process.env.DIST, "../public");
 let win;
@@ -762,39 +804,43 @@ electron.app.whenReady().then(() => {
     const output = ReadBlockList();
     e.sender.send("blockListOutput", output);
   });
-  electron.ipcMain.on("updateHosts", (e, ...args) => {
-    createUpdatedHosts2(args[0]);
-    function createUpdatedHosts2(resetHosts) {
+  electron.ipcMain.on("updateHosts", (e) => {
+    createUpdatedHosts();
+    function createUpdatedHosts() {
       const WriteToHosts = (updatedHosts, userData2) => {
         const options = {
           name: "Electron",
           icns: "/Applications/Electron.app/Contents/Resources/Electron.icns"
           // (optional)
         };
-        sudoPrompt.exec(
-          `echo "${updatedHosts}" | cat > /etc/hosts | resolvectl flush-caches`,
-          options,
-          function(error) {
-            if (error)
-              ;
-            else {
-              const updatedBlockList = userData2.map((site) => {
-                site.Blocked = site.selectedToBlock;
-                return site;
-              });
-              const updatedBlockListJSON = JSON.stringify(
-                { websites: updatedBlockList },
-                null,
-                1
-              );
-              fs.writeFileSync(
-                `${__dirname}/../src/block-list.json`,
-                updatedBlockListJSON
-              );
-              e.sender.send("writtenToBlockList", true);
+        if (!userPlatform.error) {
+          sudoPrompt.exec(
+            `${userPlatform.writeCommand} "${updatedHosts}" > ${userPlatform.hostsPath} ${userPlatform.endOfCommand} ${userPlatform.flushDNSCommand}`,
+            options,
+            function(error) {
+              if (error) {
+                console.log(error);
+              } else {
+                const updatedBlockList = userData2.map((site) => {
+                  site.Blocked = site.selectedToBlock;
+                  return site;
+                });
+                const updatedBlockListJSON = JSON.stringify(
+                  { websites: updatedBlockList },
+                  null,
+                  1
+                );
+                fs.writeFileSync(
+                  `${__dirname}/../src/block-list.json`,
+                  updatedBlockListJSON
+                );
+                e.sender.send("writtenToBlockList", true);
+              }
             }
-          }
-        );
+          );
+        } else {
+          throw new Error("platform not supported");
+        }
       };
       const topLevelDomains = ["com", "co.uk", "tv"];
       fs.copyFileSync(
@@ -805,23 +851,19 @@ electron.app.whenReady().then(() => {
         fs.readFileSync(`${__dirname}/../src/block-list.json`).toString()
       );
       let hostsUpdated = fs.readFileSync(`${__dirname}/hosts_updated.txt`).toString().split("\n");
-      if (resetHosts)
-        ;
-      else {
-        hostsUpdated.push("#Created by AppBlocker\n");
-        for (let element of userData.websites) {
-          if (element.selectedToBlock) {
-            let hostsNewLine = "0.0.0.0";
-            for (let i = 0; i < topLevelDomains.length; i++) {
-              hostsNewLine += ` ${element.URL}.${topLevelDomains[i]}`;
-              hostsNewLine += ` www.${element.URL}.${topLevelDomains[i]}`;
-            }
-            hostsUpdated.push(hostsNewLine);
+      hostsUpdated.push("#Created by AppBlocker\n");
+      for (let element of userData.websites) {
+        if (element.selectedToBlock) {
+          let hostsNewLine = "0.0.0.0";
+          for (let i = 0; i < topLevelDomains.length; i++) {
+            hostsNewLine += ` ${element.URL}.${topLevelDomains[i]}`;
+            hostsNewLine += ` www.${element.URL}.${topLevelDomains[i]}`;
           }
+          hostsUpdated.push(hostsNewLine);
         }
-        const newHostsUpdated = hostsUpdated.join("\n");
-        WriteToHosts(newHostsUpdated, userData.websites);
       }
+      const newHostsUpdated = hostsUpdated.join(userPlatform.newLineFlag);
+      WriteToHosts(newHostsUpdated, userData.websites);
     }
   });
   electron.ipcMain.on("delete from file", (e, siteName) => {
@@ -829,11 +871,16 @@ electron.app.whenReady().then(() => {
     e.sender.send("writtenToBlockList", true);
   });
   electron.ipcMain.on("updateSelectedToBlock", (e) => {
-    const currentBlockList = JSON.parse(fs.readFileSync(`${__dirname}/../src/block-list.json`).toString());
+    const currentBlockList = JSON.parse(
+      fs.readFileSync(`${__dirname}/../src/block-list.json`).toString()
+    );
     for (let i = 0; i < currentBlockList.websites.length; i++) {
       currentBlockList.websites[i].selectedToBlock = false;
     }
-    fs.writeFileSync(`${__dirname}/../src/block-list.json`, JSON.stringify(currentBlockList, null, 1));
+    fs.writeFileSync(
+      `${__dirname}/../src/block-list.json`,
+      JSON.stringify(currentBlockList, null, 1)
+    );
     e.sender.send("writtenToBlockList", true);
   });
   electron.ipcMain.on("writeToUserSettings", (_e, data) => {
