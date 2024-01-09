@@ -63,6 +63,10 @@ h1 {
   background-color: #e3e6e6e1;
 }
 
+.warning{
+color: red;
+}
+
 .puzzle-selector-div {
   border: 1px solid yellow;
 }

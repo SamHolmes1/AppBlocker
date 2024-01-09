@@ -38,6 +38,7 @@ const SitePreview = (props: siteProps) => {
             props.Blocked !== props.selectedToBlock ? "selected" : ""
           }`}
           onClick={changeBlockStatus}
+          
           disabled={
             (props.Blocked === true && props.unBlockMode === false) ||
             (props.Blocked === false && props.unBlockMode === true)
@@ -59,9 +60,8 @@ const SitePreview = (props: siteProps) => {
         </button>
         <button
           onClick={deleteFromFile}
-          disabled={
-            (props.Blocked === true && props.unBlockMode === false) ||
-            (props.Blocked === false && props.unBlockMode === true)
+          style={
+            (props.Blocked === true)?{display:"none"}:{}
           }
         >
           delete
