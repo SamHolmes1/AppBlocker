@@ -3,18 +3,16 @@ import { SettingsContext } from "../../App";
 
 const PuzzleCard = () => {
   const gamesArray = ["quiz", "math", "maze"];
+  //@ts-ignore
   const { settingsState, setSettingsState } = useContext(SettingsContext);
   // const [checkboxProperties, setCheckboxProperties] = useState("");
 
-  useEffect(() => {
-    
-  }, [settingsState])
+  useEffect(() => {}, [settingsState]);
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const gameKey = event.target.value;
-    setSettingsState((settingsBeforeOnChange) => {
-      settingsBeforeOnChange[gameKey] =
-        !settingsBeforeOnChange[gameKey];
+    setSettingsState((settingsBeforeOnChange: any) => {
+      settingsBeforeOnChange[gameKey] = !settingsBeforeOnChange[gameKey];
       return settingsBeforeOnChange;
     });
   };

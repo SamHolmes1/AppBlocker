@@ -805,9 +805,9 @@ electron.app.whenReady().then(() => {
         fs.readFileSync(`${__dirname}/../src/block-list.json`).toString()
       );
       let hostsUpdated = fs.readFileSync(`${__dirname}/hosts_updated.txt`).toString().split("\n");
-      if (resetHosts) {
-        WriteToHosts(hostsUpdated.join("\n"));
-      } else {
+      if (resetHosts)
+        ;
+      else {
         hostsUpdated.push("#Created by AppBlocker\n");
         for (let element of userData.websites) {
           if (element.selectedToBlock) {
