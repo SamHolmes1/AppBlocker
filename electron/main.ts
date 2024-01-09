@@ -160,6 +160,14 @@ app.whenReady().then(() => {
     deleteFromFile(siteName);
     e.sender.send("writtenToBlockList", true);
   });
+  ipcMain.on("updateSelectedToBlock", (e) => {
+    const currentBlockList = JSON.parse(fs.readFileSync(`${__dirname}/../src/block-list.json`).toString())
+    for(let i=0; i<currentBlockList.websites.length; i++){
+      currentBlockList.websites[i].selectedToBlock = false
+    }
+    fs.writeFileSync(`${__dirname}/../src/block-list.json`, JSON.stringify(currentBlockList, null, 1))
+    e.sender.send("writtenToBlockList", true)
+  })
   BackupHosts("");
   createWindow();
 });
