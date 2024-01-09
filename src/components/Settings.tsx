@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import FontDropdown from "./settings-components/FontDropdown";
 import PuzzleSelector from "./settings-components/PuzzleSelector";
 import SettingsConfirmButton from "./settings-components/SettingsConfirmButton";
 import { SettingsContext } from "../App";
