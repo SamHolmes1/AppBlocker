@@ -15,7 +15,6 @@ const PuzzleCard = () => {
     setSettingsState((settingsBeforeOnChange) => {
       settingsBeforeOnChange[gameKey] =
         !settingsBeforeOnChange[gameKey];
-      console.log(settingsState);
       return settingsBeforeOnChange;
     });
   };

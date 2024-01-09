@@ -4,9 +4,9 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Settings from "./components/Settings";
 import Quiz from "./components/Quiz";
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 
-export const SettingsContext = createContext({})
+export const SettingsContext = createContext({});
 
 function App() {
   const [unBlockMode, setUnBlockMode] = useState(false);
@@ -15,6 +15,15 @@ function App() {
     quiz_selected: true,
     math_selected: true,
     maze_selected: true,
+  });
+
+  useEffect(() => {
+    ipcRenderer.send("readUserSettingsJson");
+  }, []);
+
+  ipcRenderer.on("userSettingsOutput", (e, data) => {
+    console.log(settingsState);
+    setSettingsState(data);
   });
 
   return (
@@ -33,7 +42,9 @@ function App() {
         <Route
           path="/settings"
           element={
-            <SettingsContext.Provider value={{settingsState, setSettingsState}}>
+            <SettingsContext.Provider
+              value={{ settingsState, setSettingsState }}
+            >
               <Settings />
             </SettingsContext.Provider>
           }
@@ -46,7 +57,5 @@ function App() {
     </>
   );
 }
-
-
 
 export default App;

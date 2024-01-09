@@ -711,6 +711,12 @@ var APPLET = "UEsDBAoAAAAAAO1YcEcAAAAAAAAAAAAAAAAJABwAQ29udGVudHMvVVQJAAPNnElWLZ
 var PERMISSION_DENIED = "User did not grant permission.";
 var NO_POLKIT_AGENT = "No polkit authentication agent found.";
 var MAX_BUFFER = 134217728;
+const WriteToUserSettings = (settingsObject) => {
+  fs.writeFileSync(
+    `${__dirname}/../src/user-settings.json`,
+    JSON.stringify(settingsObject, null, 1)
+  );
+};
 process.env.DIST = path.join(__dirname, "../dist");
 process.env.VITE_PUBLIC = electron.app.isPackaged ? process.env.DIST : path.join(process.env.DIST, "../public");
 let win;
@@ -776,8 +782,15 @@ electron.app.whenReady().then(() => {
                 site.Blocked = site.selectedToBlock;
                 return site;
               });
-              const updatedBlockListJSON = JSON.stringify({ websites: updatedBlockList }, null, 1);
-              fs.writeFileSync(`${__dirname}/../src/block-list.json`, updatedBlockListJSON);
+              const updatedBlockListJSON = JSON.stringify(
+                { websites: updatedBlockList },
+                null,
+                1
+              );
+              fs.writeFileSync(
+                `${__dirname}/../src/block-list.json`,
+                updatedBlockListJSON
+              );
               e.sender.send("writtenToBlockList", true);
             }
           }
@@ -814,6 +827,15 @@ electron.app.whenReady().then(() => {
   electron.ipcMain.on("delete from file", (e, siteName) => {
     deleteFromFile(siteName);
     e.sender.send("writtenToBlockList", true);
+  });
+  electron.ipcMain.on("writeToUserSettings", (_e, data) => {
+    WriteToUserSettings(data);
+  });
+  electron.ipcMain.on("readUserSettingsJson", (e, data) => {
+    const userSettingsJson = JSON.parse(
+      fs.readFileSync(`${__dirname}/../src/user-settings.json`).toString()
+    );
+    e.sender.send("userSettingsOutput", userSettingsJson);
   });
   BackupHosts("");
   createWindow();
