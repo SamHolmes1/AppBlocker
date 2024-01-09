@@ -797,7 +797,7 @@ electron.app.whenReady().then(() => {
         hostsUpdated.push("#Created by AppBlocker\n");
         for (let element of userData.websites) {
           if (element.selectedToBlock) {
-            let hostsNewLine = "0.0.0.0";
+            let hostsNewLine = "127.0.0.1";
             for (let i = 0; i < topLevelDomains.length; i++) {
               hostsNewLine += ` ${element.URL}.${topLevelDomains[i]}`;
               hostsNewLine += ` www.${element.URL}.${topLevelDomains[i]}`;
