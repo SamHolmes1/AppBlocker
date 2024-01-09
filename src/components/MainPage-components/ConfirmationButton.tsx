@@ -1,4 +1,3 @@
-
 /**
  * Renders a button that when pressed, triggers an ipcMain Event to update the hosts file.
  * This will ask the user for admin privileges
@@ -18,9 +17,10 @@ const ConfirmationButton = (props: confirmationButtonProps) => {
     props.setUnBlockMode(false);
   };
 
+  //@ts-ignore
   ipcRenderer.on("writtenToBlockList", () => {
-    props.setWrittenToBlocklist(true)})
-  
+    props.setWrittenToBlocklist(true);
+  });
 
   return (
     <button className="confirmation-button-div" onClick={clickHandler}>
