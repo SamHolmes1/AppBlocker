@@ -53,7 +53,7 @@ const SitePreview = (props: siteProps) => {
               props.Blocked === true ? "blocked-logo" : "not-blocked-logo"
             }`}
 
-  src={`src/assets/${props.siteName.toLowerCase()}.ico`}
+  src={`src/assets/${props.siteName.toLowerCase().replace(" ","")}.ico`}
   onError={({ currentTarget }) => {
     currentTarget.onerror = null;
     currentTarget.src="src/assets/labyrinth.ico";
