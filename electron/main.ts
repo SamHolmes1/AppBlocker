@@ -139,7 +139,7 @@ app.whenReady().then(() => {
         .split("\n");
 
       if (resetHosts) {
-        WriteToHosts(hostsUpdated.join("\n"));
+        // WriteToHosts(hostsUpdated.join("\n"));
       } else {
         hostsUpdated.push("#Created by AppBlocker\n");
 
@@ -173,8 +173,9 @@ app.whenReady().then(() => {
     const userSettingsJson = JSON.parse(
       fs.readFileSync(`${__dirname}/../src/user-settings.json`).toString()
     );
-    e.sender.send("userSettingsOutput", userSettingsJson)
+    e.sender.send("userSettingsOutput", userSettingsJson);
   });
+
   BackupHosts("");
   createWindow();
 });

@@ -18,12 +18,15 @@ function App() {
   });
 
   useEffect(() => {
+    //@ts-ignore
     ipcRenderer.send("readUserSettingsJson");
   }, []);
 
+  //@ts-ignore
   ipcRenderer.on("userSettingsOutput", (e, data) => {
-    console.log(settingsState);
     setSettingsState(data);
+    //@ts-ignore
+    ipcRenderer.removeAllListeners("userSettingsOutput");
   });
 
   return (
