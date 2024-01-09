@@ -32,6 +32,9 @@ html {
 .header-div {
   grid-area: header;
   height: 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: bottom;
 }
 
 .header-text {
@@ -339,4 +342,10 @@ input {
   width: 15vw;
   justify-content: center;
   font-family: "Unica One", sans-serif;
+}
+
+.header-logo {
+  width: 100px;
+  height: 100px;
+  padding-top: 20px;
 }
