@@ -164,7 +164,6 @@ app.whenReady().then(() => {
     deleteFromFile(siteName);
     e.sender.send("writtenToBlockList", true);
   });
-<<<<<<< HEAD
   ipcMain.on("updateSelectedToBlock", (e) => {
     const currentBlockList = JSON.parse(fs.readFileSync(`${__dirname}/../src/block-list.json`).toString())
     for(let i=0; i<currentBlockList.websites.length; i++){
@@ -173,7 +172,6 @@ app.whenReady().then(() => {
     fs.writeFileSync(`${__dirname}/../src/block-list.json`, JSON.stringify(currentBlockList, null, 1))
     e.sender.send("writtenToBlockList", true)
   })
-=======
 
   ipcMain.on("writeToUserSettings", (_e, data: settingsObjectInterface) => {
     WriteToUserSettings(data);
@@ -186,7 +184,6 @@ app.whenReady().then(() => {
     e.sender.send("userSettingsOutput", userSettingsJson);
   });
 
->>>>>>> 02faec1e5d7372d07379ddcfea0007de99d8b9e1
   BackupHosts("");
   createWindow();
 });
