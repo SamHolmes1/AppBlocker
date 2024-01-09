@@ -19,11 +19,13 @@ const PuzzleCard = () => {
 
   return (
     <>
-      <h3 className="puzzle-card">Puzzle detail here</h3>
+      {/* <h3 className="puzzle-card">Puzzle detail here</h3> */}
+      <div className="games-checklist">
       {gamesArray.map((game) => {
         return (
-          <div key={game}>
+          <div key={game} className="individual-quiz-title">
             <input
+              id="check-boxes"
               type="checkbox"
               value={`${game}_selected`}
               name={game}
@@ -34,8 +36,10 @@ const PuzzleCard = () => {
             />
             <label htmlFor={game}>{game}</label>
           </div>
+          
         );
       })}
+      </div>
     </>
   );
 };

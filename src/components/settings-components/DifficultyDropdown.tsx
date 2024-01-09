@@ -18,9 +18,9 @@ const DifficultyDropdown = () => {
   };
 
   return (
-    <>
+    <div className="difficulty-section">
       <label htmlFor="difficulty-slider">
-        Current difficulty: {sliderData}/5
+        Difficulty: {sliderData}/5
       </label>
       <input
         type="range"
@@ -31,7 +31,7 @@ const DifficultyDropdown = () => {
           changeHandler(event);
         }}
       ></input>
-    </>
+    </div>
   );
 };
 

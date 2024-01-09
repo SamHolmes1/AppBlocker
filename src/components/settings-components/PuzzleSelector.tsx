@@ -4,7 +4,7 @@ import PuzzleCard from "./PuzzleCard";
 const PuzzleSelector = () => {
   return (
     <div className="puzzle-selector-div">
-      <h3>puzzle selector</h3>
+      <h3 className="puzzle-selector-title">Select the puzzles you'd like to see:</h3>
       <PuzzleCard />
       <DifficultyDropdown />
     </div>

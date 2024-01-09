@@ -3,7 +3,8 @@
    asparagus    #6A994E
    bright pink   #F45866
    gunmetal     #263D42
-       font-family: 'Crimson Text', serif;*/
+   logo green #00BF63
+       font-family: "Inter", sans-serif;*/
 
 @import url("https://fonts.googleapis.com/css2?family=Unica+One&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
@@ -70,14 +71,6 @@ h1 {
   background-color: #e3e6e6e1;
 }
 
-.warning{
-color: red;
-}
-
-.puzzle-selector-div {
-  border: 1px solid yellow;
-}
-
 .suggested-sites-div {
   width: 40vw;
   display: flex;
@@ -93,6 +86,7 @@ color: red;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  align-content:start;
   width: 40.75vw;
 }
 
@@ -289,7 +283,6 @@ input {
   border: 5px solid #263d42;
   display: flex;
   flex-direction: column;
-  max-width: fit-content;
   margin: auto;
   margin-top: 15vh;
   background-color: #e3e6e6e1;
@@ -320,6 +313,10 @@ input {
   padding: 30px;
   padding-bottom: 20px;
   font-weight: 600;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .quiz-end{
@@ -363,4 +360,85 @@ input {
   width: 100px;
   height: 100px;
   padding-top: 10px;
+}
+
+.settings-div {
+  border: 5px solid #263d42;
+  display: flex;
+  flex-direction: column;
+  max-width: fit-content;
+  margin: auto;
+  margin-top: 15vh;
+  background-color: #e3e6e6e1;
+  width: 85vw;
+  color: #263d42;
+}
+
+.puzzle-card {
+  font-family: "Inter", sans-serif;
+  color:#263d42; 
+  font-weight: 100;
+  font-size: 1rem;
+}
+
+.puzzle-selector-title {
+  font-family: "Inter", sans-serif;
+  padding: 0px;
+  margin: 0px;
+  text-align: left;
+  font-size: 1.3rem;
+  font-weight: 200;
+  padding: 2px 30px;
+}
+
+.games-checklist {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0px;
+  font-size: 1.5rem;
+}
+
+.difficulty-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Inter", sans-serif;
+  padding: 0px;
+  margin: 0px;
+  text-align: left;
+  font-size: 1.3rem;
+  font-weight: 200;
+  padding: 2px 30px;
+}
+
+.settings-confirmation-button {
+  margin: auto;
+  margin-top: 20px;
+  padding: 5px;
+  font-size: 3vw;
+  font-weight: 600;
+  width: 15vw;
+  justify-content: center;
+  font-family: "Unica One", sans-serif;
+}
+
+input#difficulty-slider::-webkit-slider-runnable-track {
+  background:#263d42;
+  border-radius: 30px;
+}
+
+input#difficulty-slider {
+  padding: 0px;
+  accent-color: #00BF63;
+}
+
+.individual-quiz-title {
+  width: 90px;
+  margin: 2px 0px;
+}
+
+#check-boxes {
+  accent-color: #00BF63;
 }

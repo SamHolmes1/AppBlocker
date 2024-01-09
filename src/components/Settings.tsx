@@ -9,9 +9,11 @@ const Settings = () => {
     <>
       <div className="settings-div">
         <h2>settings</h2>
+        <div className="settings-options">
         <PuzzleSelector />
-        <SettingsConfirmButton />
       </div>
+      </div>
+      <SettingsConfirmButton />
     </>
   );
 };

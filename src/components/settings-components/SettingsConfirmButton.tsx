@@ -16,7 +16,7 @@ const SettingsConfirmButton = () => {
         handleOnClick();
       }}
     >
-      Confirm Settings
+      Confirm
     </button>
   );
 };
