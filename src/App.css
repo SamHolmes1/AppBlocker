@@ -66,6 +66,10 @@ h1 {
   background-color: #e3e6e6e1;
 }
 
+.warning{
+color: red;
+}
+
 .puzzle-selector-div {
   border: 1px solid yellow;
 }
@@ -80,7 +84,8 @@ h1 {
 
 .suggested-sites-buttons {
   overflow-y: auto;
-  max-height: 59vh;
+  height: 50vh;
+  padding-bottom: 15px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -254,8 +259,9 @@ input {
   padding: 5px 10px;
   background-color: #58729150;
   color: #263d42;
+  font-weight: 600;
   font-family: "Unica One", sans-serif;
-  width: 10vw;
+  width: 220px;
   justify-content: center;
 }
 
@@ -266,7 +272,7 @@ input {
   color: #263d42;
   font-weight: 600;
   font-family: "Unica One", sans-serif;
-  width: 10vw;
+  width: 220px;
   justify-content: center;
 }
 
