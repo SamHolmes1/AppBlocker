@@ -67,7 +67,6 @@ const ReadBlockList = () => {
   return parsedData;
 };
 function BackupHosts(path2) {
-  path2 = "/etc/hosts";
   if (!fs.existsSync(`${__dirname}/hosts_backup.txt`)) {
     fs.copyFile(path2, `${__dirname}/hosts_backup.txt`, (error) => {
       if (error) {
@@ -724,21 +723,24 @@ const fetchOperatinSystem = () => {
     endOfCommand: "",
     writeCommand: "",
     flushDNSCommand: "",
-    newLineFlag: ""
+    newLineFlag: "",
+    stringMarker: ""
   };
   if (os.platform() === "win32") {
     platform.platform = "windows";
     platform.hostsPath = "C:\\Windows\\System32\\Drivers\\etc\\hosts";
     platform.endOfCommand = ";";
-    platform.writeCommand = "echo";
+    platform.writeCommand = "type";
     platform.flushDNSCommand = "ipconfig /flushdns";
+    platform.stringMarker = "$";
     platform.newLineFlag = "\r\n";
   } else if (os.platform() === "darwin") {
     platform.platform = "Mac";
     platform.hostsPath = "/private/etc/hosts";
     platform.endOfCommand = ";";
     platform.writeCommand = "echo";
-    platform.flushDNSCommand = "dscacacheutil -flushcache; killall -HUP mDNOSResponder";
+    platform.flushDNSCommand = "";
+    platform.stringMarker = "";
     platform.newLineFlag = "\r";
   } else if (os.platform() === "linux") {
     platform.platform = "Linux";
@@ -746,13 +748,15 @@ const fetchOperatinSystem = () => {
     platform.endOfCommand = "|";
     platform.writeCommand = "echo";
     platform.flushDNSCommand = "resolvectl flush-caches";
+    platform.stringMarker = "";
     platform.newLineFlag = "\r\n";
   } else {
     platform.platform = "";
     platform.hostsPath = "";
     platform.writeCommand = "";
     platform.flushDNSCommand = "";
-    platform.newLineFlag = "\r\n";
+    platform.newLineFlag = "";
+    platform.stringMarker = "";
     platform.error = true;
   }
   return platform;
@@ -815,7 +819,7 @@ electron.app.whenReady().then(() => {
         };
         if (!userPlatform.error) {
           sudoPrompt.exec(
-            `${userPlatform.writeCommand} "${updatedHosts}" > ${userPlatform.hostsPath} ${userPlatform.endOfCommand} ${userPlatform.flushDNSCommand}`,
+            userPlatform.platform === "windows" ? `echo. > ${userPlatform.hostsPath} & ${userPlatform.writeCommand} ${__dirname}\\windows_hosts_staging.txt >> ${userPlatform.hostsPath}` : `${userPlatform.writeCommand} "${updatedHosts}" > ${userPlatform.hostsPath} ${userPlatform.endOfCommand} ${userPlatform.flushDNSCommand}`,
             options,
             function(error) {
               if (error) {
@@ -850,8 +854,8 @@ electron.app.whenReady().then(() => {
       const userData = JSON.parse(
         fs.readFileSync(`${__dirname}/../src/block-list.json`).toString()
       );
-      let hostsUpdated = fs.readFileSync(`${__dirname}/hosts_updated.txt`).toString().split("\n");
-      hostsUpdated.push("#Created by AppBlocker\n");
+      let hostsUpdated = fs.readFileSync(`${__dirname}/hosts_updated.txt`).toString().split(userPlatform.newLineFlag);
+      hostsUpdated.push(`#Created by AppBlocker${userPlatform.newLineFlag}`);
       for (let element of userData.websites) {
         if (element.selectedToBlock) {
           let hostsNewLine = "0.0.0.0";
@@ -863,6 +867,12 @@ electron.app.whenReady().then(() => {
         }
       }
       const newHostsUpdated = hostsUpdated.join(userPlatform.newLineFlag);
+      if (userPlatform.platform === "windows") {
+        fs.writeFileSync(
+          `${__dirname}/windows_hosts_staging.txt`,
+          newHostsUpdated
+        );
+      }
       WriteToHosts(newHostsUpdated, userData.websites);
     }
   });
@@ -892,6 +902,6 @@ electron.app.whenReady().then(() => {
     );
     e.sender.send("userSettingsOutput", userSettingsJson);
   });
-  BackupHosts("");
+  BackupHosts(userPlatform.hostsPath);
   createWindow();
 });

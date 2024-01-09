@@ -102,7 +102,9 @@ app.whenReady().then(() => {
         };
         if (!userPlatform.error) {
           sudo.exec(
-            `${userPlatform.writeCommand} "${updatedHosts}" > ${userPlatform.hostsPath} ${userPlatform.endOfCommand} ${userPlatform.flushDNSCommand}`,
+            userPlatform.platform === "windows"
+              ? `echo. > ${userPlatform.hostsPath} & ${userPlatform.writeCommand} ${__dirname}\\windows_hosts_staging.txt >> ${userPlatform.hostsPath}`
+              : `${userPlatform.writeCommand} "${updatedHosts}" > ${userPlatform.hostsPath} ${userPlatform.endOfCommand} ${userPlatform.flushDNSCommand}`,
             options,
             function (error) {
               if (error) {
@@ -143,9 +145,9 @@ app.whenReady().then(() => {
       let hostsUpdated = fs
         .readFileSync(`${__dirname}/hosts_updated.txt`)
         .toString()
-        .split("\n");
+        .split(userPlatform.newLineFlag);
 
-      hostsUpdated.push("#Created by AppBlocker\n");
+      hostsUpdated.push(`#Created by AppBlocker${userPlatform.newLineFlag}`);
 
       for (let element of userData.websites) {
         if (element.selectedToBlock) {
@@ -159,6 +161,13 @@ app.whenReady().then(() => {
       }
 
       const newHostsUpdated = hostsUpdated.join(userPlatform.newLineFlag);
+
+      if (userPlatform.platform === "windows") {
+        fs.writeFileSync(
+          `${__dirname}/windows_hosts_staging.txt`,
+          newHostsUpdated
+        );
+      }
 
       WriteToHosts(newHostsUpdated, userData.websites);
     }
@@ -194,6 +203,6 @@ app.whenReady().then(() => {
     e.sender.send("userSettingsOutput", userSettingsJson);
   });
 
-  BackupHosts("");
+  BackupHosts(userPlatform.hostsPath);
   createWindow();
 });

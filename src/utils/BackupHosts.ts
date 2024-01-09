@@ -5,8 +5,6 @@ import fs from "fs";
  * @param path - The path to the users Hosts file
  */
 function BackupHosts(path: string): void {
-  path = "/etc/hosts";
-
   if (!fs.existsSync(`${__dirname}/hosts_backup.txt`)) {
     fs.copyFile(path, `${__dirname}/hosts_backup.txt`, (error) => {
       if (error) {
