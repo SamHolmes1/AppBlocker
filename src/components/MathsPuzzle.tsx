@@ -1,14 +1,21 @@
 import { useState, useEffect } from "react";
 import NumbersToUse from "./MathComponents/NumbersToUse";
 import WorkBoard from "./MathComponents/WorkBoard";
+import { Link } from "react-router-dom";
+import Confetti from "react-confetti";
 
-function App() {
+interface MathsPuzzleInterface {
+  setUnBlockMode: Function;
+}
+
+function MathsPuzzle(props: MathsPuzzleInterface) {
   // Will update difficulty based on context
   // If difficulty is 1, count is 90 and bigNums is 2
   // If difficulty is 2, count is 60 and bigNums is 2
   // If difficulty is 3, count is 60 and bigNums is 1
   // If difficulty is 4, count is 30 and bigNums is 1
   // If difficulty is 5, count is 60 and bigNums is 0
+
   const difficulty = { countdown: 30, bigNums: 2 };
   const [count, setCount] = useState(difficulty.countdown);
   const [sixNumbers, setSixNumbers] = useState([]);
@@ -44,9 +51,39 @@ function App() {
     setIsLoading(false);
   }, []);
 
+  const reloadPage = () => {
+    window.location.reload();
+  };
+
+  const clickHandler = () => {
+    props.setUnBlockMode(true);
+    // @ts-ignore
+    ipcRenderer.send("updateSelectedToBlock");
+  };
+
   if (isLoading) {
-    return <h1>Your page is laoding</h1>;
-  } else {
+    return <h1>Your page is loading</h1>;
+  } else if (
+    count === 0 &&
+    currentCalc.toString() !== targetNumber.toString()
+  ) {
+    return (
+      <div className="quiz-end">
+        <h1 className="time-run-out">Time Run Out!</h1>
+        <Link
+          to="/quiz"
+          onClick={() => {
+            reloadPage();
+          }}
+        >
+          <button className="unlock-button">Try again</button>
+        </Link>
+        <Link to="/">
+          <button className="unlock-button">Return to Home Page</button>
+        </Link>
+      </div>
+    );
+  } else if (!isLoading && currentCalc.toString() !== targetNumber.toString()) {
     return (
       <>
         <NumbersToUse
@@ -62,7 +99,17 @@ function App() {
         />
       </>
     );
+  } else {
+    return (
+      <div className="quiz-end">
+        <h1 className="well-done">Well done!</h1>
+        <Link to="/" onClick={clickHandler}>
+          <button className="unlock-button">UNBLOCK</button>
+        </Link>
+        <Confetti width={window.innerWidth} height={window.innerHeight} />
+      </div>
+    );
   }
 }
 
-export default App;
+export default MathsPuzzle;

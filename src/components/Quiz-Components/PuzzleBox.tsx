@@ -15,6 +15,7 @@ function PuzzleBox(props: quizProps) {
   const clickHandler = () => {
     //@ts-ignore
     props.setUnBlockMode(true);
+    // @ts-ignore
     ipcRenderer.send("updateSelectedToBlock")
   };
 

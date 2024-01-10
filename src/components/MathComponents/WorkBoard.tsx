@@ -1,4 +1,5 @@
 import TargetNumber from "./TargetNumber";
+import { useEffect, useState } from "react";
 
 interface WorkBoardInterface {
   sixNumbers: Array<number>;
@@ -8,15 +9,39 @@ interface WorkBoardInterface {
 }
 
 function WorkBoard(props: WorkBoardInterface) {
+  const [lastEntry, setLastEntry] = useState("");
+  const [propertiesToDisable, setPropertiesToDisabled] = useState([
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+  ]);
+
+  useEffect(() => {
+    for (let i = 0; i < props.sixNumbers.length; i++) {
+      setPropertiesToDisabled((prevObject: any) => {
+        prevObject[i].number = props.sixNumbers[i];
+        prevObject[i].disabled = false;
+        return prevObject;
+      });
+    }
+  }, []);
+
   const calculatorKeys = ["+", "-", "*", "/", "="];
   for (let i = 0; i < props.sixNumbers.length; i++) {
     calculatorKeys.push(props.sixNumbers[i].toString());
   }
+  let keyCounter = 0;
 
-  const handleOnClick = (key: any) => {
+  const handleOnClick = (key: any, event: any) => {
     // lastCharacterOfCalc and nonRepeatableKeys both work as expected
     // A conditional is now required to check whether the last character is included in the non repeatables array. If it is, then the key should not be added to currentCalc
-    const lastCharacterOfCalc = props.currentCalc[props.currentCalc.length - 1];
+
+    // setDisabledButton(!disabledButton);
+    setLastEntry(key);
+
     const nonRepeatablekeys = ["+", "-", "*", "/", "="];
     const numbersArray = [];
     for (let i = 0; i < props.sixNumbers.length; i++) {
@@ -25,11 +50,12 @@ function WorkBoard(props: WorkBoardInterface) {
 
     if (nonRepeatablekeys.includes(key) && props.currentCalc.length === 0) {
       return;
-    }
-
-    if (numbersArray.includes(key)) {
-      props.setCurrentCalc(props.currentCalc + key);
-    } else if (!nonRepeatablekeys.includes(lastCharacterOfCalc)) {
+    } else if (numbersArray.includes(key) && numbersArray.includes(lastEntry)) {
+      return;
+    } else if (
+      numbersArray.includes(key) ||
+      !nonRepeatablekeys.includes(lastEntry)
+    ) {
       props.setCurrentCalc(props.currentCalc + key);
     }
   };
@@ -49,22 +75,30 @@ function WorkBoard(props: WorkBoardInterface) {
       <TargetNumber targetNumber={props.targetNumber} />
       <div className="calculator-area">
         <button
-          className="calculator-button"
+          className="calculator-button delete"
           onClick={() => {
             props.setCurrentCalc("");
+            setLastEntry("");
           }}
         >
           delete
         </button>
         {calculatorKeys.map((key) => {
           if (key !== "=") {
+            keyCounter++;
+            const indexOfKey = props.sixNumbers.indexOf(Number(key));
+            console.log(key, "<<< key");
+            console.log(indexOfKey, "<<< indexOfKey");
+            console.log(propertiesToDisable, "<<< propertiesToDisable");
             return (
               <button
-                key={key}
+                id={`button${keyCounter}`}
+                key={keyCounter}
                 className="calculator-button"
-                onClick={() => {
-                  handleOnClick(key);
+                onClick={(event) => {
+                  handleOnClick(key, event);
                 }}
+                disabled={false}
               >
                 {key}
               </button>
