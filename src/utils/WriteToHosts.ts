@@ -11,7 +11,6 @@ function WriteToHosts(
 ) {
   const options = {
     name: "Electron",
-    icns: "/Applications/Electron.app/Contents/Resources/Electron.icns", // (optional)
   };
   if (!userPlatform.error) {
     sudo.exec(

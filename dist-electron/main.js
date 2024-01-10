@@ -758,9 +758,7 @@ var NO_POLKIT_AGENT = "No polkit authentication agent found.";
 var MAX_BUFFER = 134217728;
 function WriteToHosts(updatedHosts, userData, e, userPlatform2) {
   const options = {
-    name: "Electron",
-    icns: "/Applications/Electron.app/Contents/Resources/Electron.icns"
-    // (optional)
+    name: "Electron"
   };
   if (!userPlatform2.error) {
     sudoPrompt.exec(

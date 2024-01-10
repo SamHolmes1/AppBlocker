@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { SettingsContext } from "../../App";
 
 const emptyOptions = [
   {
@@ -28,10 +29,23 @@ interface ScoreProps {
 function QuizQuestions(props:ScoreProps) {
   const [questionData, setQuestionData] = useState({question:{text:""}});
   const [options, setOptions] = useState(emptyOptions);
+  const {settingsState} = useContext(SettingsContext);
+
+  console.log(settingsState)
+
+  const difficultyTable = {
+    1: "easy",
+    2: "medium", 
+    3: "medium",
+    4: "hard",
+    5: "hard"
+  }
+
+   let qDifficulty = difficultyTable[settingsState.difficulty]
 
   const questionSetUp = () => {
       axios
-      .get("https://the-trivia-api.com/v2/questions?limit=1")
+      .get(`https://the-trivia-api.com/v2/questions?limit=1&difficulty=${qDifficulty}`)
       .then((retrievedData) => {
         const currentQuestion = retrievedData.data[0];
         setQuestionData(currentQuestion);
@@ -88,7 +102,10 @@ function QuizQuestions(props:ScoreProps) {
                     className="incorrect-answer"
                     key={`answer${index + 1}`}
                     onClick={() => {
-                      questionSetUp();
+                      questionSetUp()
+                      if (settingsState.difficulty === 5) {
+                        props.setScore(0)
+                      }
                     }}
                   >
                     {optionToRender.option}
