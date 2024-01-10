@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 
 interface unBlockProps {
   unBlockMode: boolean;
+  setUnBlockMode: Function;
 }
 
 
@@ -29,12 +30,17 @@ const UnblockModeButton = (props: unBlockProps) => {
       setAnyBlocked(false)
     }
   })
-
+  if (!props.unBlockMode) {
   return (
     <Link to="/quiz">
       <button  disabled={props.unBlockMode || !anyBlocked} className="unblock-all-button">Unblock Mode</button>
     </Link>
   );
+  } else {
+    return (
+        <button  className="unblock-all-button" onClick={() => {props.setUnBlockMode(false)}}>Home</button>
+    );
+  }
 };
 
 export default UnblockModeButton;

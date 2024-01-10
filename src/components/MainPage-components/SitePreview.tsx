@@ -30,6 +30,11 @@ const SitePreview = (props: siteProps) => {
     ipcRenderer.send("delete from file", props.siteName);
   }
 
+  // LEFT-HAND-SIDE
+  if (!props.Blocked && props.unBlockMode) {
+    return <></>
+  } 
+  
   if (props.isActive) {
     return (
       <div className={`site-preview-div`}>
@@ -46,7 +51,7 @@ const SitePreview = (props: siteProps) => {
           id={`${
             props.Blocked !== props.selectedToBlock ? "blocked" : "not-blocked"
           }`}
-        >
+        > 
           <img
             className="logo-image"
             id={`${

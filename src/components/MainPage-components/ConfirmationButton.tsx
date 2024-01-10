@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 /**
  * Renders a button that when pressed, triggers an ipcMain Event to update the hosts file.
  * This will ask the user for admin privileges
@@ -10,6 +12,36 @@ interface confirmationButtonProps {
 }
 
 const ConfirmationButton = (props: confirmationButtonProps) => {
+  const [anySelected, setAnySelected] = useState(false)
+  const [anyBlocked, setAnyBlocked] = useState(false)
+  ipcRenderer.on("blockListOutput", (event, data) => {
+
+    let selectedSitesArr = []
+    let blockedSitesArr = []
+     data.websites.map((website) => {
+      if (website.selectedToBlock && !website.Blocked && !props.unBlockMode) {
+        selectedSitesArr.push(website)
+      } 
+       if (!website.selectedToBlock && website.Blocked && props.unBlockMode) {
+        selectedSitesArr.push(website)
+      } 
+      if (website.Blocked) {
+        blockedSitesArr.push(website)
+      }
+    }) 
+    if (selectedSitesArr.length ) {
+      setAnySelected(true)
+    } else {
+      setAnySelected(false)
+    } 
+    if (blockedSitesArr.length) {
+      setAnyBlocked(true)
+    } else {
+      setAnyBlocked(false)
+    } 
+    console.log(selectedSitesArr, "selected", blockedSitesArr, "blocked")
+  })
+
   const clickHandler = () => {
     //@ts-ignore
     ipcRenderer.send("updateHosts");
@@ -22,8 +54,8 @@ const ConfirmationButton = (props: confirmationButtonProps) => {
   });
 
   return (
-    <button className="confirmation-button-div" onClick={clickHandler}>
-      {props.unBlockMode === true ? "Unblock!" : "Block!"}
+    <button className="confirmation-button-div" onClick={clickHandler} disabled={!anySelected && !props.unBlockMode || props.unBlockMode && !anySelected}>
+      {props.unBlockMode ? "Unblock!" : "Block!"}
     </button>
   );
 };

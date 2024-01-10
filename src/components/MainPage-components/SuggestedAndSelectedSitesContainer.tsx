@@ -9,7 +9,7 @@ import { SitesInActiveListProps } from "../../interfaces/SitesInActiveList";
  */
 const SuggestedAndSelectedSitesContainer = (props: SitesInActiveListProps) => {
   return (
-    <div className="sites-to-block-div">
+    <div className={props.unBlockMode ? "sites-to-block-unblock-mode" : "sites-to-block-div" }>
       <UserSelectedSites
         writtenToBlockList={props.writtenToBlockList}
         setWrittenToBlockList={props.setWrittenToBlockList}
@@ -17,11 +17,12 @@ const SuggestedAndSelectedSitesContainer = (props: SitesInActiveListProps) => {
         setSitesInActiveList={props.setSitesInActiveList}
         unBlockMode={props.unBlockMode}
       />
-      <SuggestedSites
+      {!props.unBlockMode ? <SuggestedSites
         sitesInActiveList={props.sitesInActiveList}
         setSitesInActiveList={props.setSitesInActiveList}
         unBlockMode={props.unBlockMode}
-      />
+      /> : <></>
+}
     </div>
   );
 };

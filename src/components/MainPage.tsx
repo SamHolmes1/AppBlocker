@@ -20,7 +20,7 @@ const MainPage = (props: MainPageProps) => {
   useEffect(() => {
     //@ts-ignore
     ipcRenderer.send("readBlockList");
-  }, []);
+  }, [props.unBlockMode]);
 
   //@ts-ignore
   //Executes the below code when the main process triggers this event.
@@ -56,7 +56,7 @@ const MainPage = (props: MainPageProps) => {
             setUnBlockMode={props.setUnBlockMode}
             unBlockMode={props.unBlockMode}
           />
-          <UnblockModeButton unBlockMode={props.unBlockMode}/>
+          <UnblockModeButton unBlockMode={props.unBlockMode} setUnBlockMode={props.setUnBlockMode}/>
         </div>
       </div>
     </>
