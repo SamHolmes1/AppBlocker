@@ -114,7 +114,7 @@ const fetchOperatinSystem = () => {
     platform.endOfCommand = ";";
     platform.writeCommand = "echo";
     platform.flushDNSCommand = "";
-    platform.newLineFlag = "\r";
+    platform.newLineFlag = "\n";
   } else if (os.platform() === "linux") {
     platform.platform = "linux";
     platform.hostsPath = "/etc/hosts";

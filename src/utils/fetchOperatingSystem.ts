@@ -26,7 +26,7 @@ const fetchOperatinSystem = (): PlatformInterface => {
     platform.writeCommand = "echo";
     platform.flushDNSCommand = "";
     ("dscacacheutil -flushcache; killall -HUP mDNOSResponder");
-    platform.newLineFlag = "\r";
+    platform.newLineFlag = "\n";
   } else if (os.platform() === "linux") {
     //Linux initialization
     platform.platform = "linux";
