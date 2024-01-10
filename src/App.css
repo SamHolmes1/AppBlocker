@@ -458,3 +458,63 @@ input#difficulty-slider {
 .warning {
   color: red;
 }
+
+.mathsPuzzle {
+  
+  border: 5px solid #263d42;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 15vh;
+  height:70vh;
+  background-color: #e3e6e6e1;
+  width: 50vw;
+  color: #263d42;
+}
+
+.calculator-button {
+  width: 25%;
+  height: 60px;
+  margin:9px;
+  background-color: #263d4271;
+  border: none;
+  box-shadow: 5px 5px 10px #587291;
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.calculator-area {
+  margin: auto;
+  width: 40%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.current-calculation {
+  margin: 10px;
+  font-size: 20px;
+}
+
+.current-calculation-text {
+  font-size: 4vh;
+  font-family: "Inter", sans-serif;
+}
+
+
+.delete {
+  color: #ccdbdc;
+  background-color: #263d42;
+}
+
+#equals-button {
+  color: #ccdbdc;
+  background-color: #008545;
+
+}
+
+.target-number{
+  font-family: "Inter", sans-serif;
+  font-size: 4vh;
+}

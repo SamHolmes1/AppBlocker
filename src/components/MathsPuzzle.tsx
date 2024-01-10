@@ -41,7 +41,7 @@ function MathsPuzzle(props: MathsPuzzleInterface) {
       });
     }
     
-    for (let i = difficulty.bigNums +1; i < 6; i++) {
+    for (let i = difficulty.bigNums +1; i < 7; i++) {
       const randomIndex = Math.floor(Math.random() * smallNumbersArray.length);
       const numberToAdd = smallNumbersArray[randomIndex] 
       console.log(numberToAdd)
@@ -90,8 +90,8 @@ function MathsPuzzle(props: MathsPuzzleInterface) {
       </div>
     );
   } else if (!isLoading && currentCalc.toString() !== targetNumber.toString()) {
-    return (
-      <>
+    return (<>
+      <div className="mathsPuzzle">
         <NumbersToUse
           sixNumbers={sixNumbers}
           count={count}
@@ -103,7 +103,8 @@ function MathsPuzzle(props: MathsPuzzleInterface) {
           currentCalc={currentCalc}
           setCurrentCalc={setCurrentCalc}
         />
-      </>
+      </div>
+      <Link to="/" ><button className="home-button"> Home </button></Link></>
     );
   } else {
     return (
