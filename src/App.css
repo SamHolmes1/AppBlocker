@@ -397,6 +397,21 @@ input {
   position: fixed;
 }
 
+.quiz-home-button {
+  margin: 20px auto;
+  margin-top: 20px;
+  margin-bottom: 25px;
+  margin-left: 35vw;
+  padding: 5px;
+  font-size: 4vw;
+  font-weight: 600;
+  width: 200px;
+  justify-content: center;
+  font-family: "Unica One", sans-serif;
+  bottom: 0;
+  position: fixed;
+}
+
 #credit-maze{
   margin: 0;
 }
