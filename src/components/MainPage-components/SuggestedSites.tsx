@@ -56,6 +56,7 @@ const SuggestedSites = (props: SuggestedSitesProps) => {
             isActive={false}
             sitesInActiveList={props.sitesInActiveList}
             setSitesInActiveList={props.setSitesInActiveList}
+            unBlockMode={props.unBlockMode}
           />
         );
       })}

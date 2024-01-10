@@ -758,9 +758,7 @@ var NO_POLKIT_AGENT = "No polkit authentication agent found.";
 var MAX_BUFFER = 134217728;
 function WriteToHosts(updatedHosts, userData, e, userPlatform2) {
   const options = {
-    name: "Electron",
-    icns: "/Applications/Electron.app/Contents/Resources/Electron.icns"
-    // (optional)
+    name: "Electron"
   };
   if (!userPlatform2.error) {
     sudoPrompt.exec(
@@ -872,7 +870,9 @@ electron.app.whenReady().then(() => {
       fs.readFileSync(`${__dirname}/../src/block-list.json`).toString()
     );
     for (let i = 0; i < currentBlockList.websites.length; i++) {
-      currentBlockList.websites[i].selectedToBlock = false;
+      if (currentBlockList.websites[i].selectedToBlock !== currentBlockList.websites[i].Blocked) {
+        currentBlockList.websites[i].selectedToBlock = false;
+      }
     }
     fs.writeFileSync(
       `${__dirname}/../src/block-list.json`,

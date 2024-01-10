@@ -31,6 +31,9 @@ function App() {
 
   return (
     <>
+    <SettingsContext.Provider
+              value={{ settingsState, setSettingsState }}
+            >
       <Header />
       <Routes>
         <Route
@@ -45,11 +48,7 @@ function App() {
         <Route
           path="/settings"
           element={
-            <SettingsContext.Provider
-              value={{ settingsState, setSettingsState }}
-            >
               <Settings />
-            </SettingsContext.Provider>
           }
         />
         <Route
@@ -57,6 +56,7 @@ function App() {
           element={<Quiz setUnBlockMode={setUnBlockMode} />}
         />
       </Routes>
+      </SettingsContext.Provider>
     </>
   );
 }

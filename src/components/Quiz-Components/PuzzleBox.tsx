@@ -25,7 +25,7 @@ function PuzzleBox(props: quizProps) {
         <QuizQuestions score={score} setScore={setScore} />
         <ScoreComponent score={score} />
       </div>
-      <Link to="/"><button className="home-button"> Home </button></Link>
+      <Link to="/" ><button className="home-button"> Home </button></Link>
       </div>
     );
   } else {
