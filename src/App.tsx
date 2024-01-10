@@ -58,7 +58,7 @@ function App() {
           path="/quiz"
           element={<Quiz setUnBlockMode={setUnBlockMode} />}
         />
-        <Route path="/math" element={<MathsPuzzle setUnBlockMode={setUnBlockMode} />} />
+        
       </Routes>
       </SettingsContext.Provider>
     </>
