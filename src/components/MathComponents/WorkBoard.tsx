@@ -11,6 +11,7 @@ interface WorkBoardInterface {
 function WorkBoard(props: WorkBoardInterface) {
   const [lastEntry, setLastEntry] = useState("");
   const [sixNumberState, setSixNumberState] = useState([false, false, false, false, false, false])
+  const [calcArray, setCalcArray] = useState([])
 
   const calculatorKeys = ["+", "-", "*", "/"];
   for (let i = 0; i < props.sixNumbers.length; i++) {
@@ -20,15 +21,16 @@ function WorkBoard(props: WorkBoardInterface) {
 
   const handleOnClick = (key: any, event: any) => {
     const nonRepeatablekeys = ["+", "-", "*", "/", "="]
-
-    if(!nonRepeatablekeys.includes(key)){
+    
+    if(!nonRepeatablekeys.includes(key)&& calcArray.includes(key)){
     setSixNumberState((prevArray) => {
       const indexOfKey = props.sixNumbers.indexOf(+key)
       prevArray[indexOfKey] = true
       return prevArray
     })}
     setLastEntry(key);
-
+    console.log(calcArray, "<---- calcArray")
+    console.log(sixNumberState, "<---- sixnumberstate")
     ;
     const numbersArray = [];
     for (let i = 0; i < props.sixNumbers.length; i++) {
@@ -44,6 +46,11 @@ function WorkBoard(props: WorkBoardInterface) {
       !nonRepeatablekeys.includes(lastEntry)
     ) {
       props.setCurrentCalc(props.currentCalc + key);
+      
+      setCalcArray((prevArray) => {
+        return [...prevArray, +key]
+      })
+      
     }
   };
 

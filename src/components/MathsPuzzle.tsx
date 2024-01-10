@@ -43,7 +43,7 @@ function MathsPuzzle(props: MathsPuzzleInterface) {
     for (let i = difficulty.bigNums +1; i < 7; i++) {
       const randomIndex = Math.floor(Math.random() * smallNumbersArray.length);
       const numberToAdd = smallNumbersArray[randomIndex];
-      console.log(numberToAdd);
+    
       smallNumbersArray = smallNumbersArray.filter((number) => {
         return number !== numberToAdd;
       });
