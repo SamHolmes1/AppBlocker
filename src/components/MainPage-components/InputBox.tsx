@@ -26,7 +26,7 @@ const InputBox = () => {
         Example: www.facebook.com becomes 'facebook'</span>
         <br></br>
         <input type="text" onChange={updateInput} value={textInput} placeholder="Type site name here" />
-        <button className="add-button-div" disabled: onClick={handleClick}>
+        <button className="add-button-div" onClick={handleClick}>
           Add
         </button>
       </form>
