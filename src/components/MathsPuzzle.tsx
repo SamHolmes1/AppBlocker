@@ -71,7 +71,7 @@ function MathsPuzzle(props: MathsPuzzleInterface) {
       <div className="quiz-end">
         <h1 className="time-run-out">Time Run Out!</h1>
         <Link
-          to="/quiz"
+          to="/math"
           onClick={() => {
             reloadPage();
           }}

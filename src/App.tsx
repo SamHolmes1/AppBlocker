@@ -55,11 +55,11 @@ function App() {
             </SettingsContext.Provider>
           }
         />
-        {/* <Route
+        <Route
           path="/quiz"
           element={<Quiz setUnBlockMode={setUnBlockMode} />}
-        /> */}
-        <Route path="/quiz" element={<MathsPuzzle setUnBlockMode={setUnBlockMode} />} />
+        />
+        <Route path="/math" element={<MathsPuzzle setUnBlockMode={setUnBlockMode} />} />
       </Routes>
     </>
   );
