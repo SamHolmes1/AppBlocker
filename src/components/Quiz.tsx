@@ -3,7 +3,6 @@ import Maze from "./maze-components/maze";
 import MathsPuzzle from "./MathsPuzzle";
 import { SettingsContext } from "../App";
 import { useContext } from "react";
-import Settings from "./Settings";
 
 interface quizProps {
   setUnBlockMode: Function;

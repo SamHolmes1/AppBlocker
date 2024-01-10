@@ -24,7 +24,7 @@ function MathsPuzzle(props: MathsPuzzleInterface) {
   const [currentCalc, setCurrentCalc] = useState("");
 
   useEffect(() => {
-    const smallNumbersArray: any[] = [];
+    let smallNumbersArray: any[] = [];
     for (let i = 1; i < 10; i++) {
       smallNumbersArray.push(i);
     }
@@ -40,11 +40,17 @@ function MathsPuzzle(props: MathsPuzzleInterface) {
         return [...prevArray, numberToAdd];
       });
     }
-    for (let i = difficulty.bigNums + 1; i < 7; i++) {
+    
+    for (let i = difficulty.bigNums +1; i < 6; i++) {
       const randomIndex = Math.floor(Math.random() * smallNumbersArray.length);
+      const numberToAdd = smallNumbersArray[randomIndex] 
+      console.log(numberToAdd)
+      smallNumbersArray = smallNumbersArray.filter((number) => {
+        return number !== numberToAdd
+      })  
       //@ts-ignore
       setSixNumbers((prevArray) => {
-        return [...prevArray, smallNumbersArray[randomIndex]];
+        return [...prevArray, numberToAdd];
       });
     }
     setTargetNumber(Math.floor(Math.random() * 999));

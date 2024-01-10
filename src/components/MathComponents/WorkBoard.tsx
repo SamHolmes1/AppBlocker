@@ -10,24 +10,7 @@ interface WorkBoardInterface {
 
 function WorkBoard(props: WorkBoardInterface) {
   const [lastEntry, setLastEntry] = useState("");
-  const [propertiesToDisable, setPropertiesToDisabled] = useState([
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-  ]);
-
-  useEffect(() => {
-    for (let i = 0; i < props.sixNumbers.length; i++) {
-      setPropertiesToDisabled((prevObject: any) => {
-        prevObject[i].number = props.sixNumbers[i];
-        prevObject[i].disabled = false;
-        return prevObject;
-      });
-    }
-  }, []);
+  const [sixNumberState, setSixNumberState] = useState([false, false, false, false, false, false])
 
   const calculatorKeys = ["+", "-", "*", "/", "="];
   for (let i = 0; i < props.sixNumbers.length; i++) {
@@ -36,13 +19,19 @@ function WorkBoard(props: WorkBoardInterface) {
   let keyCounter = 0;
 
   const handleOnClick = (key: any, event: any) => {
-    // lastCharacterOfCalc and nonRepeatableKeys both work as expected
-    // A conditional is now required to check whether the last character is included in the non repeatables array. If it is, then the key should not be added to currentCalc
+    const nonRepeatablekeys = ["+", "-", "*", "/", "="]
 
-    // setDisabledButton(!disabledButton);
+    console.log(key)
+    console.log(typeof key)
+    if(!nonRepeatablekeys.includes(key)){
+    setSixNumberState((prevArray) => {
+      const indexOfKey = props.sixNumbers.indexOf(+key)
+      prevArray[indexOfKey] = true
+      return prevArray
+    })}
     setLastEntry(key);
 
-    const nonRepeatablekeys = ["+", "-", "*", "/", "="];
+    ;
     const numbersArray = [];
     for (let i = 0; i < props.sixNumbers.length; i++) {
       numbersArray.push(props.sixNumbers[i].toString());
@@ -79,6 +68,7 @@ function WorkBoard(props: WorkBoardInterface) {
           onClick={() => {
             props.setCurrentCalc("");
             setLastEntry("");
+            setSixNumberState([false, false, false, false, false, false])
           }}
         >
           delete
@@ -86,10 +76,7 @@ function WorkBoard(props: WorkBoardInterface) {
         {calculatorKeys.map((key) => {
           if (key !== "=") {
             keyCounter++;
-            const indexOfKey = props.sixNumbers.indexOf(Number(key));
-            console.log(key, "<<< key");
-            console.log(indexOfKey, "<<< indexOfKey");
-            console.log(propertiesToDisable, "<<< propertiesToDisable");
+            const indexOfKey = props.sixNumbers.indexOf(+key)
             return (
               <button
                 id={`button${keyCounter}`}
@@ -98,7 +85,7 @@ function WorkBoard(props: WorkBoardInterface) {
                 onClick={(event) => {
                   handleOnClick(key, event);
                 }}
-                disabled={false}
+                disabled={sixNumberState[indexOfKey]}
               >
                 {key}
               </button>
