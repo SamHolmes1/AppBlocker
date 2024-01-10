@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import QuizQuestions from "./Questions";
 import ScoreComponent from "./ScoreComponent";
 import { Link } from "react-router-dom";
 import Confetti from "react-confetti";
+import { SettingsContext } from "../../App";
 
 interface quizProps {
   setUnBlockMode: Function;
@@ -10,6 +11,7 @@ interface quizProps {
 
 function PuzzleBox(props: quizProps) {
   const [score, setScore] = useState(0);
+  const {settingsState} = useContext(SettingsContext)
 
   const clickHandler = () => {
     //@ts-ignore
@@ -22,6 +24,8 @@ function PuzzleBox(props: quizProps) {
     return (
       <div>
         <div className="quiz-div">
+        <p className="quiz-instructions">Score 5 correct answers to complete this quiz </p>
+        <p className="quiz-instructions warning">{settingsState.difficulty===5?"WARNING: You are in the hardest difficulty setting and need to achieve 5 consecutive answers to complete this quiz":""}</p>
           <QuizQuestions score={score} setScore={setScore} />
           <ScoreComponent score={score} />
         </div>
