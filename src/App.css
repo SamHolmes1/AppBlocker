@@ -203,6 +203,20 @@ p {
   align-items: center;
 }
 
+.correct-quiz-answer{
+  font-family: "Inter", sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  color: #00BF63;
+}
+
+.incorrect-quiz-answer{
+  font-family: "Inter", sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  color: red;
+}
+
 .maze-puzzle {
   margin: 0 auto 20px auto;
   min-height: fit-content;
@@ -210,6 +224,13 @@ p {
 }
 
 .puzzle-instructions{
+  padding-top: 5px;
+  font-family: "Inter", sans-serif;
+  font-weight: 800;
+  color: #263D42;
+}
+
+.quiz-instructions{
   padding-top: 5px;
   font-family: "Inter", sans-serif;
   font-weight: 800;
@@ -348,7 +369,8 @@ input {
   color: #263d42;
   text-align: center;
   padding: 30px;
-  padding-bottom: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   font-weight: 600;
   height: 3rem;
   display: flex;
