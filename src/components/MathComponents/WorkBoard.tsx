@@ -12,7 +12,7 @@ function WorkBoard(props: WorkBoardInterface) {
   const [lastEntry, setLastEntry] = useState("");
   const [sixNumberState, setSixNumberState] = useState([false, false, false, false, false, false])
 
-  const calculatorKeys = ["+", "-", "*", "/", "="];
+  const calculatorKeys = ["+", "-", "*", "/"];
   for (let i = 0; i < props.sixNumbers.length; i++) {
     calculatorKeys.push(props.sixNumbers[i].toString());
   }
@@ -21,8 +21,6 @@ function WorkBoard(props: WorkBoardInterface) {
   const handleOnClick = (key: any, event: any) => {
     const nonRepeatablekeys = ["+", "-", "*", "/", "="]
 
-    console.log(key)
-    console.log(typeof key)
     if(!nonRepeatablekeys.includes(key)){
     setSixNumberState((prevArray) => {
       const indexOfKey = props.sixNumbers.indexOf(+key)
@@ -71,15 +69,15 @@ function WorkBoard(props: WorkBoardInterface) {
             setSixNumberState([false, false, false, false, false, false])
           }}
         >
-          delete
+          C
         </button>
         {calculatorKeys.map((key) => {
-          if (key !== "=") {
+           
             keyCounter++;
             const indexOfKey = props.sixNumbers.indexOf(+key)
             return (
               <button
-                id={`button${keyCounter}`}
+                id={`button${key}`}
                 key={keyCounter}
                 className="calculator-button"
                 onClick={(event) => {
@@ -90,23 +88,22 @@ function WorkBoard(props: WorkBoardInterface) {
                 {key}
               </button>
             );
-          } else {
-            return (
+              
+        })}
+         
               <button
-                key={key}
                 className="calculator-button"
+                id="equals-button"
                 onClick={() => {
                   handleEquals();
                 }}
               >
-                {key}
+                =
               </button>
-            );
-          }
-        })}
+            
       </div>
       <div className="current-calculation">
-        <p>{props.currentCalc}</p>
+        <p className="current-calculation-text">Current sum: <br/> {props.currentCalc}</p>
       </div>
     </div>
   );

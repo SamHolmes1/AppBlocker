@@ -3,7 +3,7 @@ interface TargetNumberInterface {
 }
 
 function TargetNumber(props: TargetNumberInterface) {
-    return <h2>{props.targetNumber}</h2>
+    return <p className="target-number">Target: {props.targetNumber}</p>
 }
 
 export default TargetNumber;
