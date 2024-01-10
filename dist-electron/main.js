@@ -2,9 +2,9 @@
 const electron = require("electron");
 const path = require("node:path");
 const fs = require("fs");
+const os = require("os");
 const require$$0 = require("child_process");
 const require$$1 = require("crypto");
-const os = require("os");
 const require$$4 = require("path");
 const require$$5 = require("util");
 function _interopNamespaceDefault(e) {
@@ -85,6 +85,57 @@ const deleteFromFile = (siteName) => {
     () => {
     }
   );
+};
+const WriteToUserSettings = (settingsObject) => {
+  fs.writeFileSync(
+    `${__dirname}/../src/user-settings.json`,
+    JSON.stringify(settingsObject, null, 1)
+  );
+};
+const fetchOperatinSystem = () => {
+  const platform = {
+    platform: "",
+    hostsPath: "",
+    endOfCommand: "",
+    writeCommand: "",
+    flushDNSCommand: "",
+    newLineFlag: "",
+    stringMarker: ""
+  };
+  if (os.platform() === "win32") {
+    platform.platform = "windows";
+    platform.hostsPath = "C:\\Windows\\System32\\Drivers\\etc\\hosts";
+    platform.endOfCommand = ";";
+    platform.writeCommand = "type";
+    platform.flushDNSCommand = "ipconfig /flushdns";
+    platform.stringMarker = "$";
+    platform.newLineFlag = "\r\n";
+  } else if (os.platform() === "darwin") {
+    platform.platform = "Mac";
+    platform.hostsPath = "/private/etc/hosts";
+    platform.endOfCommand = ";";
+    platform.writeCommand = "echo";
+    platform.flushDNSCommand = "";
+    platform.stringMarker = "";
+    platform.newLineFlag = "\r";
+  } else if (os.platform() === "linux") {
+    platform.platform = "Linux";
+    platform.hostsPath = "/etc/hosts";
+    platform.endOfCommand = "|";
+    platform.writeCommand = "echo";
+    platform.flushDNSCommand = "resolvectl flush-caches";
+    platform.stringMarker = "";
+    platform.newLineFlag = "\r\n";
+  } else {
+    platform.platform = "";
+    platform.hostsPath = "";
+    platform.writeCommand = "";
+    platform.flushDNSCommand = "";
+    platform.newLineFlag = "";
+    platform.stringMarker = "";
+    platform.error = true;
+  }
+  return platform;
 };
 var sudoPrompt = {};
 var Node = {
@@ -710,57 +761,68 @@ var APPLET = "UEsDBAoAAAAAAO1YcEcAAAAAAAAAAAAAAAAJABwAQ29udGVudHMvVVQJAAPNnElWLZ
 var PERMISSION_DENIED = "User did not grant permission.";
 var NO_POLKIT_AGENT = "No polkit authentication agent found.";
 var MAX_BUFFER = 134217728;
-const WriteToUserSettings = (settingsObject) => {
-  fs.writeFileSync(
-    `${__dirname}/../src/user-settings.json`,
-    JSON.stringify(settingsObject, null, 1)
-  );
-};
-const fetchOperatinSystem = () => {
-  const platform = {
-    platform: "",
-    hostsPath: "",
-    endOfCommand: "",
-    writeCommand: "",
-    flushDNSCommand: "",
-    newLineFlag: "",
-    stringMarker: ""
+function WriteToHosts(updatedHosts, userData, e, userPlatform2) {
+  const options = {
+    name: "Electron",
+    icns: "/Applications/Electron.app/Contents/Resources/Electron.icns"
+    // (optional)
   };
-  if (os.platform() === "win32") {
-    platform.platform = "windows";
-    platform.hostsPath = "C:\\Windows\\System32\\Drivers\\etc\\hosts";
-    platform.endOfCommand = ";";
-    platform.writeCommand = "type";
-    platform.flushDNSCommand = "ipconfig /flushdns";
-    platform.stringMarker = "$";
-    platform.newLineFlag = "\r\n";
-  } else if (os.platform() === "darwin") {
-    platform.platform = "Mac";
-    platform.hostsPath = "/private/etc/hosts";
-    platform.endOfCommand = ";";
-    platform.writeCommand = "echo";
-    platform.flushDNSCommand = "";
-    platform.stringMarker = "";
-    platform.newLineFlag = "\r";
-  } else if (os.platform() === "linux") {
-    platform.platform = "Linux";
-    platform.hostsPath = "/etc/hosts";
-    platform.endOfCommand = "|";
-    platform.writeCommand = "echo";
-    platform.flushDNSCommand = "resolvectl flush-caches";
-    platform.stringMarker = "";
-    platform.newLineFlag = "\r\n";
+  if (!userPlatform2.error) {
+    sudoPrompt.exec(
+      userPlatform2.platform === "windows" ? `echo. > ${userPlatform2.hostsPath} & ${userPlatform2.writeCommand} ${__dirname}\\windows_hosts_staging.txt >> ${userPlatform2.hostsPath}` : `${userPlatform2.writeCommand} "${updatedHosts}" > ${userPlatform2.hostsPath} ${userPlatform2.endOfCommand} ${userPlatform2.flushDNSCommand}`,
+      options,
+      function(error) {
+        if (error) {
+          console.log(error);
+        } else {
+          const updatedBlockList = userData.map((site) => {
+            site.Blocked = site.selectedToBlock;
+            return site;
+          });
+          const updatedBlockListJSON = JSON.stringify(
+            { websites: updatedBlockList },
+            null,
+            1
+          );
+          fs.writeFileSync(
+            `${__dirname}/../src/block-list.json`,
+            updatedBlockListJSON
+          );
+          e.sender.send("writtenToBlockList", true);
+        }
+      }
+    );
   } else {
-    platform.platform = "";
-    platform.hostsPath = "";
-    platform.writeCommand = "";
-    platform.flushDNSCommand = "";
-    platform.newLineFlag = "";
-    platform.stringMarker = "";
-    platform.error = true;
+    throw new Error("platform not supported");
   }
-  return platform;
-};
+}
+function createUpdatedHosts(e, userPlatform2) {
+  const topLevelDomains = ["com", "co.uk", "tv"];
+  fs.copyFileSync(
+    `${__dirname}/hosts_backup.txt`,
+    `${__dirname}/hosts_updated.txt`
+  );
+  const userData = JSON.parse(
+    fs.readFileSync(`${__dirname}/../src/block-list.json`).toString()
+  );
+  let hostsUpdated = fs.readFileSync(`${__dirname}/hosts_updated.txt`).toString().split(userPlatform2.newLineFlag);
+  hostsUpdated.push(`#Created by AppBlocker${userPlatform2.newLineFlag}`);
+  for (let element of userData.websites) {
+    if (element.selectedToBlock) {
+      let hostsNewLine = "0.0.0.0";
+      for (let i = 0; i < topLevelDomains.length; i++) {
+        hostsNewLine += ` ${element.URL}.${topLevelDomains[i]}`;
+        hostsNewLine += ` www.${element.URL}.${topLevelDomains[i]}`;
+      }
+      hostsUpdated.push(hostsNewLine);
+    }
+  }
+  const newHostsUpdated = hostsUpdated.join(userPlatform2.newLineFlag);
+  if (userPlatform2.platform === "windows") {
+    fs.writeFileSync(`${__dirname}/windows_hosts_staging.txt`, newHostsUpdated);
+  }
+  WriteToHosts(newHostsUpdated, userData.websites, e, userPlatform2);
+}
 const userPlatform = fetchOperatinSystem();
 console.log(userPlatform);
 process.env.DIST = path.join(__dirname, "../dist");
@@ -809,72 +871,7 @@ electron.app.whenReady().then(() => {
     e.sender.send("blockListOutput", output);
   });
   electron.ipcMain.on("updateHosts", (e) => {
-    createUpdatedHosts();
-    function createUpdatedHosts() {
-      const WriteToHosts = (updatedHosts, userData2) => {
-        const options = {
-          name: "Electron",
-          icns: "/Applications/Electron.app/Contents/Resources/Electron.icns"
-          // (optional)
-        };
-        if (!userPlatform.error) {
-          sudoPrompt.exec(
-            userPlatform.platform === "windows" ? `echo. > ${userPlatform.hostsPath} & ${userPlatform.writeCommand} ${__dirname}\\windows_hosts_staging.txt >> ${userPlatform.hostsPath}` : `${userPlatform.writeCommand} "${updatedHosts}" > ${userPlatform.hostsPath} ${userPlatform.endOfCommand} ${userPlatform.flushDNSCommand}`,
-            options,
-            function(error) {
-              if (error) {
-                console.log(error);
-              } else {
-                const updatedBlockList = userData2.map((site) => {
-                  site.Blocked = site.selectedToBlock;
-                  return site;
-                });
-                const updatedBlockListJSON = JSON.stringify(
-                  { websites: updatedBlockList },
-                  null,
-                  1
-                );
-                fs.writeFileSync(
-                  `${__dirname}/../src/block-list.json`,
-                  updatedBlockListJSON
-                );
-                e.sender.send("writtenToBlockList", true);
-              }
-            }
-          );
-        } else {
-          throw new Error("platform not supported");
-        }
-      };
-      const topLevelDomains = ["com", "co.uk", "tv"];
-      fs.copyFileSync(
-        `${__dirname}/hosts_backup.txt`,
-        `${__dirname}/hosts_updated.txt`
-      );
-      const userData = JSON.parse(
-        fs.readFileSync(`${__dirname}/../src/block-list.json`).toString()
-      );
-      let hostsUpdated = fs.readFileSync(`${__dirname}/hosts_updated.txt`).toString().split(userPlatform.newLineFlag);
-      hostsUpdated.push(`#Created by AppBlocker${userPlatform.newLineFlag}`);
-      for (let element of userData.websites) {
-        if (element.selectedToBlock) {
-          let hostsNewLine = "0.0.0.0";
-          for (let i = 0; i < topLevelDomains.length; i++) {
-            hostsNewLine += ` ${element.URL}.${topLevelDomains[i]}`;
-            hostsNewLine += ` www.${element.URL}.${topLevelDomains[i]}`;
-          }
-          hostsUpdated.push(hostsNewLine);
-        }
-      }
-      const newHostsUpdated = hostsUpdated.join(userPlatform.newLineFlag);
-      if (userPlatform.platform === "windows") {
-        fs.writeFileSync(
-          `${__dirname}/windows_hosts_staging.txt`,
-          newHostsUpdated
-        );
-      }
-      WriteToHosts(newHostsUpdated, userData.websites);
-    }
+    createUpdatedHosts(e, userPlatform);
   });
   electron.ipcMain.on("delete from file", (e, siteName) => {
     deleteFromFile(siteName);

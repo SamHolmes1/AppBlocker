@@ -9,40 +9,39 @@ const fetchOperatinSystem = (): PlatformInterface => {
     writeCommand: "",
     flushDNSCommand: "",
     newLineFlag: "",
-    stringMarker: "",
   };
   if (os.platform() === "win32") {
+    //Windows initialization
     platform.platform = "windows";
     platform.hostsPath = "C:\\Windows\\System32\\Drivers\\etc\\hosts";
     platform.endOfCommand = ";";
     platform.writeCommand = "type";
     platform.flushDNSCommand = "ipconfig /flushdns";
-    platform.stringMarker = "$";
     platform.newLineFlag = "\r\n";
   } else if (os.platform() === "darwin") {
-    platform.platform = "Mac";
+    //MacOS initialization
+    platform.platform = "mac";
     platform.hostsPath = "/private/etc/hosts";
     platform.endOfCommand = ";";
     platform.writeCommand = "echo";
     platform.flushDNSCommand = "";
     ("dscacacheutil -flushcache; killall -HUP mDNOSResponder");
-    platform.stringMarker = "";
     platform.newLineFlag = "\r";
   } else if (os.platform() === "linux") {
-    platform.platform = "Linux";
+    //Linux initialization
+    platform.platform = "linux";
     platform.hostsPath = "/etc/hosts";
     platform.endOfCommand = "|";
     platform.writeCommand = "echo";
     platform.flushDNSCommand = "resolvectl flush-caches";
-    platform.stringMarker = "";
     platform.newLineFlag = "\r\n";
   } else {
-    platform.platform = "";
-    platform.hostsPath = "";
-    platform.writeCommand = "";
-    platform.flushDNSCommand = "";
-    platform.newLineFlag = "";
-    platform.stringMarker = "";
+    //Unsupported initialization
+    platform.platform = "unsupported platform";
+    platform.hostsPath = "Err. No path";
+    platform.writeCommand = "Err. No command";
+    platform.flushDNSCommand = "Err. No command";
+    platform.newLineFlag = "Err. no flag";
     platform.error = true;
   }
   return platform;

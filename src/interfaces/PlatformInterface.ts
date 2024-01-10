@@ -5,6 +5,5 @@ export interface PlatformInterface {
   writeCommand: string;
   flushDNSCommand: string;
   newLineFlag: string;
-  stringMarker: string;
   error?: boolean;
 }
