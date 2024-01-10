@@ -99,8 +99,7 @@ const fetchOperatinSystem = () => {
     endOfCommand: "",
     writeCommand: "",
     flushDNSCommand: "",
-    newLineFlag: "",
-    stringMarker: ""
+    newLineFlag: ""
   };
   if (os.platform() === "win32") {
     platform.platform = "windows";
@@ -108,31 +107,27 @@ const fetchOperatinSystem = () => {
     platform.endOfCommand = ";";
     platform.writeCommand = "type";
     platform.flushDNSCommand = "ipconfig /flushdns";
-    platform.stringMarker = "$";
     platform.newLineFlag = "\r\n";
   } else if (os.platform() === "darwin") {
-    platform.platform = "Mac";
+    platform.platform = "mac";
     platform.hostsPath = "/private/etc/hosts";
     platform.endOfCommand = ";";
     platform.writeCommand = "echo";
     platform.flushDNSCommand = "";
-    platform.stringMarker = "";
     platform.newLineFlag = "\r";
   } else if (os.platform() === "linux") {
-    platform.platform = "Linux";
+    platform.platform = "linux";
     platform.hostsPath = "/etc/hosts";
     platform.endOfCommand = "|";
     platform.writeCommand = "echo";
     platform.flushDNSCommand = "resolvectl flush-caches";
-    platform.stringMarker = "";
     platform.newLineFlag = "\r\n";
   } else {
-    platform.platform = "";
-    platform.hostsPath = "";
-    platform.writeCommand = "";
-    platform.flushDNSCommand = "";
-    platform.newLineFlag = "";
-    platform.stringMarker = "";
+    platform.platform = "unsupported platform";
+    platform.hostsPath = "Err. No path";
+    platform.writeCommand = "Err. No command";
+    platform.flushDNSCommand = "Err. No command";
+    platform.newLineFlag = "Err. no flag";
     platform.error = true;
   }
   return platform;
@@ -771,7 +766,7 @@ function WriteToHosts(updatedHosts, userData, e, userPlatform2) {
     sudoPrompt.exec(
       userPlatform2.platform === "windows" ? `echo. > ${userPlatform2.hostsPath} & ${userPlatform2.writeCommand} ${__dirname}\\windows_hosts_staging.txt >> ${userPlatform2.hostsPath}` : `${userPlatform2.writeCommand} "${updatedHosts}" > ${userPlatform2.hostsPath} ${userPlatform2.endOfCommand} ${userPlatform2.flushDNSCommand}`,
       options,
-      function(error) {
+      (error) => {
         if (error) {
           console.log(error);
         } else {
@@ -779,14 +774,9 @@ function WriteToHosts(updatedHosts, userData, e, userPlatform2) {
             site.Blocked = site.selectedToBlock;
             return site;
           });
-          const updatedBlockListJSON = JSON.stringify(
-            { websites: updatedBlockList },
-            null,
-            1
-          );
           fs.writeFileSync(
             `${__dirname}/../src/block-list.json`,
-            updatedBlockListJSON
+            JSON.stringify({ websites: updatedBlockList }, null, 1)
           );
           e.sender.send("writtenToBlockList", true);
         }

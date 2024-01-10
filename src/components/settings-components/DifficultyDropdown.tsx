@@ -23,6 +23,7 @@ const DifficultyDropdown = () => {
         Difficulty: {sliderData}/5
       </label>
       <input
+        value={sliderData}
         type="range"
         min="1"
         max="5"
