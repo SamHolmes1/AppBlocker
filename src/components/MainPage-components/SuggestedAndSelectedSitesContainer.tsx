@@ -20,6 +20,7 @@ const SuggestedAndSelectedSitesContainer = (props: SitesInActiveListProps) => {
       <SuggestedSites
         sitesInActiveList={props.sitesInActiveList}
         setSitesInActiveList={props.setSitesInActiveList}
+        unBlockMode={props.unBlockMode}
       />
     </div>
   );

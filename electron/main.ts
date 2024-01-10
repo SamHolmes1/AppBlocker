@@ -106,7 +106,9 @@ app.whenReady().then(() => {
     );
 
     for (let i = 0; i < currentBlockList.websites.length; i++) {
+      if (currentBlockList.websites[i].selectedToBlock !== currentBlockList.websites[i].Blocked) {
       currentBlockList.websites[i].selectedToBlock = false;
+      }
     }
 
     fs.writeFileSync(

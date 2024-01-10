@@ -870,7 +870,9 @@ electron.app.whenReady().then(() => {
       fs.readFileSync(`${__dirname}/../src/block-list.json`).toString()
     );
     for (let i = 0; i < currentBlockList.websites.length; i++) {
-      currentBlockList.websites[i].selectedToBlock = false;
+      if (currentBlockList.websites[i].selectedToBlock !== currentBlockList.websites[i].Blocked) {
+        currentBlockList.websites[i].selectedToBlock = false;
+      }
     }
     fs.writeFileSync(
       `${__dirname}/../src/block-list.json`,

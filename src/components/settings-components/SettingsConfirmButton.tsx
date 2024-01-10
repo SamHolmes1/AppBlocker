@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { SettingsContext } from "../../App";
+import { Link } from "react-router-dom";
 
 const SettingsConfirmButton = () => {
   //@ts-ignore
@@ -10,14 +11,16 @@ const SettingsConfirmButton = () => {
   };
 
   return (
+    <Link to="/" 
+    onClick={() => {
+      handleOnClick();
+    }}>
     <button
       className="settings-confirmation-button"
-      onClick={() => {
-        handleOnClick();
-      }}
     >
       Confirm
     </button>
+    </Link>
   );
 };
 

@@ -35,7 +35,7 @@ const SitePreview = (props: siteProps) => {
       <div className={`site-preview-div`}>
         <button
           className={`site-button ${
-            props.Blocked !== props.selectedToBlock ? "selected" : ""
+            props.Blocked !== props.selectedToBlock && !props.unBlockMode ? "selected" : ""
           }`}
           onClick={changeBlockStatus}
           
@@ -76,7 +76,7 @@ const SitePreview = (props: siteProps) => {
   if (!props.isActive && !props.sitesInActiveList.includes(props.siteName)) {
     return (
       <div className="site-preview-div">
-        <button className="site-button" onClick={addToList}>
+        <button className="site-button" disabled = {props.unBlockMode} onClick={addToList}>
           <img className="logo-image" src={`src/assets/${props.siteName.toLowerCase().replace(" ","")}.ico`}></img>
           {props.siteName}
         </button>
