@@ -4,6 +4,7 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Settings from "./components/Settings";
 import Quiz from "./components/Quiz";
+import Math from "./components/Math";
 import { useState, createContext, useEffect } from "react";
 
 export const SettingsContext = createContext({});
@@ -33,7 +34,7 @@ function App() {
     <>
       <Header />
       <Routes>
-        <Route
+        {/* <Route
           path="/"
           element={
             <MainPage
@@ -41,7 +42,7 @@ function App() {
               setUnBlockMode={setUnBlockMode}
             />
           }
-        />
+        /> */}
         <Route
           path="/settings"
           element={
@@ -56,6 +57,7 @@ function App() {
           path="/quiz"
           element={<Quiz setUnBlockMode={setUnBlockMode} />}
         />
+        <Route path="/" element={<Math />} />
       </Routes>
     </>
   );
