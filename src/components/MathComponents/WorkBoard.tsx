@@ -10,24 +10,6 @@ interface WorkBoardInterface {
 
 function WorkBoard(props: WorkBoardInterface) {
   const [lastEntry, setLastEntry] = useState("");
-  const [propertiesToDisable, setPropertiesToDisabled] = useState([
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-  ]);
-
-  useEffect(() => {
-    for (let i = 0; i < props.sixNumbers.length; i++) {
-      setPropertiesToDisabled((prevObject: any) => {
-        prevObject[i].number = props.sixNumbers[i];
-        prevObject[i].disabled = false;
-        return prevObject;
-      });
-    }
-  }, []);
 
   const calculatorKeys = ["+", "-", "*", "/", "="];
   for (let i = 0; i < props.sixNumbers.length; i++) {
@@ -86,10 +68,6 @@ function WorkBoard(props: WorkBoardInterface) {
         {calculatorKeys.map((key) => {
           if (key !== "=") {
             keyCounter++;
-            const indexOfKey = props.sixNumbers.indexOf(Number(key));
-            console.log(key, "<<< key");
-            console.log(indexOfKey, "<<< indexOfKey");
-            console.log(propertiesToDisable, "<<< propertiesToDisable");
             return (
               <button
                 id={`button${keyCounter}`}
