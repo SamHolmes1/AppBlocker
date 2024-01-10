@@ -191,6 +191,31 @@ p {
   color: #263d42;
 }
 
+.maze-div{
+  border: 5px solid #263D42;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 15vh;
+  background-color: #e3e6e6e1;
+  width: 50vw;
+  color: #263D42;
+  align-items: center;
+}
+
+.maze-puzzle {
+  margin: 0 auto 20px auto;
+  min-height: fit-content;
+  text-align: center;
+}
+
+.puzzle-instructions{
+  padding-top: 5px;
+  font-family: "Inter", sans-serif;
+  font-weight: 800;
+  color: #263D42;
+}
+
 .site-preview-div {
   display: flex;
   flex-direction: column;
@@ -358,14 +383,37 @@ input {
 }
 
 .home-button {
-  margin: auto;
+  margin: 20px auto;
   margin-top: 20px;
+  margin-bottom: 25px;
+  margin-left: 17.5vw;
   padding: 5px;
   font-size: 4vw;
   font-weight: 600;
-  width: 15vw;
+  width: 200px;
   justify-content: center;
   font-family: "Unica One", sans-serif;
+  bottom: 0;
+  position: fixed;
+}
+
+.quiz-home-button {
+  margin: 20px auto;
+  margin-top: 20px;
+  margin-bottom: 25px;
+  margin-left: 35vw;
+  padding: 5px;
+  font-size: 4vw;
+  font-weight: 600;
+  width: 200px;
+  justify-content: center;
+  font-family: "Unica One", sans-serif;
+  bottom: 0;
+  position: fixed;
+}
+
+#credit-maze{
+  margin: 0;
 }
 
 .header-logo {
@@ -426,8 +474,8 @@ input {
 }
 
 .settings-confirmation-button {
-  margin: auto;
   margin-top: 20px;
+  margin-bottom: 25px;
   padding: 5px;
   font-size: 3vw;
   font-weight: 600;

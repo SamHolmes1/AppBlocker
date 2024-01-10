@@ -48,6 +48,7 @@ function createWindow() {
   });
 
   win.setContentSize(1280, 800);
+  win.focus();
 
   // Test active push message to Renderer-process.
   win.webContents.on("did-finish-load", () => {
@@ -81,33 +82,36 @@ app.on("activate", () => {
 });
 
 app.whenReady().then(() => {
-  ipcMain.on("writeToBlockList", (e, website: string) => {
+  ipcMain.handle("writeToBlockList", (e, website: string) => {
     WriteToBlockList(website);
     e.sender.send("writtenToBlockList", true);
   });
 
-  ipcMain.on("readBlockList", (e) => {
+  ipcMain.handle("readBlockList", (e) => {
     const output = ReadBlockList();
     e.sender.send("blockListOutput", output);
   });
 
-  ipcMain.on("updateHosts", (e) => {
+  ipcMain.handle("updateHosts", (e) => {
     createUpdatedHosts(e, userPlatform);
   });
 
-  ipcMain.on("delete from file", (e, siteName: string) => {
+  ipcMain.handle("delete from file", (e, siteName: string) => {
     deleteFromFile(siteName);
     e.sender.send("writtenToBlockList", true);
   });
 
-  ipcMain.on("updateSelectedToBlock", (e) => {
+  ipcMain.handle("updateSelectedToBlock", (e) => {
     const currentBlockList = JSON.parse(
       fs.readFileSync(`${__dirname}/../src/block-list.json`).toString()
     );
 
     for (let i = 0; i < currentBlockList.websites.length; i++) {
-      if (currentBlockList.websites[i].selectedToBlock !== currentBlockList.websites[i].Blocked) {
-      currentBlockList.websites[i].selectedToBlock = false;
+      if (
+        currentBlockList.websites[i].selectedToBlock !==
+        currentBlockList.websites[i].Blocked
+      ) {
+        currentBlockList.websites[i].selectedToBlock = false;
       }
     }
 
@@ -119,11 +123,11 @@ app.whenReady().then(() => {
     e.sender.send("writtenToBlockList", true);
   });
 
-  ipcMain.on("writeToUserSettings", (_e, data: settingsObjectInterface) => {
+  ipcMain.handle("writeToUserSettings", (_e, data: settingsObjectInterface) => {
     WriteToUserSettings(data);
   });
 
-  ipcMain.on("readUserSettingsJson", (e, data) => {
+  ipcMain.handle("readUserSettingsJson", (e, data) => {
     const userSettingsJson = JSON.parse(
       fs.readFileSync(`${__dirname}/../src/user-settings.json`).toString()
     );

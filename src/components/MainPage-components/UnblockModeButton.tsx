@@ -10,35 +10,44 @@ interface unBlockProps {
   setUnBlockMode: Function;
 }
 
-
-
-
 const UnblockModeButton = (props: unBlockProps) => {
-  const [anyBlocked, setAnyBlocked] = useState(false)
-  ipcRenderer.on("blockListOutput", (event, data) => {
+  const [anyBlocked, setAnyBlocked] = useState(false);
+  ipcRenderer.once("blockListOutput", (event, data) => {
+    ipcRenderer.removeAllListeners("blockListOutput");
+    let blockedSitesArr = [];
 
-    let blockedSitesArr = []
-
-     data.websites.map((website) => {
+    data.websites.map((website) => {
       if (website.Blocked) {
-        blockedSitesArr.push(website)
+        blockedSitesArr.push(website);
       }
-    })
+    });
     if (blockedSitesArr.length) {
-      setAnyBlocked(true)
+      setAnyBlocked(true);
     } else {
-      setAnyBlocked(false)
+      setAnyBlocked(false);
     }
-  })
+  });
   if (!props.unBlockMode) {
-  return (
-    <Link to="/quiz">
-      <button  disabled={props.unBlockMode || !anyBlocked} className="unblock-all-button">Unblock Mode</button>
-    </Link>
-  );
+    return (
+      <Link to="/quiz">
+        <button
+          disabled={props.unBlockMode || !anyBlocked}
+          className="unblock-all-button"
+        >
+          Unblock Mode
+        </button>
+      </Link>
+    );
   } else {
     return (
-        <button  className="unblock-all-button" onClick={() => {props.setUnBlockMode(false)}}>Home</button>
+      <button
+        className="unblock-all-button"
+        onClick={() => {
+          props.setUnBlockMode(false);
+        }}
+      >
+        Home
+      </button>
     );
   }
 };

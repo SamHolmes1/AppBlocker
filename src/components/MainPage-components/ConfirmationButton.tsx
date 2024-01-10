@@ -12,49 +12,56 @@ interface confirmationButtonProps {
 }
 
 const ConfirmationButton = (props: confirmationButtonProps) => {
-  const [anySelected, setAnySelected] = useState(false)
-  const [anyBlocked, setAnyBlocked] = useState(false)
-  ipcRenderer.on("blockListOutput", (event, data) => {
-
-    let selectedSitesArr = []
-    let blockedSitesArr = []
-     data.websites.map((website) => {
+  const [anySelected, setAnySelected] = useState(false);
+  const [anyBlocked, setAnyBlocked] = useState(false);
+  ipcRenderer.once("blockListOutput", (event, data) => {
+    ipcRenderer.removeAllListeners("blockListOutput");
+    let selectedSitesArr = [];
+    let blockedSitesArr = [];
+    data.websites.map((website) => {
       if (website.selectedToBlock && !website.Blocked && !props.unBlockMode) {
-        selectedSitesArr.push(website)
-      } 
-       if (!website.selectedToBlock && website.Blocked && props.unBlockMode) {
-        selectedSitesArr.push(website)
-      } 
-      if (website.Blocked) {
-        blockedSitesArr.push(website)
+        selectedSitesArr.push(website);
       }
-    }) 
-    if (selectedSitesArr.length ) {
-      setAnySelected(true)
+      if (!website.selectedToBlock && website.Blocked && props.unBlockMode) {
+        selectedSitesArr.push(website);
+      }
+      if (website.Blocked) {
+        blockedSitesArr.push(website);
+      }
+    });
+    if (selectedSitesArr.length) {
+      setAnySelected(true);
     } else {
-      setAnySelected(false)
-    } 
+      setAnySelected(false);
+    }
     if (blockedSitesArr.length) {
-      setAnyBlocked(true)
+      setAnyBlocked(true);
     } else {
-      setAnyBlocked(false)
-    } 
-    console.log(selectedSitesArr, "selected", blockedSitesArr, "blocked")
-  })
+      setAnyBlocked(false);
+    }
+  });
 
   const clickHandler = () => {
     //@ts-ignore
-    ipcRenderer.send("updateHosts");
+    ipcRenderer.invoke("updateHosts");
     props.setUnBlockMode(false);
   };
 
   //@ts-ignore
-  ipcRenderer.on("writtenToBlockList", () => {
+  ipcRenderer.once("writtenToBlockList", () => {
     props.setWrittenToBlocklist(true);
+    ipcRenderer.removeAllListeners("writtenToBlockList");
   });
 
   return (
-    <button className="confirmation-button-div" onClick={clickHandler} disabled={!anySelected && !props.unBlockMode || props.unBlockMode && !anySelected}>
+    <button
+      className="confirmation-button-div"
+      onClick={clickHandler}
+      disabled={
+        (!anySelected && !props.unBlockMode) ||
+        (props.unBlockMode && !anySelected)
+      }
+    >
       {props.unBlockMode ? "Unblock!" : "Block!"}
     </button>
   );

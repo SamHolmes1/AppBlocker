@@ -14,19 +14,19 @@ const UserSelectedSites = (props: SitesInActiveListProps) => {
 
   useEffect(() => {
     //@ts-ignore
-    ipcRenderer.send("readBlockList");
+    ipcRenderer.invoke("readBlockList");
     props.setWrittenToBlockList(false);
   }, [props.writtenToBlockList]);
 
   //@ts-ignore
-  ipcRenderer.on("blockListOutput", (e, data) => {
-    setSiteList(data);
+  ipcRenderer.once("blockListOutput", (e, data) => {
     //@ts-ignore
     ipcRenderer.removeAllListeners("blockListOutput");
+    setSiteList(data);
   });
 
   //@ts-ignore
-  ipcRenderer.on("writtenToBlockList", (e, data: boolean) => {
+  ipcRenderer.once("writtenToBlockList", (e, data: boolean) => {
     props.setWrittenToBlockList(data);
     //@ts-ignore
     ipcRenderer.removeAllListeners("writtenToBlockList");
@@ -43,8 +43,14 @@ const UserSelectedSites = (props: SitesInActiveListProps) => {
   } else {
     return (
       <div className="suggested-sites-div">
-        <h2 className={props.unBlockMode?"warning":""}>{props.unBlockMode?"!! My Sites: Unblock Mode !!":"My Sites"}</h2>
-        <p className={props.unBlockMode?"warning":""}>{props.unBlockMode?"Select sites to unblock":"Select sites to block"}</p>
+        <h2 className={props.unBlockMode ? "warning" : ""}>
+          {props.unBlockMode ? "!! My Sites: Unblock Mode !!" : "My Sites"}
+        </h2>
+        <p className={props.unBlockMode ? "warning" : ""}>
+          {props.unBlockMode
+            ? "Select sites to unblock"
+            : "Select sites to block"}
+        </p>
         <div className="list-of-my-buttons">
           {siteList.websites.map((i: siteData) => {
             return (
