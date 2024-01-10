@@ -4,9 +4,12 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Settings from "./components/Settings";
 import Quiz from "./components/Quiz";
+import MathsPuzzle from "./components/MathsPuzzle";
 import { useState, createContext, useEffect } from "react";
 
 export const SettingsContext = createContext({});
+
+//Path names in quiz will have to be changed as they currently link to quiz
 
 function App() {
   const [unBlockMode, setUnBlockMode] = useState(false);
@@ -55,6 +58,7 @@ function App() {
           path="/quiz"
           element={<Quiz setUnBlockMode={setUnBlockMode} />}
         />
+        <Route path="/math" element={<MathsPuzzle setUnBlockMode={setUnBlockMode} />} />
       </Routes>
       </SettingsContext.Provider>
     </>
