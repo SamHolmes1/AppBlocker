@@ -13,7 +13,7 @@ function Countdown(props: MathsProps) {
       setCanContinue(false);
     } else {
       setTimeout(() => {
-        props.setCount(props.count - 1);
+        props.setCount(props.count);
       }, 1000);
     }
   }, [props.count]);
