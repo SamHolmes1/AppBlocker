@@ -39,7 +39,7 @@ const ConfirmationButton = (props: confirmationButtonProps) => {
     } else {
       setAnyBlocked(false)
     } 
-    console.log(selectedSitesArr, "selected", blockedSitesArr, "blocked")
+    ipcRenderer.removeAllListeners("blockListOutput");
   })
 
   const clickHandler = () => {
@@ -51,6 +51,7 @@ const ConfirmationButton = (props: confirmationButtonProps) => {
   //@ts-ignore
   ipcRenderer.on("writtenToBlockList", () => {
     props.setWrittenToBlocklist(true);
+    ipcRenderer.removeAllListeners("writtenToBlockList");
   });
 
   return (

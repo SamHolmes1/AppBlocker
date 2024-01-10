@@ -1,6 +1,6 @@
 {
- "difficulty": 3,
- "quiz_selected": true,
- "math_selected": true,
+ "difficulty": 1,
+ "quiz_selected": false,
+ "math_selected": false,
  "maze_selected": true
 }

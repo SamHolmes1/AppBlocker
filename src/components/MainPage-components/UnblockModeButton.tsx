@@ -29,6 +29,7 @@ const UnblockModeButton = (props: unBlockProps) => {
     } else {
       setAnyBlocked(false)
     }
+    ipcRenderer.removeAllListeners("blockListOutput");
   })
   if (!props.unBlockMode) {
   return (

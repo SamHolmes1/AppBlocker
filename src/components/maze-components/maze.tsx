@@ -1,18 +1,20 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useContext } from "react";
 import { generateMaze, solve } from "./mazeUtil";
 import "./styles.scss"
 import { Link } from "react-router-dom";
 import Confetti from 'react-confetti';
+import { SettingsContext } from "../../App";
 
 interface quizProps {
     setUnBlockMode: Function;
   }
 
 export default function Maze(props:quizProps) {
+    const {settingsState} = useContext(SettingsContext)
     const [gameId, setGameId] = useState(1);
     const [status, setStatus] = useState("playing");
   
-    const [size, setSize] = useState(10);
+    const [size, setSize] = useState(settingsState.difficulty * 3 +4);
     const [cheatMode, setCheatMode] = useState(false);
   
     const [userPosition, setUserPosition] = useState([0, 0]);
@@ -92,32 +94,13 @@ export default function Maze(props:quizProps) {
       }
     };
   
-    const handleUpdateSettings = () => {
-      setSize(Number(document.querySelector("input[name='mazeSize']").value));
-      setUserPosition([0, 0]);
-      setStatus("playing");
-      setGameId(gameId + 1);
-    };
   
     if(status === "playing"){
     return (
-      <div className="App" onKeyDown={handleMove} tabIndex={-1}>
-        {/* <div className="setting">
-          <label htmlFor="mazeSize">Size of maze (5-40):</label>
-          <input
-            type="number"
-            name="mazeSize"
-            min="5"
-            max="40"
-            defaultValue="10"
-          />
-        </div> */}
-        {/* <div className="setting">
-          <button onClick={handleUpdateSettings}>
-            Restart game with new settings
-          </button>
-        </div> */}
-        <p>use WSAD or Arrow Keys to move</p>
+      <>
+      <div className="maze-div" >
+      <div className="maze-puzzle" onKeyDown={handleMove} tabIndex={-1}>
+        <p className="puzzle-instructions">CLICK THE MAZE TO BEGIN: Move the red dot to reach the green dot using your arrow keys to move</p>
         {/* <div>
           <label htmlFor="cheatMode">Cheat mode</label>
           <input
@@ -141,6 +124,13 @@ export default function Maze(props:quizProps) {
           </tbody>
         </table>
         </div>
+        <p id="credit-maze">Maze component from https://github.com/tomliangg</p>
+      </div>
+        <div>
+      <Link to="/" ><button className="home-button"> Home </button></Link>
+      </div>
+      </>
+        
   )
   } else return (
     <div>

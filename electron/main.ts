@@ -36,6 +36,7 @@ let win: BrowserWindow | null;
 const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 
 function createWindow() {
+  
   win = new BrowserWindow({
     resizable: false,
     height: 800,
@@ -48,6 +49,7 @@ function createWindow() {
   });
 
   win.setContentSize(1280, 800);
+  win.focus()
 
   // Test active push message to Renderer-process.
   win.webContents.on("did-finish-load", () => {
