@@ -30,9 +30,11 @@ function QuizQuestions(props:ScoreProps) {
   const [questionData, setQuestionData] = useState({question:{text:""}});
   const [options, setOptions] = useState(emptyOptions);
   const {settingsState} = useContext(SettingsContext);
+  const [correctAnswer, setCorrectAnswer] = useState("")
+  const [lastCorrectAnswer, setLastCorrectAnswer] = useState("")
+  const [previousAnswerResult, setPreviousAnswerResult] = useState("")
 
-  console.log(settingsState)
-
+  
   const difficultyTable = {
     1: "easy",
     2: "medium", 
@@ -51,6 +53,7 @@ function QuizQuestions(props:ScoreProps) {
         setQuestionData(currentQuestion);
         let correctAnswerIndex = Math.floor(Math.random() * 4);
         const answersArr = structuredClone(emptyOptions)
+        setCorrectAnswer(currentQuestion.correctAnswer)
         answersArr[correctAnswerIndex] = {
           option: currentQuestion.correctAnswer,
           correctAnswer: true,
@@ -91,6 +94,8 @@ function QuizQuestions(props:ScoreProps) {
               return (
                 <button className="correct-answer" key={`answer${index + 1}`} onClick={() => {
                   questionSetUp()
+                  setLastCorrectAnswer(correctAnswer)
+                  setPreviousAnswerResult("Correct: ")
                   props.setScore(props.score + 1)
                 }}>
                   {optionToRender.option}
@@ -103,6 +108,8 @@ function QuizQuestions(props:ScoreProps) {
                     key={`answer${index + 1}`}
                     onClick={() => {
                       questionSetUp()
+                      setLastCorrectAnswer(correctAnswer)
+                      setPreviousAnswerResult("Incorrect, the answer was: ")
                       if (settingsState.difficulty === 5) {
                         props.setScore(0)
                       }
@@ -115,6 +122,7 @@ function QuizQuestions(props:ScoreProps) {
             }
           )}  
         </div>
+        <p className={previousAnswerResult==="Correct: "?"correct-quiz-answer":"incorrect-quiz-answer"}>{previousAnswerResult}{lastCorrectAnswer}</p>
       </div>
     );
   }
