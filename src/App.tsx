@@ -22,11 +22,11 @@ function App() {
 
   useEffect(() => {
     //@ts-ignore
-    ipcRenderer.send("readUserSettingsJson");
+    ipcRenderer.invoke("readUserSettingsJson");
   }, []);
 
   //@ts-ignore
-  ipcRenderer.on("userSettingsOutput", (e, data) => {
+  ipcRenderer.once("userSettingsOutput", (e, data) => {
     setSettingsState(data);
     //@ts-ignore
     ipcRenderer.removeAllListeners("userSettingsOutput");
@@ -34,32 +34,24 @@ function App() {
 
   return (
     <>
-    <SettingsContext.Provider
-              value={{ settingsState, setSettingsState }}
-            >
-      <Header />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <MainPage
-              unBlockMode={unBlockMode}
-              setUnBlockMode={setUnBlockMode}
-            />
-          }
-        />
-        <Route
-          path="/settings"
-          element={
-              <Settings />
-          }
-        />
-        <Route
-          path="/quiz"
-          element={<Quiz setUnBlockMode={setUnBlockMode} />}
-        />
-        
-      </Routes>
+      <SettingsContext.Provider value={{ settingsState, setSettingsState }}>
+        <Header />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <MainPage
+                unBlockMode={unBlockMode}
+                setUnBlockMode={setUnBlockMode}
+              />
+            }
+          />
+          <Route path="/settings" element={<Settings />} />
+          <Route
+            path="/quiz"
+            element={<Quiz setUnBlockMode={setUnBlockMode} />}
+          />
+        </Routes>
       </SettingsContext.Provider>
     </>
   );

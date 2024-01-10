@@ -12,7 +12,7 @@ const SitePreview = (props: siteProps) => {
   function addToList(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
     e.preventDefault();
     //@ts-ignore
-    ipcRenderer.send("writeToBlockList", props.siteName);
+    ipcRenderer.invoke("writeToBlockList", props.siteName);
     //@ts-ignore
     // props.setSitesInActiveList();
   }
@@ -22,28 +22,29 @@ const SitePreview = (props: siteProps) => {
   ): void {
     e.preventDefault();
     //@ts-ignore
-    ipcRenderer.send("writeToBlockList", props.siteName);
+    ipcRenderer.invoke("writeToBlockList", props.siteName);
   }
 
   function deleteFromFile(): void {
     //@ts-ignore
-    ipcRenderer.send("delete from file", props.siteName);
+    ipcRenderer.invoke("delete from file", props.siteName);
   }
 
   // LEFT-HAND-SIDE
   if (!props.Blocked && props.unBlockMode) {
-    return <></>
-  } 
-  
+    return <></>;
+  }
+
   if (props.isActive) {
     return (
       <div className={`site-preview-div`}>
         <button
           className={`site-button ${
-            props.Blocked !== props.selectedToBlock && !props.unBlockMode ? "selected" : ""
+            props.Blocked !== props.selectedToBlock && !props.unBlockMode
+              ? "selected"
+              : ""
           }`}
           onClick={changeBlockStatus}
-          
           disabled={
             (props.Blocked === true && props.unBlockMode === false) ||
             (props.Blocked === false && props.unBlockMode === true)
@@ -51,26 +52,25 @@ const SitePreview = (props: siteProps) => {
           id={`${
             props.Blocked !== props.selectedToBlock ? "blocked" : "not-blocked"
           }`}
-        > 
+        >
           <img
             className="logo-image"
             id={`${
               props.Blocked === true ? "blocked-logo" : "not-blocked-logo"
             }`}
-
-  src={`src/assets/${props.siteName.toLowerCase().replace(" ","")}.ico`}
-  onError={({ currentTarget }) => {
-    currentTarget.onerror = null;
-    currentTarget.src="src/assets/labyrinth.ico";
-  }}
+            src={`src/assets/${props.siteName
+              .toLowerCase()
+              .replace(" ", "")}.ico`}
+            onError={({ currentTarget }) => {
+              currentTarget.onerror = null;
+              currentTarget.src = "src/assets/labyrinth.ico";
+            }}
           ></img>
           <span className="site-text">{props.siteName}</span>
         </button>
         <button
           onClick={deleteFromFile}
-          style={
-            (props.Blocked === true)?{display:"none"}:{}
-          }
+          style={props.Blocked === true ? { display: "none" } : {}}
         >
           delete
         </button>
@@ -81,8 +81,17 @@ const SitePreview = (props: siteProps) => {
   if (!props.isActive && !props.sitesInActiveList.includes(props.siteName)) {
     return (
       <div className="site-preview-div">
-        <button className="site-button" disabled = {props.unBlockMode} onClick={addToList}>
-          <img className="logo-image" src={`src/assets/${props.siteName.toLowerCase().replace(" ","")}.ico`}></img>
+        <button
+          className="site-button"
+          disabled={props.unBlockMode}
+          onClick={addToList}
+        >
+          <img
+            className="logo-image"
+            src={`src/assets/${props.siteName
+              .toLowerCase()
+              .replace(" ", "")}.ico`}
+          ></img>
           {props.siteName}
         </button>
       </div>
