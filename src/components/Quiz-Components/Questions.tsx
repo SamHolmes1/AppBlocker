@@ -109,7 +109,7 @@ function QuizQuestions(props:ScoreProps) {
                     onClick={() => {
                       questionSetUp()
                       setLastCorrectAnswer(correctAnswer)
-                      setPreviousAnswerResult("Incorrect: ")
+                      setPreviousAnswerResult("Incorrect, the answer was: ")
                       if (settingsState.difficulty === 5) {
                         props.setScore(0)
                       }
