@@ -19,13 +19,13 @@ const MainPage = (props: MainPageProps) => {
   //Sends the signal to the electron main process to read the JSON file
   useEffect(() => {
     //@ts-ignore
-    ipcRenderer.send("readBlockList");
+    ipcRenderer.invoke("readBlockList");
   }, [props.unBlockMode]);
 
   //@ts-ignore
   //Executes the below code when the main process triggers this event.
   //Populates the sitesInActiveList state with a list of sites from the JSON file at runtime.
-  ipcRenderer.on(
+  ipcRenderer.once(
     "blockListOutput",
     (_e: any, data: { websites: Array<siteData> }) => {
       const tempArray: Array<string> = [];
@@ -56,7 +56,10 @@ const MainPage = (props: MainPageProps) => {
             setUnBlockMode={props.setUnBlockMode}
             unBlockMode={props.unBlockMode}
           />
-          <UnblockModeButton unBlockMode={props.unBlockMode} setUnBlockMode={props.setUnBlockMode}/>
+          <UnblockModeButton
+            unBlockMode={props.unBlockMode}
+            setUnBlockMode={props.setUnBlockMode}
+          />
         </div>
       </div>
     </>

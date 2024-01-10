@@ -851,22 +851,22 @@ electron.app.on("activate", () => {
   }
 });
 electron.app.whenReady().then(() => {
-  electron.ipcMain.on("writeToBlockList", (e, website) => {
+  electron.ipcMain.handle("writeToBlockList", (e, website) => {
     WriteToBlockList(website);
     e.sender.send("writtenToBlockList", true);
   });
-  electron.ipcMain.on("readBlockList", (e) => {
+  electron.ipcMain.handle("readBlockList", (e) => {
     const output = ReadBlockList();
     e.sender.send("blockListOutput", output);
   });
-  electron.ipcMain.on("updateHosts", (e) => {
+  electron.ipcMain.handle("updateHosts", (e) => {
     createUpdatedHosts(e, userPlatform);
   });
-  electron.ipcMain.on("delete from file", (e, siteName) => {
+  electron.ipcMain.handle("delete from file", (e, siteName) => {
     deleteFromFile(siteName);
     e.sender.send("writtenToBlockList", true);
   });
-  electron.ipcMain.on("updateSelectedToBlock", (e) => {
+  electron.ipcMain.handle("updateSelectedToBlock", (e) => {
     const currentBlockList = JSON.parse(
       fs.readFileSync(`${__dirname}/../src/block-list.json`).toString()
     );
@@ -881,10 +881,10 @@ electron.app.whenReady().then(() => {
     );
     e.sender.send("writtenToBlockList", true);
   });
-  electron.ipcMain.on("writeToUserSettings", (_e, data) => {
+  electron.ipcMain.handle("writeToUserSettings", (_e, data) => {
     WriteToUserSettings(data);
   });
-  electron.ipcMain.on("readUserSettingsJson", (e, data) => {
+  electron.ipcMain.handle("readUserSettingsJson", (e, data) => {
     const userSettingsJson = JSON.parse(
       fs.readFileSync(`${__dirname}/../src/user-settings.json`).toString()
     );

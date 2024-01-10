@@ -7,19 +7,17 @@ const SettingsConfirmButton = () => {
   const { settingsState, setSettingsState } = useContext(SettingsContext);
   const handleOnClick = () => {
     //@ts-ignore
-    ipcRenderer.send("writeToUserSettings", settingsState);
+    ipcRenderer.invoke("writeToUserSettings", settingsState);
   };
 
   return (
-    <Link to="/" 
-    onClick={() => {
-      handleOnClick();
-    }}>
-    <button
-      className="settings-confirmation-button"
+    <Link
+      to="/"
+      onClick={() => {
+        handleOnClick();
+      }}
     >
-      Confirm
-    </button>
+      <button className="settings-confirmation-button">Confirm</button>
     </Link>
   );
 };

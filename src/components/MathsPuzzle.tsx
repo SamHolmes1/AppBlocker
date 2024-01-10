@@ -40,14 +40,14 @@ function MathsPuzzle(props: MathsPuzzleInterface) {
         return [...prevArray, numberToAdd];
       });
     }
-    
-    for (let i = difficulty.bigNums +1; i < 6; i++) {
+
+    for (let i = difficulty.bigNums + 1; i < 6; i++) {
       const randomIndex = Math.floor(Math.random() * smallNumbersArray.length);
-      const numberToAdd = smallNumbersArray[randomIndex] 
-      console.log(numberToAdd)
+      const numberToAdd = smallNumbersArray[randomIndex];
+      console.log(numberToAdd);
       smallNumbersArray = smallNumbersArray.filter((number) => {
-        return number !== numberToAdd
-      })  
+        return number !== numberToAdd;
+      });
       //@ts-ignore
       setSixNumbers((prevArray) => {
         return [...prevArray, numberToAdd];
@@ -64,7 +64,7 @@ function MathsPuzzle(props: MathsPuzzleInterface) {
   const clickHandler = () => {
     props.setUnBlockMode(true);
     // @ts-ignore
-    ipcRenderer.send("updateSelectedToBlock");
+    ipcRenderer.invoke("updateSelectedToBlock");
   };
 
   if (isLoading) {
