@@ -1,30 +1,45 @@
-import sudo from "sudo-prompt";
+import { PlatformInterface } from "../interfaces/PlatformInterface";
 import { siteData } from "../interfaces/SiteData";
-import fs from "fs"
+import fs from "fs";
+import sudo from "sudo-prompt";
 
-const WriteToHosts = (updatedHosts: string, userData: Array<siteData>) => {
+function WriteToHosts(
+  updatedHosts: string,
+  userData: Array<siteData>,
+  e: Electron.IpcMainEvent,
+  userPlatform: PlatformInterface
+) {
   const options = {
     name: "Electron",
     icns: "/Applications/Electron.app/Contents/Resources/Electron.icns", // (optional)
   };
+  if (!userPlatform.error) {
+    sudo.exec(
+      userPlatform.platform === "windows"
+        ? `echo. > ${userPlatform.hostsPath} & ${userPlatform.writeCommand} ${__dirname}\\windows_hosts_staging.txt >> ${userPlatform.hostsPath}`
+        : `${userPlatform.writeCommand} "${updatedHosts}" > ${userPlatform.hostsPath} ${userPlatform.endOfCommand} ${userPlatform.flushDNSCommand}`,
+      options,
+      (error) => {
+        if (error) {
+          console.log(error);
+        } else {
+          const updatedBlockList = userData.map((site) => {
+            site.Blocked = site.selectedToBlock;
+            return site;
+          });
 
-  sudo.exec(
-    `echo "${updatedHosts}" | cat > /etc/hosts | resolvectl flush-caches`,
-    options,
-    function (error) {
-      if (error) {
-        //TODO: implement error handling
-      } else {
-        const updatedBlockList = userData.map((site) => {
-          site.Blocked = site.selectedToBlock
-          return site
-        })
-        const updatedBlockListJSON = JSON.stringify({websites: updatedBlockList}, null, 1)
-        fs.writeFileSync(`${__dirname}/../src/block-list.json`, updatedBlockListJSON)
-        
+          fs.writeFileSync(
+            `${__dirname}/../src/block-list.json`,
+            JSON.stringify({ websites: updatedBlockList }, null, 1)
+          );
+
+          e.sender.send("writtenToBlockList", true);
+        }
       }
-    }
-  );
-};
+    );
+  } else {
+    throw new Error("platform not supported");
+  }
+}
 
 export default WriteToHosts;
