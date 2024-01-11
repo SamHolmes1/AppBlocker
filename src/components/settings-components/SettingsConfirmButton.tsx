@@ -18,9 +18,6 @@ const SettingsConfirmButton = () => {
 
   useEffect(() => {}, [canConfirm]);
 
-  console.log(canConfirm, "<<< canConfirm");
-  console.log(settingsState, "<<< settingsState");
-
   if (canConfirm === true) {
     return (
       <Link
