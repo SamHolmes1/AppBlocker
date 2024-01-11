@@ -29,7 +29,7 @@ const WriteToBlockList = (inputName, inputURL = `${inputName.toLowerCase()}`, in
   const siteUrl = inputURL.replace(reg, "");
   const data = fs__namespace.readFileSync(`${__dirname}/../src/block-list.json`);
   const alreadyExists = JSON.parse(data.toString()).websites.find(
-    (website) => inputURL === website.URL
+    (website) => siteUrl.toLowerCase() === website.URL.toLowerCase() || inputName.toLowerCase() === website.name.toLowerCase() || inputName.toLowerCase() === website.URL.toLowerCase()
   );
   if (!alreadyExists && inputName.length !== 0) {
     const parsedData = JSON.parse(data.toString());

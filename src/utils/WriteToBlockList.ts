@@ -17,7 +17,7 @@ const WriteToBlockList = (
   const siteUrl = inputURL.replace(reg, '')
   const data = fs.readFileSync(`${__dirname}/../src/block-list.json`);
   const alreadyExists = JSON.parse(data.toString()).websites.find(
-    (website: websiteData) => inputURL === website.URL
+    (website: websiteData) => siteUrl.toLowerCase() === website.URL.toLowerCase() || inputName.toLowerCase() === website.name.toLowerCase() || inputName.toLowerCase() === website.URL.toLowerCase()
   );
   if (!alreadyExists && inputName.length !== 0) {
     const parsedData = JSON.parse(data.toString());
@@ -48,7 +48,7 @@ const WriteToBlockList = (
       JSON.stringify(parsedData, null, 1),
       () => {}
     );
-  }
+  } 
 };
 
 export default WriteToBlockList;
