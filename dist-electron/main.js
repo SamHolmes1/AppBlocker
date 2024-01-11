@@ -760,9 +760,21 @@ function WriteToHosts(updatedHosts, userData, e, userPlatform2) {
   const options = {
     name: "Electron"
   };
+  let updatedPathName = "";
   if (!userPlatform2.error) {
+    if (userPlatform2.platform === "windows") {
+      const pathName = __dirname.split("\\");
+      const updatedPathNameArray = pathName.map((pathString) => {
+        if (pathString.includes(" ")) {
+          return `"${pathString}"`;
+        } else {
+          return pathString;
+        }
+      });
+      updatedPathName = updatedPathNameArray.join("\\");
+    }
     sudoPrompt.exec(
-      userPlatform2.platform === "windows" ? `echo. > ${userPlatform2.hostsPath} & ${userPlatform2.writeCommand} ${__dirname}\\windows_hosts_staging.txt >> ${userPlatform2.hostsPath}` : `${userPlatform2.writeCommand} "${updatedHosts}" > ${userPlatform2.hostsPath} ${userPlatform2.endOfCommand} ${userPlatform2.flushDNSCommand}`,
+      userPlatform2.platform === "windows" ? `echo. > ${userPlatform2.hostsPath} & ${userPlatform2.writeCommand} ${updatedPathName ? updatedPathName : __dirname}\\windows_hosts_staging.txt >> ${userPlatform2.hostsPath}` : `${userPlatform2.writeCommand} "${updatedHosts}" > ${userPlatform2.hostsPath} ${userPlatform2.endOfCommand} ${userPlatform2.flushDNSCommand}`,
       options,
       (error) => {
         if (error) {
