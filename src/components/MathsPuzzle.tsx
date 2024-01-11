@@ -101,6 +101,7 @@ function MathsPuzzle(props: MathsPuzzleInterface) {
     return (
       <>
         <div className="mathsPuzzle">
+        <div className="math-instructions"> You have {difficultySettings[settingsState.difficulty].countdown} amount of seconds to reach the target number using only the numbers provided. You can only use each number once! </div>
           <NumbersToUse
             sixNumbers={sixNumbers}
             count={count}
