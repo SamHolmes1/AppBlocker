@@ -13,6 +13,8 @@ const WriteToBlockList = (
   selectedToBlock: boolean = true,
   blocked: boolean = false
 ) => {
+  const reg = /(www.)|(.com)|(.co.uk)|(.tv)/
+  const siteUrl = inputURL.replace(reg, '')
   const data = fs.readFileSync(`${__dirname}/../src/block-list.json`);
   const alreadyExists = JSON.parse(data.toString()).websites.find(
     (website: websiteData) => inputURL === website.URL
@@ -22,7 +24,7 @@ const WriteToBlockList = (
 
     parsedData.websites.push({
       name: inputName,
-      URL: inputURL,
+      URL: siteUrl,
       selectedToBlock: selectedToBlock,
       Blocked: blocked,
       logoUrl: inputLogoUrl,

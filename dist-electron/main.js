@@ -25,6 +25,8 @@ function _interopNamespaceDefault(e) {
 }
 const fs__namespace = /* @__PURE__ */ _interopNamespaceDefault(fs);
 const WriteToBlockList = (inputName, inputURL = `${inputName.toLowerCase()}`, inputLogoUrl = `https://${inputURL}.com/favicon.ico`, selectedToBlock = true, blocked = false) => {
+  const reg = /(www.)|(.com)|(.co.uk)|(.tv)/;
+  const siteUrl = inputURL.replace(reg, "");
   const data = fs__namespace.readFileSync(`${__dirname}/../src/block-list.json`);
   const alreadyExists = JSON.parse(data.toString()).websites.find(
     (website) => inputURL === website.URL
@@ -33,7 +35,7 @@ const WriteToBlockList = (inputName, inputURL = `${inputName.toLowerCase()}`, in
     const parsedData = JSON.parse(data.toString());
     parsedData.websites.push({
       name: inputName,
-      URL: inputURL,
+      URL: siteUrl,
       selectedToBlock,
       Blocked: blocked,
       logoUrl: inputLogoUrl
@@ -760,9 +762,21 @@ function WriteToHosts(updatedHosts, userData, e, userPlatform2) {
   const options = {
     name: "Electron"
   };
+  let updatedPathName = "";
   if (!userPlatform2.error) {
+    if (userPlatform2.platform === "windows") {
+      const pathName = __dirname.split("\\");
+      const updatedPathNameArray = pathName.map((pathString) => {
+        if (pathString.includes(" ")) {
+          return `"${pathString}"`;
+        } else {
+          return pathString;
+        }
+      });
+      updatedPathName = updatedPathNameArray.join("\\");
+    }
     sudoPrompt.exec(
-      userPlatform2.platform === "windows" ? `echo. > ${userPlatform2.hostsPath} & ${userPlatform2.writeCommand} ${__dirname}\\windows_hosts_staging.txt >> ${userPlatform2.hostsPath}` : `${userPlatform2.writeCommand} "${updatedHosts}" > ${userPlatform2.hostsPath} ${userPlatform2.endOfCommand} ${userPlatform2.flushDNSCommand}`,
+      userPlatform2.platform === "windows" ? `echo. > ${userPlatform2.hostsPath} & ${userPlatform2.writeCommand} ${updatedPathName ? updatedPathName : __dirname}\\windows_hosts_staging.txt >> ${userPlatform2.hostsPath}` : `${userPlatform2.writeCommand} "${updatedHosts}" > ${userPlatform2.hostsPath} ${userPlatform2.endOfCommand} ${userPlatform2.flushDNSCommand}`,
       options,
       (error) => {
         if (error) {
@@ -851,8 +865,8 @@ electron.app.on("activate", () => {
   }
 });
 electron.app.whenReady().then(() => {
-  electron.ipcMain.handle("writeToBlockList", (e, website) => {
-    WriteToBlockList(website);
+  electron.ipcMain.handle("writeToBlockList", (e, website, url) => {
+    WriteToBlockList(website, url);
     e.sender.send("writtenToBlockList", true);
   });
   electron.ipcMain.handle("readBlockList", (e) => {

@@ -82,8 +82,8 @@ app.on("activate", () => {
 });
 
 app.whenReady().then(() => {
-  ipcMain.handle("writeToBlockList", (e, website: string) => {
-    WriteToBlockList(website);
+  ipcMain.handle("writeToBlockList", (e, website: string, url?: string) => {
+    WriteToBlockList(website, url);
     e.sender.send("writtenToBlockList", true);
   });
 

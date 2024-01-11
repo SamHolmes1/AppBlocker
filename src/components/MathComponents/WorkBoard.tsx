@@ -19,16 +19,25 @@ function WorkBoard(props: WorkBoardInterface) {
     false,
   ]);
 
+  const [currentCalcNums, setCurrentCalcNums] = useState([]);
+
   const calculatorKeys = ["+", "-", "*", "/"];
   for (let i = 0; i < props.sixNumbers.length; i++) {
     calculatorKeys.push(props.sixNumbers[i].toString());
   }
   let keyCounter = 0;
 
-  const handleOnClick = (key: any, _event: any) => {
+
+  const handleOnClick = (key: any, event: any) => {
     const nonRepeatablekeys = ["+", "-", "*", "/", "="];
 
-    if (!nonRepeatablekeys.includes(key)) {
+    if (currentCalcNums.length === 0 || !currentCalcNums.includes(key)) {
+      setCurrentCalcNums((prevArray) => {
+        return [...prevArray, key];
+      });
+    }
+
+    if (!nonRepeatablekeys.includes(key) && currentCalcNums.includes(key)) {
       setSixNumberState((prevArray) => {
         const indexOfKey = props.sixNumbers.indexOf(+key);
         prevArray[indexOfKey] = true;

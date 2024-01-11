@@ -36,6 +36,7 @@ function createUpdatedHosts(
 
   const newHostsUpdated = hostsUpdated.join(userPlatform.newLineFlag);
 
+
   if (userPlatform.platform === "windows") {
     fs.writeFileSync(`${__dirname}/windows_hosts_staging.txt`, newHostsUpdated);
   }

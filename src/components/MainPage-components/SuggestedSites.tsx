@@ -48,20 +48,20 @@ const SuggestedSites = (props: SuggestedSitesProps) => {
         <option value="streaming">Streaming</option>
       </select>
       <div className="suggested-sites-buttons ">
-        {categoryData.map((element: siteData) => {
-          return (
-            <SitePreview
-              siteName={element.name}
-              key={element._id}
-              logoUrl={element.logoUrl}
-              URL={element.URL}
-              isActive={false}
-              sitesInActiveList={props.sitesInActiveList}
-              setSitesInActiveList={props.setSitesInActiveList}
-              unBlockMode={props.unBlockMode}
-            />
-          );
-        })}
+      {categoryData.map((element: siteData) => {
+       return (
+          <SitePreview
+            siteName={element.name}
+            key={element._id}
+            logoUrl={element.logoUrl}
+            url={element.url}
+            isActive={false}
+            sitesInActiveList={props.sitesInActiveList}
+            setSitesInActiveList={props.setSitesInActiveList}
+            unBlockMode={props.unBlockMode}
+          />
+        );
+      })}
       </div>
     </div>
   );

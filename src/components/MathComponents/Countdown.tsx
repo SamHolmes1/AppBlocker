@@ -13,12 +13,12 @@ function Countdown(props: MathsProps) {
       setCanContinue(false);
     } else {
       setTimeout(() => {
-        props.setCount(props.count);
+        props.setCount(props.count - 1);
       }, 1000);
     }
   }, [props.count]);
   if (canContinue) {
-    return <h2>Time Remaining: {props.count}</h2>;
+    return <h2 className="time-countdown">Time Remaining: {props.count}</h2>;
   } else {
     return <h2>You're out of time!</h2>;
   }

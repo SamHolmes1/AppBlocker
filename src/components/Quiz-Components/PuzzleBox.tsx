@@ -25,7 +25,7 @@ function PuzzleBox(props: quizProps) {
       <div>
         <div className="quiz-div">
         <p className="quiz-instructions">Score 5 correct answers to complete this quiz </p>
-        <p className="quiz-instructions warning">{settingsState.difficulty===5?"WARNING: You are in the hardest difficulty setting and need to achieve 5 consecutive answers to complete this quiz":""}</p>
+        {settingsState.difficulty===5?<p className="quiz-instructions warning">"WARNING: You are in the hardest difficulty setting and need to achieve 5 consecutive answers to complete this quiz"</p> :""}
           <QuizQuestions score={score} setScore={setScore} />
           <ScoreComponent score={score} />
         </div>
