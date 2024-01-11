@@ -11,6 +11,9 @@ const SettingsConfirmButton = () => {
   const handleOnClick = () => {
     //@ts-ignore
     ipcRenderer.invoke("writeToUserSettings", settingsState);
+    ipcRenderer.removeAllListeners("userSettingsOutput");
+    ipcRenderer.removeAllListeners("blockListOutput");
+    ipcRenderer.removeAllListeners("writtenToBlockList");
   };
   const handleCannotConfirm = () => {
     alert("Must select at least one puzzle to confirm");

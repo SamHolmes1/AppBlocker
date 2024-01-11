@@ -30,10 +30,18 @@ const UnblockModeButton = (props: unBlockProps) => {
       setAnyBlocked(false);
     }
   });
+
+  const clickHandler = () => {
+    ipcRenderer.removeAllListeners("userSettingsOutput");
+    ipcRenderer.removeAllListeners("blockListOutput");
+    ipcRenderer.removeAllListeners("writtenToBlockList");
+  }
+
   if (!props.unBlockMode) {
     return (
       <Link to="/quiz">
         <button
+        onClick={clickHandler}
           disabled={props.unBlockMode || !anyBlocked}
           className="unblock-all-button"
         >
