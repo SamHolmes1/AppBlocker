@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import SitePreview from "./SitePreview";
 import { siteData } from "../../interfaces/SiteData";
 import { SuggestedSitesProps } from "../../interfaces/SuggestedSitesProps";
+import sortWebsiteByName from "../../utils/SortWebsite";
 
 // https://boolean-hooligans-backend.onrender.com
 
@@ -22,7 +23,8 @@ const SuggestedSites = (props: SuggestedSitesProps) => {
         `https://boolean-hooligans-backend.onrender.com/api/getone/${categorySelection}`
       )
       .then((data) => {
-        setCategoryData(data.data);
+        const sortedData = data.data.sort(sortWebsiteByName);
+        setCategoryData(sortedData);
       })
       .catch((e) => {
         console.log(e);
@@ -46,21 +48,20 @@ const SuggestedSites = (props: SuggestedSitesProps) => {
         <option value="streaming">Streaming</option>
       </select>
       <div className="suggested-sites-buttons ">
-       
-      {categoryData.map((element: siteData) => {
-        return (
-          <SitePreview
-            siteName={element.name}
-            key={element._id}
-            logoUrl={element.logoUrl}
-            URL={element.URL}
-            isActive={false}
-            sitesInActiveList={props.sitesInActiveList}
-            setSitesInActiveList={props.setSitesInActiveList}
-            unBlockMode={props.unBlockMode}
-          />
-        );
-      })}
+        {categoryData.map((element: siteData) => {
+          return (
+            <SitePreview
+              siteName={element.name}
+              key={element._id}
+              logoUrl={element.logoUrl}
+              URL={element.URL}
+              isActive={false}
+              sitesInActiveList={props.sitesInActiveList}
+              setSitesInActiveList={props.setSitesInActiveList}
+              unBlockMode={props.unBlockMode}
+            />
+          );
+        })}
       </div>
     </div>
   );

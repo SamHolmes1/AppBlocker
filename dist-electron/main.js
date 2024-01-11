@@ -884,7 +884,7 @@ electron.app.whenReady().then(() => {
   electron.ipcMain.handle("writeToUserSettings", (_e, data) => {
     WriteToUserSettings(data);
   });
-  electron.ipcMain.handle("readUserSettingsJson", (e, data) => {
+  electron.ipcMain.handle("readUserSettingsJson", (e) => {
     const userSettingsJson = JSON.parse(
       fs.readFileSync(`${__dirname}/../src/user-settings.json`).toString()
     );

@@ -1,5 +1,5 @@
 import TargetNumber from "./TargetNumber";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface WorkBoardInterface {
   sixNumbers: Array<number>;
@@ -10,7 +10,14 @@ interface WorkBoardInterface {
 
 function WorkBoard(props: WorkBoardInterface) {
   const [lastEntry, setLastEntry] = useState("");
-  const [sixNumberState, setSixNumberState] = useState([false, false, false, false, false, false])
+  const [sixNumberState, setSixNumberState] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
 
   const calculatorKeys = ["+", "-", "*", "/"];
   for (let i = 0; i < props.sixNumbers.length; i++) {
@@ -18,18 +25,18 @@ function WorkBoard(props: WorkBoardInterface) {
   }
   let keyCounter = 0;
 
-  const handleOnClick = (key: any, event: any) => {
-    const nonRepeatablekeys = ["+", "-", "*", "/", "="]
+  const handleOnClick = (key: any, _event: any) => {
+    const nonRepeatablekeys = ["+", "-", "*", "/", "="];
 
-    if(!nonRepeatablekeys.includes(key)){
-    setSixNumberState((prevArray) => {
-      const indexOfKey = props.sixNumbers.indexOf(+key)
-      prevArray[indexOfKey] = true
-      return prevArray
-    })}
+    if (!nonRepeatablekeys.includes(key)) {
+      setSixNumberState((prevArray) => {
+        const indexOfKey = props.sixNumbers.indexOf(+key);
+        prevArray[indexOfKey] = true;
+        return prevArray;
+      });
+    }
     setLastEntry(key);
 
-    ;
     const numbersArray = [];
     for (let i = 0; i < props.sixNumbers.length; i++) {
       numbersArray.push(props.sixNumbers[i].toString());
@@ -66,44 +73,43 @@ function WorkBoard(props: WorkBoardInterface) {
           onClick={() => {
             props.setCurrentCalc("");
             setLastEntry("");
-            setSixNumberState([false, false, false, false, false, false])
+            setSixNumberState([false, false, false, false, false, false]);
           }}
         >
           C
         </button>
         {calculatorKeys.map((key) => {
-           
-            keyCounter++;
-            const indexOfKey = props.sixNumbers.indexOf(+key)
-            return (
-              <button
-                id={`button${key}`}
-                key={keyCounter}
-                className="calculator-button"
-                onClick={(event) => {
-                  handleOnClick(key, event);
-                }}
-                disabled={sixNumberState[indexOfKey]}
-              >
-                {key}
-              </button>
-            );
-              
+          keyCounter++;
+          const indexOfKey = props.sixNumbers.indexOf(+key);
+          return (
+            <button
+              id={`button${key}`}
+              key={keyCounter}
+              className="calculator-button"
+              onClick={(event) => {
+                handleOnClick(key, event);
+              }}
+              disabled={sixNumberState[indexOfKey]}
+            >
+              {key}
+            </button>
+          );
         })}
-         
-              <button
-                className="calculator-button"
-                id="equals-button"
-                onClick={() => {
-                  handleEquals();
-                }}
-              >
-                =
-              </button>
-            
+
+        <button
+          className="calculator-button"
+          id="equals-button"
+          onClick={() => {
+            handleEquals();
+          }}
+        >
+          =
+        </button>
       </div>
       <div className="current-calculation">
-        <p className="current-calculation-text">Current sum: <br/> {props.currentCalc}</p>
+        <p className="current-calculation-text">
+          Current sum: <br /> {props.currentCalc}
+        </p>
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { siteData } from "../../interfaces/SiteData";
 import { SitesInActiveListProps } from "../../interfaces/SitesInActiveList";
 import InputBox from "./InputBox";
+import sortWebsiteByName from "../../utils/SortWebsite";
 
 /**
  *
@@ -22,7 +23,9 @@ const UserSelectedSites = (props: SitesInActiveListProps) => {
   ipcRenderer.once("blockListOutput", (e, data) => {
     //@ts-ignore
     ipcRenderer.removeAllListeners("blockListOutput");
-    setSiteList(data);
+    const newData = structuredClone(data);
+    newData.websites.sort(sortWebsiteByName);
+    setSiteList(newData);
   });
 
   //@ts-ignore
