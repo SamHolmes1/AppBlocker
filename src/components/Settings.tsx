@@ -6,7 +6,7 @@ import { SettingsContext } from "../App";
 export const ConfirmationContext = createContext({});
 
 const Settings = () => {
-  const [canConfirm, setCanConfirm] = useState(false);
+  const [canConfirm, setCanConfirm] = useState(true);
   const { settingsState, setSettingsState } = useContext(SettingsContext);
   return (
     <>
