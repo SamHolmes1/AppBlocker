@@ -10,12 +10,7 @@ interface MathsPuzzleInterface {
 }
 
 function MathsPuzzle(props: MathsPuzzleInterface) {
-  // Will update difficulty based on context
-  // If difficulty is 1, count is 90 and bigNums is 2
-  // If difficulty is 2, count is 60 and bigNums is 2
-  // If difficulty is 3, count is 60 and bigNums is 1
-  // If difficulty is 4, count is 30 and bigNums is 1
-  // If difficulty is 5, count is 60 and bigNums is 0
+  //@ts-ignore
   const { settingsState } = useContext(SettingsContext);
   const difficultySettings = {
     1: { countdown: 90, bigNums: 2 },
@@ -24,7 +19,7 @@ function MathsPuzzle(props: MathsPuzzleInterface) {
     4: { countdown: 30, bigNums: 1 },
     5: { countdown: 30, bigNums: 0 },
   };
-
+  //@ts-ignore
   const difficulty = difficultySettings[settingsState.difficulty];
   const [count, setCount] = useState(difficulty.countdown);
   const [sixNumbers, setSixNumbers] = useState([]);

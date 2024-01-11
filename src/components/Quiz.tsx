@@ -9,27 +9,37 @@ interface quizProps {
 }
 
 function Quiz(props: quizProps) {
-const {settingsState} = useContext(SettingsContext)
+  //@ts-ignore
+  const { settingsState } = useContext(SettingsContext);
 
-const selectedPuzzles = []
+  const selectedPuzzles = [];
 
-for (let i = 0; i < Object.keys(settingsState).length; i++) {
-if (settingsState[Object.keys(settingsState)[i]] === true ) {
-  
-  const slicedKey = Object.keys(settingsState)[i].slice(0, 4)
-  selectedPuzzles.push(slicedKey)
-}
-
-}
-const randomIndex = Math.floor(Math.random()*selectedPuzzles.length)
-
+  for (let i = 0; i < Object.keys(settingsState).length; i++) {
+    if (settingsState[Object.keys(settingsState)[i]] === true) {
+      const slicedKey = Object.keys(settingsState)[i].slice(0, 4);
+      selectedPuzzles.push(slicedKey);
+    }
+  }
+  const randomIndex = Math.floor(Math.random() * selectedPuzzles.length);
 
   return (
     <>
       <div>
-        {selectedPuzzles[randomIndex] === "quiz" ? <PuzzleBox setUnBlockMode={props.setUnBlockMode}/> : <></>}
-        {selectedPuzzles[randomIndex] === "maze" ? <Maze setUnBlockMode={props.setUnBlockMode}/> : <></>}
-        {selectedPuzzles[randomIndex] === "math" ? <MathsPuzzle setUnBlockMode={props.setUnBlockMode}/> : <></>}
+        {selectedPuzzles[randomIndex] === "quiz" ? (
+          <PuzzleBox setUnBlockMode={props.setUnBlockMode} />
+        ) : (
+          <></>
+        )}
+        {selectedPuzzles[randomIndex] === "maze" ? (
+          <Maze setUnBlockMode={props.setUnBlockMode} />
+        ) : (
+          <></>
+        )}
+        {selectedPuzzles[randomIndex] === "math" ? (
+          <MathsPuzzle setUnBlockMode={props.setUnBlockMode} />
+        ) : (
+          <></>
+        )}
       </div>
     </>
   );
