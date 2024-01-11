@@ -237,6 +237,21 @@ p {
   color: #263D42;
 }
 
+.math-instructions{
+  padding: 5px;
+  font-family: "Inter", sans-serif;
+  font-weight: 800;
+  color: #263D42;
+  text-align: center;
+  font-size: 1rem;
+  padding-bottom: 0px;
+}
+
+.time-countdown {
+  margin: 0px;
+  margin-top: 10px;
+}
+
 .site-preview-div {
   display: flex;
   flex-direction: column;
