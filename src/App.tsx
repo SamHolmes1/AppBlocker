@@ -4,7 +4,6 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Settings from "./components/Settings";
 import Quiz from "./components/Quiz";
-import MathsPuzzle from "./components/MathsPuzzle";
 import { useState, createContext, useEffect } from "react";
 
 export const SettingsContext = createContext({});

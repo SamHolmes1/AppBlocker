@@ -127,7 +127,7 @@ app.whenReady().then(() => {
     WriteToUserSettings(data);
   });
 
-  ipcMain.handle("readUserSettingsJson", (e, data) => {
+  ipcMain.handle("readUserSettingsJson", (e) => {
     const userSettingsJson = JSON.parse(
       fs.readFileSync(`${__dirname}/../src/user-settings.json`).toString()
     );
