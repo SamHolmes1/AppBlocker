@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { siteData } from "../../interfaces/SiteData";
 
 /**
  * Renders a button that when pressed, triggers an ipcMain Event to update the hosts file.
@@ -14,11 +15,13 @@ interface confirmationButtonProps {
 const ConfirmationButton = (props: confirmationButtonProps) => {
   const [anySelected, setAnySelected] = useState(false);
   const [anyBlocked, setAnyBlocked] = useState(false);
+  //@ts-ignore
   ipcRenderer.once("blockListOutput", (event, data) => {
+    //@ts-ignore
     ipcRenderer.removeAllListeners("blockListOutput");
     let selectedSitesArr = [];
     let blockedSitesArr = [];
-    data.websites.map((website) => {
+    data.websites.map((website: siteData) => {
       if (website.selectedToBlock && !website.Blocked && !props.unBlockMode) {
         selectedSitesArr.push(website);
       }
@@ -50,6 +53,7 @@ const ConfirmationButton = (props: confirmationButtonProps) => {
   //@ts-ignore
   ipcRenderer.once("writtenToBlockList", () => {
     props.setWrittenToBlocklist(true);
+    //@ts-ignore
     ipcRenderer.removeAllListeners("writtenToBlockList");
   });
 

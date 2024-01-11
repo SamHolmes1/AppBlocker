@@ -3,7 +3,7 @@ import fs from "fs";
 import WriteToHosts from "./WriteToHosts";
 
 function createUpdatedHosts(
-  e: Electron.IpcMainEvent,
+  e: Electron.IpcMainInvokeEvent,
   userPlatform: PlatformInterface
 ): void {
   const topLevelDomains = ["com", "co.uk", "tv"];

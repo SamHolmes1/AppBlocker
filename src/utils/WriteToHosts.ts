@@ -6,7 +6,7 @@ import sudo from "sudo-prompt";
 function WriteToHosts(
   updatedHosts: string,
   userData: Array<siteData>,
-  e: Electron.IpcMainEvent,
+  e: Electron.IpcMainInvokeEvent,
   userPlatform: PlatformInterface
 ) {
   const options = {
