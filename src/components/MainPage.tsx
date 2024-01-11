@@ -15,10 +15,10 @@ interface MainPageProps {
 const MainPage = (props: MainPageProps) => {
   const [sitesInActiveList, setSitesInActiveList] = useState([""]);
   const [writtenToBlockList, setWrittenToBlockList] = useState(false);
-
   //Sends the signal to the electron main process to read the JSON file
   useEffect(() => {
     //@ts-ignore
+    ipcRenderer.invoke("updateSelectedToBlock");
     ipcRenderer.invoke("readBlockList");
   }, [props.unBlockMode]);
 
