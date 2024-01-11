@@ -12,7 +12,7 @@ const SitePreview = (props: siteProps) => {
   function addToList(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
     e.preventDefault();
     //@ts-ignore
-    ipcRenderer.invoke("writeToBlockList", props.siteName);
+    ipcRenderer.invoke("writeToBlockList", props.siteName, props.url);
     //@ts-ignore
     // props.setSitesInActiveList();
   }
