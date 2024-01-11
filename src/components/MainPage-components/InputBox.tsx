@@ -13,8 +13,12 @@ const InputBox = () => {
 
   function handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     event.preventDefault();
+    const splitTextInput = textInput.split("")[0].toUpperCase()
+    const endTextInput = textInput.slice(1)
+    const newTextInput = splitTextInput + endTextInput
+
     //@ts-ignore
-    ipcRenderer.invoke("writeToBlockList", textInput);
+    ipcRenderer.invoke("writeToBlockList", newTextInput);
     setTextInput("");
   }
 
