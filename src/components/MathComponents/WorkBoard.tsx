@@ -1,5 +1,5 @@
 import TargetNumber from "./TargetNumber";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface WorkBoardInterface {
   sixNumbers: Array<number>;
@@ -18,6 +18,7 @@ function WorkBoard(props: WorkBoardInterface) {
     false,
     false,
   ]);
+
   const [currentCalcNums, setCurrentCalcNums] = useState([]);
 
   const calculatorKeys = ["+", "-", "*", "/"];
@@ -25,6 +26,7 @@ function WorkBoard(props: WorkBoardInterface) {
     calculatorKeys.push(props.sixNumbers[i].toString());
   }
   let keyCounter = 0;
+
 
   const handleOnClick = (key: any, event: any) => {
     const nonRepeatablekeys = ["+", "-", "*", "/", "="];

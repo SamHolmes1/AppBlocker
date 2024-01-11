@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { siteData } from "../../interfaces/SiteData";
 /**
  * Renders a button component that when pressed, Uses a <Link> tag to send the user to the quiz page.
  * @returns JSX.Element
@@ -12,11 +13,13 @@ interface unBlockProps {
 
 const UnblockModeButton = (props: unBlockProps) => {
   const [anyBlocked, setAnyBlocked] = useState(false);
+  //@ts-ignore
   ipcRenderer.once("blockListOutput", (event, data) => {
+    //@ts-ignore
     ipcRenderer.removeAllListeners("blockListOutput");
     let blockedSitesArr = [];
 
-    data.websites.map((website) => {
+    data.websites.map((website: siteData) => {
       if (website.Blocked) {
         blockedSitesArr.push(website);
       }
