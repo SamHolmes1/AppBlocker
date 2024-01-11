@@ -25,6 +25,8 @@ function _interopNamespaceDefault(e) {
 }
 const fs__namespace = /* @__PURE__ */ _interopNamespaceDefault(fs);
 const WriteToBlockList = (inputName, inputURL = `${inputName.toLowerCase()}`, inputLogoUrl = `https://${inputURL}.com/favicon.ico`, selectedToBlock = true, blocked = false) => {
+  const reg = /(www.)|(.com)|(.co.uk)|(.tv)/;
+  const siteUrl = inputURL.replace(reg, "");
   const data = fs__namespace.readFileSync(`${__dirname}/../src/block-list.json`);
   const alreadyExists = JSON.parse(data.toString()).websites.find(
     (website) => inputURL === website.URL
@@ -33,7 +35,7 @@ const WriteToBlockList = (inputName, inputURL = `${inputName.toLowerCase()}`, in
     const parsedData = JSON.parse(data.toString());
     parsedData.websites.push({
       name: inputName,
-      URL: inputURL,
+      URL: siteUrl,
       selectedToBlock,
       Blocked: blocked,
       logoUrl: inputLogoUrl
@@ -863,8 +865,8 @@ electron.app.on("activate", () => {
   }
 });
 electron.app.whenReady().then(() => {
-  electron.ipcMain.handle("writeToBlockList", (e, website) => {
-    WriteToBlockList(website);
+  electron.ipcMain.handle("writeToBlockList", (e, website, url) => {
+    WriteToBlockList(website, url);
     e.sender.send("writtenToBlockList", true);
   });
   electron.ipcMain.handle("readBlockList", (e) => {

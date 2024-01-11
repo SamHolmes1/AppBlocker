@@ -2,7 +2,7 @@ import { siteData } from "./SiteData";
 
 export interface siteProps {
   siteName: string;
-  URL: string;
+  url: string;
   logoUrl: string;
   isActive: boolean;
   siteList?: Array<siteData>;
