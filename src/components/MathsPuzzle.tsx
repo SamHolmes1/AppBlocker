@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import NumbersToUse from "./MathComponents/NumbersToUse";
 import WorkBoard from "./MathComponents/WorkBoard";
 import { Link } from "react-router-dom";
 import Confetti from "react-confetti";
+import { SettingsContext } from "../App";
 
 interface MathsPuzzleInterface {
   setUnBlockMode: Function;
@@ -15,8 +16,16 @@ function MathsPuzzle(props: MathsPuzzleInterface) {
   // If difficulty is 3, count is 60 and bigNums is 1
   // If difficulty is 4, count is 30 and bigNums is 1
   // If difficulty is 5, count is 60 and bigNums is 0
+  const { settingsState } = useContext(SettingsContext);
+  const difficultySettings = {
+    1: { countdown: 90, bigNums: 2 },
+    2: { countdown: 60, bigNums: 2 },
+    3: { countdown: 60, bigNums: 1 },
+    4: { countdown: 30, bigNums: 1 },
+    5: { countdown: 30, bigNums: 0 },
+  };
 
-  const difficulty = { countdown: 30, bigNums: 2 };
+  const difficulty = difficultySettings[settingsState.difficulty];
   const [count, setCount] = useState(difficulty.countdown);
   const [sixNumbers, setSixNumbers] = useState([]);
   const [targetNumber, setTargetNumber] = useState(0);
@@ -40,7 +49,7 @@ function MathsPuzzle(props: MathsPuzzleInterface) {
         return [...prevArray, numberToAdd];
       });
     }
-    for (let i = difficulty.bigNums +1; i < 7; i++) {
+    for (let i = difficulty.bigNums + 1; i < 7; i++) {
       const randomIndex = Math.floor(Math.random() * smallNumbersArray.length);
       const numberToAdd = smallNumbersArray[randomIndex];
       console.log(numberToAdd);
@@ -89,21 +98,25 @@ function MathsPuzzle(props: MathsPuzzleInterface) {
       </div>
     );
   } else if (!isLoading && currentCalc.toString() !== targetNumber.toString()) {
-    return (<>
-      <div className="mathsPuzzle">
-        <NumbersToUse
-          sixNumbers={sixNumbers}
-          count={count}
-          setCount={setCount}
-        />
-        <WorkBoard
-          sixNumbers={sixNumbers}
-          targetNumber={targetNumber}
-          currentCalc={currentCalc}
-          setCurrentCalc={setCurrentCalc}
-        />
-      </div>
-      <Link to="/" ><button className="home-button"> Home </button></Link></>
+    return (
+      <>
+        <div className="mathsPuzzle">
+          <NumbersToUse
+            sixNumbers={sixNumbers}
+            count={count}
+            setCount={setCount}
+          />
+          <WorkBoard
+            sixNumbers={sixNumbers}
+            targetNumber={targetNumber}
+            currentCalc={currentCalc}
+            setCurrentCalc={setCurrentCalc}
+          />
+        </div>
+        <Link to="/">
+          <button className="home-button"> Home </button>
+        </Link>
+      </>
     );
   } else {
     return (
