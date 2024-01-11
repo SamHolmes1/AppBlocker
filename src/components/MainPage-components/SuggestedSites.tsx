@@ -48,12 +48,12 @@ const SuggestedSites = (props: SuggestedSitesProps) => {
       <div className="suggested-sites-buttons ">
        
       {categoryData.map((element: siteData) => {
-        return (
+       return (
           <SitePreview
             siteName={element.name}
             key={element._id}
             logoUrl={element.logoUrl}
-            URL={element.URL}
+            url={element.url}
             isActive={false}
             sitesInActiveList={props.sitesInActiveList}
             setSitesInActiveList={props.setSitesInActiveList}
