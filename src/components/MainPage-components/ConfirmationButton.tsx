@@ -47,14 +47,17 @@ const ConfirmationButton = (props: confirmationButtonProps) => {
   const clickHandler = () => {
     //@ts-ignore
     ipcRenderer.invoke("updateHosts");
-    props.setUnBlockMode(false);
   };
 
   //@ts-ignore
-  ipcRenderer.once("writtenToBlockList", () => {
+  ipcRenderer.once("writtenToBlockList", (data) => {
     props.setWrittenToBlocklist(true);
     //@ts-ignore
-    ipcRenderer.removeAllListeners("writtenToBlockList");
+
+    if(data === true){
+      props.setUnBlockMode(false);
+      ipcRenderer.removeAllListeners("writtenToBlockList");
+    }
   });
 
   return (

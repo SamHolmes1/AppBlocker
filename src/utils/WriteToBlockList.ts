@@ -49,6 +49,7 @@ const WriteToBlockList = (
       `${__dirname}/../src/block-list.json`,
       JSON.stringify(parsedData, null, 1),
       () => {}
+      
     );
   } 
 };
