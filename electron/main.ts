@@ -111,7 +111,7 @@ app.whenReady().then(() => {
         currentBlockList.websites[i].selectedToBlock !==
         currentBlockList.websites[i].Blocked
       ) {
-        currentBlockList.websites[i].selectedToBlock = false;
+        currentBlockList.websites[i].selectedToBlock = false
       }
     }
 

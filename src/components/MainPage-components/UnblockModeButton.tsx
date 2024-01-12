@@ -32,6 +32,7 @@ const UnblockModeButton = (props: unBlockProps) => {
   });
 
   const clickHandler = () => {
+    ipcRenderer.invoke("updateSelectedToBlock");
     ipcRenderer.removeAllListeners("userSettingsOutput");
     ipcRenderer.removeAllListeners("blockListOutput");
     ipcRenderer.removeAllListeners("writtenToBlockList");

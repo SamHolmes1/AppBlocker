@@ -22,6 +22,8 @@ const WriteToBlockList = (
   if (!alreadyExists && inputName.length !== 0) {
     const parsedData = JSON.parse(data.toString());
 
+    
+
     parsedData.websites.push({
       name: inputName,
       URL: siteUrl,
